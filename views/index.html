@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/start/style.css">
+  <title>Расписание Кондорсе</title>
+</head>
+<body>
+  <div class="login-page">
+    <div class="form-wrapper">
+      <form class="register-form" method="POST" action="/sign-up">
+        <input type="text" placeholder="Username"/>
+        <input type="password" placeholder="Password"/>
+        <input type="text" placeholder="Email address"/>
+        <button>Create Account</button>
+        <p class="change">Already registered? <a href="#">Sign In</a></p>
+      </form>
+      <form class="login-form active-form" method="POST" action="/sign-in">
+        <input type="text" placeholder="Username"/>
+        <input type="password" placeholder="Password"/>
+        <button>Login</button>
+        <p class="change">Not registered? <a href="#">Create an account</a></p>
+      </form>
+    </div>
+  </div>
+  <script src="scripts/start/script.js"></script>
+</body>
+</html>
