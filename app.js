@@ -15,6 +15,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 const authenticationRoutes = require('./routes/authentication');
+const authorizationRoutes = require('./routes/authorization');
 
 app.use(session({
   secret: 'condorcet',
@@ -24,7 +25,8 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/auth', authenticationRoutes);
+app.use('/authenticate', authenticationRoutes);
+app.use('/authorize', authorizationRoutes);
 
 app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));

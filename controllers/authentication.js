@@ -75,18 +75,13 @@ exports.signUp = async (req, res) => {
         password: bcrypt.hashSync(password, bcrypt.genSaltSync(10))
       }
     })
-    // User.create({
-    //   username: username,
-    //   email: email,
-    //   password: bcrypt.hashSync(password, bcrypt.genSaltSync(10))
-    // })
     .then(results => {
       if(results[1]) {
         results[0].setRoles([1]).then(() => {
-          res.send({ message: "User was registered successfully!" });
+          res.send({ message: "Вы успешно зарегистрированы!" });
         });
-        console.log("New user created...");
-      } else console.log("User already exists...");
+        console.log("Создан новый пользователь...");
+      } else console.log("Такой пользователь уже существует...");
     }); 
   } catch (err) {
     console.log(`ERROR! => ${err.name}: ${err.message}`);
