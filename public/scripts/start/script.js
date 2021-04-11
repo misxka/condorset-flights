@@ -1,5 +1,5 @@
 const forms = document.querySelectorAll('form');
-const changeButtons = document.querySelectorAll('.change a');
+const changeButtons = document.querySelectorAll('.change-wrapper a');
 
 changeButtons.forEach(button => {
   button.addEventListener('click', () => {

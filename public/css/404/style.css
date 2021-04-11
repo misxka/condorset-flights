@@ -1,0 +1,52 @@
+.mainbox {
+  margin: auto;
+  height: 600px;
+  width: 600px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.err-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 270px;
+  margin: 200px auto 20px;
+}
+
+.err-wrapper .err {
+  color: var(--light-color);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  font-size: 12rem;
+}
+
+.msg {
+  font-family: 'Nunito', sans-serif;
+  color: var(--dark-color);
+  font-size: 2.6rem;
+}
+
+a {
+  text-decoration: none;
+  color: var(--light-color);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+/*# sourceMappingURL=style.css.map */
