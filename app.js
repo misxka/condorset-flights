@@ -5,7 +5,7 @@ const session = require('express-session');
 
 const jwt = require('jsonwebtoken');
 
-const sequelize = require('./util/database');
+const db = require('./util/database');
 
 const pool = require(path.join(__dirname, 'util', 'database'));
 
@@ -30,7 +30,8 @@ app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
-sequelize.sync().then(result => {
+db.sequelize.sync().then(result => {
+  db.initialize();
 	console.log('Table created...');
 }).catch(err => {
 	console.log(err);
