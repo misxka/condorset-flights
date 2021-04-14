@@ -1,0 +1,24 @@
+  <%- include('./common/head.ejs') %>
+  <link rel="stylesheet" href="css/start/style.css">
+</head>
+<body>
+  <div class="login-page">
+    <div class="form-wrapper">
+      <form class="register-form" method="POST" action="/authenticate/sign-up">
+        <input class="username" type="text" name="username" placeholder="Логин" pattern="^([a-zA-Z0-9_\-]+){6,}$" required>
+        <input class="password" type="password" name="password" placeholder="Пароль" pattern="^([a-zA-Z0-9]+){8,}$" required>
+        <input class="email" type="text" name="email" placeholder="Email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,4})$" required>
+        <button type="submit">Создать аккаунт</button>
+        <div class="change-wrapper"><p class="change">Уже зарегистрированы?</p><div class="change-link"><a href="#">Авторизация</a></div></div>
+      </form>
+      <form class="login-form active-form" method="POST" action="/authenticate/sign-in">
+        <input class="username" type="text" name="username" placeholder="Логин" pattern="^([a-zA-Z0-9_\-]+){6,}$" required>
+        <input class="password" type="password" name="password" placeholder="Пароль" pattern="^([a-zA-Z0-9]+){8,}$" required>
+        <button type="submit">Войти</button>
+        <div class="change-wrapper"><p class="change">Ещё не зарегистрированы?</p><div class="change-link"><a href="#">Создать аккаунт</a></div></div>
+      </form>
+    </div>
+  </div>
+  <script src="scripts/start/script.js"></script>
+</body>
+</html>
