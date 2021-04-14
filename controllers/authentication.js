@@ -81,7 +81,7 @@ exports.signUp = async (req, res) => {
           res.render('greeting', {
             pageTitle: 'Расписание Кондорсе',
             path: 'greeting',
-            greeting: "Вы успешно зарегистрированы!" 
+            greeting: `Добро пожаловать, ${username}. Вы успешно зарегистрированы!` 
           });
         });
         console.log("Создан новый пользователь...");
