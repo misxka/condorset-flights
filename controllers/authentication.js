@@ -78,7 +78,11 @@ exports.signUp = async (req, res) => {
     .then(results => {
       if(results[1]) {
         results[0].setRoles([1]).then(() => {
-          res.send({ message: "Вы успешно зарегистрированы!" });
+          res.render('greeting', {
+            pageTitle: 'Расписание Кондорсе',
+            path: 'greeting',
+            greeting: "Вы успешно зарегистрированы!" 
+          });
         });
         console.log("Создан новый пользователь...");
       } else console.log("Такой пользователь уже существует...");
