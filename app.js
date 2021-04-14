@@ -20,6 +20,7 @@ const authorizationRoutes = require('./routes/authorization');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/authenticate', authenticationRoutes);
+
 app.use('/authorize', authorizationRoutes);
 
 app.get('/', (req, res, next) => {
