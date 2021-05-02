@@ -22,7 +22,7 @@ exports.signIn = (req, res) => {
       return res.status(404).send({ message: "User Not found." });
     }
 
-    var passwordIsValid = bcrypt.compareSync(
+    const passwordIsValid = bcrypt.compareSync(
       password,
       user.password
     );
@@ -34,14 +34,15 @@ exports.signIn = (req, res) => {
       });
     }
 
-    var token = jwt.sign({ id: user.id }, accessTokenSecret, {
-      expiresIn: 86400
+    const token = jwt.sign({ id: user.id }, accessTokenSecret, {
+      algorithm: "HS256",
+      expiresIn: 1800
     });
 
-    var authorities = [];
+    const authorities = [];
     user.getRoles().then(roles => {
       for (let i = 0; i < roles.length; i++) {
-        authorities.push("ROLE_" + roles[i].name.toUpperCase());
+        authorities.push(roles[i].rolename);
       }
       res.status(200).send({
         id: user.id,
