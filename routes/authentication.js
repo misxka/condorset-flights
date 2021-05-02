@@ -3,7 +3,7 @@ const path = require('path');
 const express = require('express');
 
 const authenticationController = require('../controllers/authentication');
-const checkDuplicate = require('../util/checkDuplicate');
+const checkDuplicate = require('../util/check-duplicate');
 
 const router = express.Router();
 

@@ -1,4 +1,4 @@
-const db = require("../util/database");
+const db = require("./database");
 const User = db.user;
 
 module.exports = checkDuplicateUsernameOrEmail = (req, res, next) => {

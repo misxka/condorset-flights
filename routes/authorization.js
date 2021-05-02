@@ -1,4 +1,4 @@
-const authJwt = require("../util/jwtAuth");
+const authJwt = require("../util/jwt-auth");
 const authorizationController = require('../controllers/authorization');
 const express = require('express');
 
