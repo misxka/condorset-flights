@@ -23,6 +23,27 @@ app.use('/authenticate', authenticationRoutes);
 
 app.use('/authorize', authorizationRoutes);
 
+// const flights = [
+//   {
+//     date: '03/05/2021',
+//     from: 'MSQ Minsk',
+//     to: 'SVO Moscow',
+//     airlineId: 'SU',
+//     flightNumber: '5265'
+//   },
+//   {
+//     date: '03/05/2021',
+//     from: 'MSQ Minsk',
+//     to: 'VKO Moscow',
+//     airlineId: 'SU',
+//     flightNumber: '5365'
+//   }
+// ]
+
+// app.get('/flights', (req,res,next) => {
+//   res.json(flights);
+// });
+
 app.get('/', (req, res, next) => {
   res.render('index', {
     pageTitle: 'Расписание Кондорсе',
