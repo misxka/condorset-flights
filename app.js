@@ -2,11 +2,15 @@ const path = require('path');
 
 const express = require('express');
 
+const cookieParser = require('cookie-parser');
+
 const db = require('./util/database');
 
 const pool = require(path.join(__dirname, 'util', 'database'));
 
 const app = express();
+
+app.use(cookieParser());
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
