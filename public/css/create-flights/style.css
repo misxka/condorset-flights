@@ -24,6 +24,8 @@ button {
 button:active {
   -webkit-transform: translateY(1px);
           transform: translateY(1px);
+  -webkit-transition: 0.05s;
+  transition: 0.05s;
 }
 
 input {
@@ -35,6 +37,13 @@ input {
           box-sizing: border-box;
   width: 1200px;
   margin: 0 auto;
+}
+
+.blue-button {
+  background: -webkit-gradient(linear, right top, left top, from(var(--color-1)), to(var(--color-2)));
+  background: linear-gradient(to left, var(--color-1), var(--color-2));
+  color: var(--light-color-text);
+  font-size: 2rem;
 }
 
 h1 {
@@ -99,10 +108,10 @@ header .wrapper nav ul li {
 
 header .wrapper nav ul li.current {
   font-weight: 700;
+  cursor: default;
 }
 
 header .wrapper nav ul li:hover:not(.current) {
-  cursor: default;
   border-bottom: 1px solid var(--dark-color-text);
 }
 
@@ -120,6 +129,13 @@ header .wrapper .exit-button {
 
 main .wrapper {
   padding: 0 104px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 main h2 {
@@ -216,5 +232,172 @@ main .add-schedule .add-flight .input-fields input {
 
 main .add-schedule .add-flight .add-button {
   font-size: 2rem;
+}
+
+main .add-schedule .table-wrapper {
+  height: 252px;
+  overflow: auto;
+  margin-bottom: 38px;
+}
+
+main .add-schedule .table-wrapper table {
+  width: 100%;
+  border-spacing: 0;
+  border: 1px solid var(--dark-color-text);
+  border-radius: 7px;
+}
+
+main .add-schedule .table-wrapper table tr {
+  height: 50px;
+  font-size: 2.2rem;
+}
+
+main .add-schedule .table-wrapper table tr:last-child td:first-of-type {
+  border-bottom-left-radius: 7px;
+}
+
+main .add-schedule .table-wrapper table tr:last-child td:last-of-type {
+  border-bottom-right-radius: 7px;
+}
+
+main .add-schedule .table-wrapper table tr td {
+  border-left: 1px solid var(--dark-color-text);
+  border-top: 1px solid var(--dark-color-text);
+  border-spacing: 0;
+  text-align: center;
+}
+
+main .add-schedule .table-wrapper table tr td .delete-row {
+  background: url(../../assets/icons/delete.svg) no-repeat;
+  width: 32px;
+  height: 32px;
+}
+
+main .add-schedule .table-wrapper table tr th {
+  border-left: 1px solid var(--dark-color-text);
+  border-spacing: 0;
+  font-weight: 500;
+  width: 240px;
+}
+
+main .add-schedule .table-wrapper table tr th:first-of-type {
+  border-top-left-radius: 7px;
+}
+
+main .add-schedule .table-wrapper table tr th:last-of-type {
+  border-top-right-radius: 7px;
+}
+
+main .add-schedule .table-wrapper table tr td:first-child,
+main .add-schedule .table-wrapper table tr th:first-child {
+  border-left-width: 0;
+}
+
+main .add-schedule .table-wrapper::-webkit-scrollbar {
+  width: 20px;
+}
+
+main .add-schedule .table-wrapper::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px gray;
+          box-shadow: inset 0 0 5px gray;
+  border-radius: 7px;
+}
+
+main .add-schedule .table-wrapper::-webkit-scrollbar-thumb {
+  background: var(--color-1);
+  border-radius: 7px;
+}
+
+main .add-schedule .table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--color-2);
+}
+
+main .add-schedule .submit-schedule-button {
+  margin-bottom: 50px;
+  width: 238px;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+main .close-voting {
+  padding-bottom: 50px;
+  background-color: var(--dark-white-background);
+}
+
+main .close-voting .inner-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+main .close-voting .inner-wrapper .stop-voting-button {
+  width: 271px;
+}
+
+footer {
+  height: 100px;
+  background: -webkit-gradient(linear, right top, left top, from(var(--color-1)), to(var(--color-2)));
+  background: linear-gradient(to left, var(--color-1), var(--color-2));
+}
+
+footer .wrapper {
+  padding: 0 100px 0 50px;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+footer .wrapper .app-name {
+  color: var(--light-button);
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  font-size: 2.6rem;
+}
+
+footer .wrapper ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  width: 701px;
+}
+
+footer .wrapper ul li {
+  font-family: 'Raleway', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--dark-color-text);
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  line-height: 28px;
+}
+
+footer .wrapper ul li.current {
+  font-weight: 700;
+  cursor: default;
+}
+
+footer .wrapper ul li:hover:not(.current) {
+  border-bottom: 1px solid var(--dark-color-text);
+}
+
+footer .wrapper ul li a {
+  text-decoration: none;
+  color: var(--dark-color-text);
 }
 /*# sourceMappingURL=style.css.map */

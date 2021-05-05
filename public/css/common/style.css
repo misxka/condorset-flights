@@ -6,8 +6,10 @@
   --color-2: #63bce5;
   --dark-color: #1b262c;
   --dark-color-text: #2d2a2a;
+  --light-color-text: #f9f9f9;
   --light-color: rgb(250, 247, 247);
   --light-button: #f5f4ec;
+  --dark-white-background: #f6f6f6;
   --input-field-color: #e3e3e3;
   --input-text-color: #7e7e7e;
   font-size: 10px;

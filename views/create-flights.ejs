@@ -39,14 +39,72 @@
             Добавить рейс
           </button>
         </div>
+        <div class="table-wrapper">
+          <table>
+            <tr>
+              <th>Откуда</th>
+              <th>Куда</th>
+              <th>Код IATA</th>
+              <th>Номер рейса</th>
+              <th>Удалить</th>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><button class="delete-row"></button></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><button class="delete-row"></button></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><button class="delete-row"></button></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><button class="delete-row"></button></td>
+            </tr>
+          </table>
+        </div>
+        <button class="submit-schedule-button blue-button">Подтвердить рейсы</button>
       </div>
     </section>
     <section class="close-voting">
       <div class="wrapper">
         <h2>Завершение голосования</h2>
+        <div class="inner-wrapper">
+          <div class="choose-date">
+            <label for="date-2">Выберите дату:</label>
+            <input type="date" id="date-2" class="date-input">
+          </div>
+          <button class="stop-voting-button blue-button">Завершить голосование</button>
+        </div>
       </div>
     </section>
     
   </main>
-  <footer></footer>
+  <footer>
+    <div class="wrapper">
+      <div class="app-name">
+        Condorcet Flights
+      </div>
+      <ul>
+        <li class="current">Создание расписания</li>
+        <li><a href="/voting">Голосование</a></li>
+        <li><a href="/reports">Отчёты</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>

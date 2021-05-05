@@ -21,6 +21,7 @@ button {
 
   &:active {
     transform: translateY(1px);
+    transition: 0.05s;
   }
 }
 
@@ -32,6 +33,12 @@ input {
   box-sizing: border-box;
   width: 1200px;
   margin: 0 auto;
+}
+
+.blue-button {
+  background: linear-gradient(to left, var(--color-1), var(--color-2));
+  color: var(--light-color-text);
+  font-size: 2rem;
 }
 
 h1 {
@@ -80,10 +87,10 @@ header {
 
           &.current {
             font-weight: 700;
+            cursor: default;
           }
 
           &:hover:not(.current) {
-            cursor: default;
             border-bottom: 1px solid var(--dark-color-text);
           }
 
@@ -108,6 +115,8 @@ header {
 main {
   & .wrapper {
     padding: 0 104px;
+    display: flex;
+    flex-direction: column;
   }
 
   & h2 {
@@ -187,8 +196,153 @@ main {
         font-size: 2rem;
       }
     }
+
+    & .table-wrapper {
+      height: 252px;
+      overflow: auto;
+      margin-bottom: 38px;
+
+      & table {
+        width: 100%;
+        border-spacing: 0;
+        border: 1px solid var(--dark-color-text);
+        border-radius: 7px;
+
+        & tr {
+          height: 50px;
+          font-size: 2.2rem;
+
+          &:last-child td:first-of-type {
+            border-bottom-left-radius: 7px;
+          }
+
+          &:last-child td:last-of-type {
+            border-bottom-right-radius: 7px;
+          }
+
+          & td {
+            border-left: 1px solid var(--dark-color-text);
+            border-top: 1px solid var(--dark-color-text);
+            border-spacing: 0;
+            text-align: center;
+
+            & .delete-row {
+              background: url(../../assets/icons/delete.svg) no-repeat;
+              width: 32px;
+              height: 32px;
+            }
+          }
+
+          & th {
+            border-left: 1px solid var(--dark-color-text);
+            border-spacing: 0;
+            font-weight: 500;
+            width: 240px;
+
+            &:first-of-type {
+              border-top-left-radius: 7px;
+            }
+
+            &:last-of-type {
+              border-top-right-radius: 7px;
+            }
+          }
+
+          td:first-child,
+          th:first-child {
+            border-left-width: 0;
+          }
+        }
+      }
+
+      &::-webkit-scrollbar {
+        width: 20px;
+      }
+
+      &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px gray;
+        border-radius: 7px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--color-1);
+        border-radius: 7px;
+
+        &:hover {
+          background: var(--color-2);
+        }
+      }
+    }
+
+    & .submit-schedule-button {
+      margin-bottom: 50px;
+      width: 238px;
+      align-self: flex-end;
+    }
   }
 
   & .close-voting {
+    padding-bottom: 50px;
+    background-color: var(--dark-white-background);
+
+    & .inner-wrapper {
+      display: flex;
+      justify-content: space-between;
+
+      & .stop-voting-button {
+        width: 271px;
+      }
+    }
+  }
+}
+
+footer {
+  height: 100px;
+  background: linear-gradient(to left, var(--color-1), var(--color-2));
+
+  & .wrapper {
+    padding: 0 100px 0 50px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & .app-name {
+      color: var(--light-button);
+      font-family: 'Raleway', sans-serif;
+      font-weight: 600;
+      font-size: 2.6rem;
+    }
+
+    & ul {
+      display: flex;
+      justify-content: space-between;
+      list-style: none;
+      margin: 0;
+      width: 701px;
+
+      & li {
+        font-family: 'Raleway', sans-serif;
+        font-size: 24px;
+        font-weight: 500;
+        color: var(--dark-color-text);
+        width: max-content;
+        line-height: 28px;
+
+        &.current {
+          font-weight: 700;
+          cursor: default;
+        }
+
+        &:hover:not(.current) {
+          border-bottom: 1px solid var(--dark-color-text);
+        }
+
+        & a {
+          text-decoration: none;
+          color: var(--dark-color-text);
+        }
+      }
+    }
   }
 }
