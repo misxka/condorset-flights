@@ -1,0 +1,88 @@
+body {
+  margin: 0;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+li {
+  display: block;
+}
+
+button {
+  border: none;
+  outline: none;
+}
+
+header {
+  height: 100px;
+  background: linear-gradient(to left, var(--color-1), var(--color-2));
+
+  & .wrapper {
+    margin: 0 auto;
+    padding: 0 22px 0 36px;
+    width: 1200px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & .logo {
+      & img {
+        display: block;
+      }
+    }
+
+    & nav {
+      width: 695px;
+      margin: 0;
+
+      & ul {
+        display: flex;
+        justify-content: space-between;
+        list-style: none;
+        margin: 0;
+
+        & li {
+          font-family: 'Raleway', sans-serif;
+          font-size: 24px;
+          font-weight: 500;
+          color: var(--dark-color-text);
+          width: max-content;
+          line-height: 28px;
+
+          &.current {
+            font-weight: 700;
+          }
+
+          &:hover:not(.current) {
+            cursor: default;
+            border-bottom: 1px solid var(--dark-color-text);
+          }
+
+          & a {
+            text-decoration: none;
+            color: var(--dark-color-text);
+          }
+        }
+      }
+    }
+
+    & .exit-button {
+      background: var(--light-button) url(../../assets/icons/exit-64x64.png)
+        no-repeat 90%;
+      width: 183px;
+      height: 55px;
+      border-radius: 7px;
+      font-size: 2.4rem;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 500;
+      text-align: unset;
+      padding-left: 26px;
+      cursor: pointer;
+
+      &:active {
+        transform: translateY(1px);
+      }
+    }
+  }
+}

@@ -1,0 +1,101 @@
+body {
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: #fff;
+}
+
+li {
+  display: block;
+}
+
+button {
+  border: none;
+  outline: none;
+}
+
+header {
+  height: 100px;
+  background: -webkit-gradient(linear, right top, left top, from(var(--color-1)), to(var(--color-2)));
+  background: linear-gradient(to left, var(--color-1), var(--color-2));
+}
+
+header .wrapper {
+  margin: 0 auto;
+  padding: 0 22px 0 36px;
+  width: 1200px;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header .wrapper .logo img {
+  display: block;
+}
+
+header .wrapper nav {
+  width: 695px;
+  margin: 0;
+}
+
+header .wrapper nav ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  list-style: none;
+  margin: 0;
+}
+
+header .wrapper nav ul li {
+  font-family: 'Raleway', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--dark-color-text);
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  line-height: 28px;
+}
+
+header .wrapper nav ul li.current {
+  font-weight: 700;
+}
+
+header .wrapper nav ul li:hover:not(.current) {
+  cursor: default;
+  border-bottom: 1px solid var(--dark-color-text);
+}
+
+header .wrapper nav ul li a {
+  text-decoration: none;
+  color: var(--dark-color-text);
+}
+
+header .wrapper .exit-button {
+  background: var(--light-button) url(../../assets/icons/exit-64x64.png) no-repeat 90%;
+  width: 183px;
+  height: 55px;
+  border-radius: 7px;
+  font-size: 2.4rem;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500;
+  text-align: unset;
+  padding-left: 26px;
+  cursor: pointer;
+}
+
+header .wrapper .exit-button:active {
+  -webkit-transform: translateY(1px);
+          transform: translateY(1px);
+}
+/*# sourceMappingURL=style.css.map */

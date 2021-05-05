@@ -55,6 +55,27 @@ app.get('/', (req, res, next) => {
   });
 });
 
+app.get('/create-flights', (req, res, next) => {
+  res.render('create-flights', {
+    pageTitle: 'Создание расписания',
+    path: 'create-flights' 
+  });
+});
+
+app.get('/voting', (req, res, next) => {
+  res.render('voting', {
+    pageTitle: 'Голосование',
+    path: 'voting' 
+  });
+});
+
+app.get('/reports', (req, res, next) => {
+  res.render('reports', {
+    pageTitle: 'Отчёты',
+    path: 'reports' 
+  });
+});
+
 app.use('/404/', express.static(path.join(__dirname, '/public')));
 
 app.use('/', (req, res, next) => {
