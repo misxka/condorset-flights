@@ -3,6 +3,7 @@
 </head>
 <body>
   <header>
+    <h1>Создание расписания</h1>
     <div class="wrapper">
       <div class="logo">
         <img src="/assets/icons/plane-64x64.png" alt="Condorcet flights">
@@ -19,6 +20,33 @@
       </button>
     </div>
   </header>
-  <main></main>
+  <main>
+    <section class="add-schedule">
+      <div class="wrapper">
+        <h2>Добавление рейсов для голосования</h2>
+        <div class="choose-date">
+          <label for="date-1">Выберите дату:</label>
+          <input type="date" id="date-1" class="date-input">
+        </div>
+        <div class="add-flight">
+          <div class="input-fields">
+            <input type="text" id="from-input" class="from-input" placeholder="Откуда">
+            <input type="text" id="to-input" class="to-input" placeholder="Куда">
+            <input type="text" id="airline-input" class="airline-input" placeholder="Код IATA">
+            <input type="text" id="flight-number-input" class="flight-number-input" placeholder="Номер рейса">
+          </div>
+          <button class="add-button">
+            Добавить рейс
+          </button>
+        </div>
+      </div>
+    </section>
+    <section class="close-voting">
+      <div class="wrapper">
+        <h2>Завершение голосования</h2>
+      </div>
+    </section>
+    
+  </main>
   <footer></footer>
 </body>

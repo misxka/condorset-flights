@@ -12,6 +12,38 @@ li {
 button {
   border: none;
   outline: none;
+  width: 183px;
+  height: 55px;
+  border-radius: 7px;
+  font-size: 2.4rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+button:active {
+  -webkit-transform: translateY(1px);
+          transform: translateY(1px);
+}
+
+input {
+  outline: none;
+}
+
+.wrapper {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  visibility: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
 }
 
 header {
@@ -21,9 +53,7 @@ header {
 }
 
 header .wrapper {
-  margin: 0 auto;
   padding: 0 22px 0 36px;
-  width: 1200px;
   height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -83,19 +113,108 @@ header .wrapper nav ul li a {
 
 header .wrapper .exit-button {
   background: var(--light-button) url(../../assets/icons/exit-64x64.png) no-repeat 90%;
-  width: 183px;
-  height: 55px;
-  border-radius: 7px;
-  font-size: 2.4rem;
-  font-family: 'Raleway', sans-serif;
-  font-weight: 500;
   text-align: unset;
   padding-left: 26px;
+  font-family: 'Raleway', sans-serif;
+}
+
+main .wrapper {
+  padding: 0 104px;
+}
+
+main h2 {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  line-height: 42px;
+  font-size: 3.6rem;
+  text-align: center;
+  font-weight: 500;
+  color: var(--dark-color-text);
+}
+
+main .choose-date {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+main .choose-date label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  display: block;
+  margin-right: 10px;
+  color: var(--dark-color-text);
+}
+
+main .choose-date .date-input {
+  border-radius: 7px;
+  border: 1px solid var(--input-field-color);
+  background: var(--input-field-color);
+  padding: 8px 16px;
+  font-size: 1.6rem;
+  font-family: 'Roboto', sans-serif;
+  color: var(--input-text-color);
   cursor: pointer;
 }
 
-header .wrapper .exit-button:active {
-  -webkit-transform: translateY(1px);
-          transform: translateY(1px);
+main .choose-date .date-input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  -webkit-filter: invert(0.35);
+          filter: invert(0.35);
+}
+
+main .add-schedule .choose-date {
+  margin-bottom: 40px;
+}
+
+main .add-schedule .add-flight {
+  padding: 38px 30px 36px;
+  background: -webkit-gradient(linear, right top, left top, from(var(--color-1)), to(var(--color-2)));
+  background: linear-gradient(to left, var(--color-1), var(--color-2));
+  border-radius: 7px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+main .add-schedule .add-flight .input-fields {
+  width: 720px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+main .add-schedule .add-flight .input-fields input {
+  display: block;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 165px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  border: none;
+  border-radius: 7px;
+  background: var(--input-field-color);
+  padding: 11px 16px;
+  font-size: 1.6rem;
+  font-family: 'Roboto', sans-serif;
+  color: var(--input-text-color);
+}
+
+main .add-schedule .add-flight .add-button {
+  font-size: 2rem;
 }
 /*# sourceMappingURL=style.css.map */

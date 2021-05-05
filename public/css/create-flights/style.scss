@@ -11,6 +11,36 @@ li {
 button {
   border: none;
   outline: none;
+  width: 183px;
+  height: 55px;
+  border-radius: 7px;
+  font-size: 2.4rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+input {
+  outline: none;
+}
+
+.wrapper {
+  box-sizing: border-box;
+  width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  visibility: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
 }
 
 header {
@@ -18,9 +48,7 @@ header {
   background: linear-gradient(to left, var(--color-1), var(--color-2));
 
   & .wrapper {
-    margin: 0 auto;
     padding: 0 22px 0 36px;
-    width: 1200px;
     height: 100%;
     display: flex;
     justify-content: space-between;
@@ -70,19 +98,97 @@ header {
     & .exit-button {
       background: var(--light-button) url(../../assets/icons/exit-64x64.png)
         no-repeat 90%;
-      width: 183px;
-      height: 55px;
-      border-radius: 7px;
-      font-size: 2.4rem;
-      font-family: 'Raleway', sans-serif;
-      font-weight: 500;
       text-align: unset;
       padding-left: 26px;
+      font-family: 'Raleway', sans-serif;
+    }
+  }
+}
+
+main {
+  & .wrapper {
+    padding: 0 104px;
+  }
+
+  & h2 {
+    margin-top: 50px;
+    margin-bottom: 30px;
+    line-height: 42px;
+    font-size: 3.6rem;
+    text-align: center;
+    font-weight: 500;
+    color: var(--dark-color-text);
+  }
+
+  & .choose-date {
+    display: flex;
+    align-items: center;
+
+    & label {
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+      display: block;
+      margin-right: 10px;
+      color: var(--dark-color-text);
+    }
+
+    & .date-input {
+      border-radius: 7px;
+      border: 1px solid var(--input-field-color);
+      background: var(--input-field-color);
+      padding: 8px 16px;
+      font-size: 1.6rem;
+      font-family: 'Roboto', sans-serif;
+      color: var(--input-text-color);
       cursor: pointer;
 
-      &:active {
-        transform: translateY(1px);
+      &::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        filter: invert(0.35);
       }
     }
+  }
+
+  & .add-schedule {
+    & .choose-date {
+      margin-bottom: 40px;
+    }
+
+    & .add-flight {
+      padding: 38px 30px 36px;
+      background: linear-gradient(to left, var(--color-1), var(--color-2));
+      border-radius: 7px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+
+      & .input-fields {
+        width: 720px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        & input {
+          display: block;
+          box-sizing: border-box;
+          width: 165px;
+          height: max-content;
+          border: none;
+          border-radius: 7px;
+          background: var(--input-field-color);
+          padding: 11px 16px;
+          font-size: 1.6rem;
+          font-family: 'Roboto', sans-serif;
+          color: var(--input-text-color);
+        }
+      }
+
+      & .add-button {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  & .close-voting {
   }
 }
