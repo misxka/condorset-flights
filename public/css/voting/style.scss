@@ -55,40 +55,6 @@ main {
       margin-bottom: 40px;
     }
 
-    & .add-flight {
-      padding: 38px 30px 36px;
-      background: linear-gradient(to left, var(--color-1), var(--color-2));
-      border-radius: 7px;
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 40px;
-
-      & .input-fields {
-        width: 720px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        & input {
-          display: block;
-          box-sizing: border-box;
-          width: 165px;
-          height: max-content;
-          border: none;
-          border-radius: 7px;
-          background: var(--input-field-color);
-          padding: 11px 16px;
-          font-size: 1.6rem;
-          font-family: 'Roboto', sans-serif;
-          color: var(--input-text-color);
-        }
-      }
-
-      & .add-button {
-        font-size: 2rem;
-      }
-    }
-
     & .table-wrapper {
       height: 252px;
       overflow: auto;
@@ -118,10 +84,19 @@ main {
             border-spacing: 0;
             text-align: center;
 
-            & .delete-row {
-              background: url(../../assets/icons/delete.svg) no-repeat;
-              width: 32px;
-              height: 32px;
+            & input {
+              display: block;
+              margin: auto;
+              box-sizing: border-box;
+              width: 117px;
+              height: max-content;
+              border: none;
+              border-radius: 7px;
+              background: var(--input-field-color);
+              padding: 11px 16px;
+              font-size: 1.6rem;
+              font-family: 'Roboto', sans-serif;
+              color: var(--input-text-color);
             }
           }
 
@@ -166,24 +141,10 @@ main {
       }
     }
 
-    & .submit-schedule-button {
+    & .send-rates-button {
       margin-bottom: 50px;
       width: 238px;
       align-self: flex-end;
-    }
-  }
-
-  & .close-voting {
-    padding-bottom: 50px;
-    background-color: var(--dark-white-background);
-
-    & .inner-wrapper {
-      display: flex;
-      justify-content: space-between;
-
-      & .stop-voting-button {
-        width: 271px;
-      }
     }
   }
 }

@@ -1,5 +1,6 @@
 <%- include('./common/head.ejs') %>
-<link rel="stylesheet" href="/css/create-flights/style.css">
+<link rel="stylesheet" href="/css/reports/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <header>
@@ -21,9 +22,39 @@
     </div>
   </header>
   <main>
-    <div class="wrapper">
-
-    </div>
+    <section class="add-schedule">
+      <div class="wrapper">
+        <h2>Добавление рейсов для голосования</h2>
+        <div class="choose-date">
+          <label for="date-1">Выберите дату:</label>
+          <input type="date" id="date-1" class="date-input">
+        </div>
+        <div class="choose-report">
+          <label for="reports">Выберите вид отчёта:</label>
+          <select name="reports" id="reports">
+            <option value="pie-chart">Круговая диаграмма</option>
+            <option value="graph">График</option>
+            <option value="table">Таблица</option>
+          </select>
+        </div>
+        <div class="report-wrapper">
+          <canvas id="chart" height="450" width="992">
+          </canvas>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer></footer>
+  <footer>
+    <div class="wrapper">
+      <div class="app-name">
+        Condorcet Flights
+      </div>
+      <ul>
+        <li><a href="/create-flights">Создание расписания</a></li>
+        <li><a href="/voting">Голосование</a></li>
+        <li class="current">Отчёты</li>
+      </ul>
+    </div>
+  </footer>
+  <script src="/scripts/reports/script.js"></script>
 </body>

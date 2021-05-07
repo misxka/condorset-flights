@@ -1,0 +1,83 @@
+body {
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: #fff;
+}
+
+main .wrapper {
+  padding: 0 104px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+main h2 {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  line-height: 42px;
+  font-size: 3.6rem;
+  text-align: center;
+  font-weight: 500;
+  color: var(--dark-color-text);
+}
+
+main label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  display: block;
+  margin-right: 10px;
+  color: var(--dark-color-text);
+}
+
+main .date-input,
+main select {
+  border-radius: 7px;
+  border: 1px solid var(--input-field-color);
+  background: var(--input-field-color);
+  padding: 8px 16px;
+  font-size: 1.6rem;
+  font-family: 'Roboto', sans-serif;
+  color: var(--input-text-color);
+  cursor: pointer;
+  outline: none;
+}
+
+main .date-input::-webkit-calendar-picker-indicator,
+main select::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  -webkit-filter: invert(0.35);
+          filter: invert(0.35);
+}
+
+main .choose-date,
+main .choose-report {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+main .add-schedule .choose-date {
+  margin-bottom: 40px;
+}
+
+main .add-schedule .report-wrapper {
+  overflow: auto;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+main .add-schedule .send-rates-button {
+  margin-bottom: 50px;
+  width: 238px;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+/*# sourceMappingURL=style.css.map */

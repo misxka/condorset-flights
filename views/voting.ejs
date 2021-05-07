@@ -1,5 +1,5 @@
 <%- include('./common/head.ejs') %>
-<link rel="stylesheet" href="/css/create-flights/style.css">
+<link rel="stylesheet" href="/css/voting/style.css">
 </head>
 <body>
   <header>
@@ -20,6 +20,67 @@
       </button>
     </div>
   </header>
-  <main></main>
-  <footer></footer>
+  <main>
+    <section class="add-schedule">
+      <div class="wrapper">
+        <h2>Добавление рейсов для голосования</h2>
+        <div class="choose-date">
+          <label for="date-1">Выберите дату:</label>
+          <input type="date" id="date-1" class="date-input">
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <tr>
+              <th>Откуда</th>
+              <th>Куда</th>
+              <th>Код IATA</th>
+              <th>Номер рейса</th>
+              <th>Удалить</th>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><input type="number" min="1" max="1000"></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><input type="number" min="1" max="1000"></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><input type="number" min="1" max="1000"></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><input type="number" min="1" max="1000"></td>
+            </tr>
+          </table>
+        </div>
+        <button class="send-rates-button blue-button">Отправить оценки</button>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="wrapper">
+      <div class="app-name">
+        Condorcet Flights
+      </div>
+      <ul>
+        <li><a href="/create-flights">Создание расписания</a></li>
+        <li class="current">Голосование</li>
+        <li><a href="/reports">Отчёты</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
