@@ -30,10 +30,18 @@
         </div>
         <div class="add-flight">
           <div class="input-fields">
-            <input type="text" id="from-input" class="from-input" placeholder="Откуда">
-            <input type="text" id="to-input" class="to-input" placeholder="Куда">
-            <input type="text" id="airline-input" class="airline-input" placeholder="Код IATA">
-            <input type="text" id="flight-number-input" class="flight-number-input" placeholder="Номер рейса">
+            <div class="input-wrapper">
+              <input type="text" id="from-input" class="from-input" placeholder="Откуда">
+            </div>
+            <div class="input-wrapper">  
+              <input type="text" id="to-input" class="to-input" placeholder="Куда">
+            </div>
+            <div class="input-wrapper">
+              <input type="text" id="airline-input" class="airline-input" placeholder="Код IATA">
+            </div>
+            <div class="input-wrapper">
+              <input type="text" id="flight-number-input" class="flight-number-input" placeholder="Номер рейса">
+            </div>
           </div>
           <button class="add-button">
             Добавить рейс
@@ -107,4 +115,5 @@
       </ul>
     </div>
   </footer>
+  <script src="/scripts/create-flights/script.js"></script>
 </body>
