@@ -24,7 +24,12 @@ let chart = new Chart(ctx, {
   },
   options: {
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        bottom: 10
+      }
+    }
   }
 });
 
@@ -53,7 +58,12 @@ reportsSelect.addEventListener('change', () => {
       },
       options: {
         responsive: true,
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+        layout: {
+          padding: {
+            bottom: 10
+          }
+        }
       }
     });
   }
@@ -92,7 +102,12 @@ reportsSelect.addEventListener('change', () => {
           }
         },
         responsive: true,
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+        layout: {
+          padding: {
+            bottom: 10
+          }
+        }
       }
     });
   }
