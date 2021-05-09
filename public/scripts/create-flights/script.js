@@ -184,9 +184,11 @@ flightNumberInput.addEventListener('focusout', () => {
   }
 });
 
-//Checking date input
+//Checking date input and
 const dateInput = document.querySelector('#date-1');
 const dateMessage = document.querySelector('.date-warning');
+
+const table = document.querySelector('.table-wrapper table');
 
 dateInput.addEventListener('change', () => {
   const currentDate = new Date().setHours(0, 0, 0, 0);
@@ -194,8 +196,23 @@ dateInput.addEventListener('change', () => {
   if(enteredDate < currentDate) {
     dateMessage.classList.add('active');
     dateInput.classList.add('wrong');
+    return;
   } else {
     dateMessage.classList.remove('active');
     dateInput.classList.remove('wrong');
   }
+
+  while(table.rows.length > 5) {
+    table.deleteRow(table.rows.length - 1);
+  }
+
+  for(let i = 1; i < 5; i++) {
+    for(let j = 0; j < table.rows[i].cells.length; j++) {
+      if(j !== 4) {
+        table.rows[i].cells[j].innerHTML = '';
+      }
+    }
+  }
 });
+
+//
