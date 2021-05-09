@@ -77,9 +77,31 @@ fromInput.addEventListener('input', () => {
   connectAirportAPI(fromInput, airports);
 });
 
+fromInput.addEventListener('focusout', () => {
+  if(fromInput.value === '') {
+    toInput.value = '';
+    toInput.readOnly = false;
+  }
+  else if(fromInput.value !== homeAirport) {
+    toInput.value = homeAirport;
+    toInput.readOnly = true;
+  }
+});
+
 toInput.addEventListener('input', () => {
   const airports = [];
   connectAirportAPI(toInput, airports);
+});
+
+toInput.addEventListener('focusout', () => {
+  if(toInput.value === '') {
+    fromInput.value = '';
+    fromInput.readOnly = false;
+  }
+  else if(toInput.value !== homeAirport) {
+    fromInput.value = homeAirport;
+    fromInput.readOnly = true;
+  }
 });
 
 function connectAirportAPI(input, arr) {
