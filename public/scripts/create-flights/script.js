@@ -208,10 +208,8 @@ dateInput.addEventListener('change', () => {
   }
 
   for(let i = 1; i < 5; i++) {
-    for(let j = 0; j < table.rows[i].cells.length; j++) {
-      if(j !== 4) {
-        table.rows[i].cells[j].innerHTML = '';
-      }
+    for(let j = 0; j < 4; j++) {
+      table.rows[i].cells[j].innerHTML = '';
     }
   }
 
@@ -221,7 +219,58 @@ dateInput.addEventListener('change', () => {
 //Delete row button
 for(let i = 0; i < deleteRowButtons.length; i++) {
   deleteRowButtons[i].addEventListener('click', () => {
-    table.deleteRow(i + 1);
+    if(table.rows.length > 5) {
+      table.deleteRow(i + 1);
+    } else {
+      for(let j = 0; j < 4; j++) {
+        table.rows[i + 1].cells[j].innerHTML = '';
+      }
+    }
     deleteRowButtons = table.querySelectorAll('.delete-row');
   });
 }
+
+//Add row button
+const addRowButton = document.querySelector('.add-button');
+const inputs = inputContainer.querySelectorAll('input');
+const inputContainerMessage = document.querySelector('.add-flight .input-fields>.warning-message')
+const addFlightSection = document.querySelector('.add-flight');
+
+addRowButton.addEventListener('click', () => {
+  for(let i = 0; i < inputs.length; i++) {
+    if(inputs[i].value === '' || inputs[i].classList.contains('wrong')) {
+      addFlightSection.classList.add('wrong');
+      inputContainerMessage.innerHTML = 'Должны быть заполнены все поля';
+      inputContainerMessage.classList.add('active');
+      return;
+    } else {
+      addFlightSection.classList.remove('wrong');
+      inputContainerMessage.classList.remove('active');
+    }
+  }
+
+  for(let i = 0; i < table.rows.length; i++) {
+    let counter = 0;
+    for(let j = 0; j < 4; j++) {
+      if(table.rows[i].cells[j].innerHTML === inputs[j].value) counter++;
+    }
+    if(counter === 4) {
+      inputContainerMessage.innerHTML = 'Такая информация уже была введена';
+      inputContainerMessage.classList.add('active');
+      return;
+    }
+  }
+
+  if(table.rows.length < 6) {
+    let i = 0;
+    while(table.rows[i].cells[0].innerHTML !== '') i++;
+    for(let j = 0; j < 4; j++) {
+      table.rows[i].cells[j].innerHTML = inputs[j].value;
+    }
+  }
+
+  for(let i = 0; i < 4; i++) {
+    inputs[i].value = '';
+    inputs[i].style.backgroundColor = 'var(--input-field-color)';
+  }
+});

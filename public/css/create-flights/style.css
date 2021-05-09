@@ -87,9 +87,15 @@ main .add-schedule .add-flight {
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin-bottom: 40px;
+  border: 1px solid transparent;
+}
+
+main .add-schedule .add-flight.wrong {
+  border: 1px solid red;
 }
 
 main .add-schedule .add-flight .input-fields {
+  position: relative;
   width: 720px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -102,6 +108,12 @@ main .add-schedule .add-flight .input-fields {
           align-items: center;
   /*when hovering an item:*/
   /*when navigating through the items using the arrow keys:*/
+}
+
+main .add-schedule .add-flight .input-fields > .warning-message {
+  font-size: 1.6rem;
+  top: 115%;
+  left: 40%;
 }
 
 main .add-schedule .add-flight .input-fields .input-wrapper {

@@ -16,6 +16,11 @@
   font-size: 10px;
 }
 
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
 body {
   background: var(--color-1);
   background: -webkit-gradient(linear, right top, left top, from(var(--color-1)), to(var(--color-2)));
@@ -23,8 +28,6 @@ body {
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
   min-height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;

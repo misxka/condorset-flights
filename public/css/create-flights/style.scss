@@ -73,12 +73,24 @@ main {
       display: flex;
       justify-content: space-between;
       margin-bottom: 40px;
+      border: 1px solid transparent;
+
+      &.wrong {
+        border: 1px solid red;
+      }
 
       & .input-fields {
+        position: relative;
         width: 720px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        & > .warning-message {
+          font-size: 1.6rem;
+          top: 115%;
+          left: 40%;
+        }
 
         & .input-wrapper {
           position: relative;
