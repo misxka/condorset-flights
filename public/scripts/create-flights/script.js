@@ -189,6 +189,7 @@ const dateInput = document.querySelector('#date-1');
 const dateMessage = document.querySelector('.date-warning');
 
 const table = document.querySelector('.table-wrapper table');
+let deleteRowButtons = table.querySelectorAll('.delete-row');
 
 dateInput.addEventListener('change', () => {
   const currentDate = new Date().setHours(0, 0, 0, 0);
@@ -213,6 +214,14 @@ dateInput.addEventListener('change', () => {
       }
     }
   }
+
+  deleteRowButtons = table.querySelectorAll('.delete-row');
 });
 
-//
+//Delete row button
+for(let i = 0; i < deleteRowButtons.length; i++) {
+  deleteRowButtons[i].addEventListener('click', () => {
+    table.deleteRow(i + 1);
+    deleteRowButtons = table.querySelectorAll('.delete-row');
+  });
+}

@@ -222,6 +222,13 @@ main .add-schedule .table-wrapper table tr td .delete-row {
   height: 32px;
 }
 
+main .add-schedule .table-wrapper table tr td .delete-row:hover {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
+}
+
 main .add-schedule .table-wrapper table tr th {
   border-left: 1px solid var(--dark-color-text);
   border-spacing: 0;
