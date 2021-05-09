@@ -97,6 +97,22 @@ main .add-schedule .add-flight .input-fields .input-wrapper {
   position: relative;
 }
 
+main .add-schedule .add-flight .input-fields .input-wrapper .warning-message {
+  position: absolute;
+  padding-top: 3px;
+  display: none;
+  font-size: 1.1rem;
+  color: var(--light-color-text);
+  text-align: center;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+main .add-schedule .add-flight .input-fields .input-wrapper .warning-message.active {
+  display: block;
+}
+
 main .add-schedule .add-flight .input-fields input {
   display: block;
   -webkit-box-sizing: border-box;
@@ -112,6 +128,10 @@ main .add-schedule .add-flight .input-fields input {
   font-size: 1.6rem;
   font-family: 'Roboto', sans-serif;
   color: var(--dark-color-text);
+}
+
+main .add-schedule .add-flight .input-fields input.wrong {
+  border: 1px solid red;
 }
 
 main .add-schedule .add-flight .input-fields .autocomplete {

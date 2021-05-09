@@ -1,5 +1,6 @@
 const inputContainer = document.querySelector('.add-flight .input-fields');
 
+//Airports input
 function autocomplete(input, arr) {
   let currentFocus;
 
@@ -19,7 +20,7 @@ function autocomplete(input, arr) {
     b.innerHTML = arr[i].substr(0, val.length);
     b.innerHTML += arr[i].substr(val.length);
     b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-    b.addEventListener("click", function(e) {
+    b.addEventListener("mousedown", function(e) {
         input.value = this.getElementsByTagName("input")[0].value;
         closeAllLists();
     });
@@ -68,7 +69,10 @@ function autocomplete(input, arr) {
 }
 
 const fromInput = inputContainer.querySelector('#from-input');
+const fromMessage = inputContainer.querySelector('.from-input-wrapper .warning-message');
+
 const toInput = inputContainer.querySelector('#to-input');
+const toMessage = inputContainer.querySelector('.to-input-wrapper .warning-message');
 
 const homeAirport = 'MSQ Национальный Аэропорт Минск';
 
@@ -78,13 +82,21 @@ fromInput.addEventListener('input', () => {
 });
 
 fromInput.addEventListener('focusout', () => {
-  if(fromInput.value === '') {
+  if(fromInput.value === '' || (fromInput.value === homeAirport && fromInput.readOnly === false)) {
     toInput.value = '';
     toInput.readOnly = false;
-  }
-  else if(fromInput.value !== homeAirport) {
+    toInput.style.backgroundColor = 'var(--input-field-color)';
+  } else if(fromInput.value !== homeAirport) {
     toInput.value = homeAirport;
     toInput.readOnly = true;
+    toInput.style.backgroundColor = 'var(--input-readonly-color)';
+  }
+  if(!/^[a-zA-Z]{3}\s[А-Я]{1}[а-яА-Я]{1,}/.test(fromInput.value)) {
+    fromMessage.classList.add('active');
+    fromInput.classList.add('wrong');
+  } else {
+    fromMessage.classList.remove('active');
+    fromInput.classList.remove('wrong');
   }
 });
 
@@ -94,13 +106,21 @@ toInput.addEventListener('input', () => {
 });
 
 toInput.addEventListener('focusout', () => {
-  if(toInput.value === '') {
+  if(toInput.value === '' || (toInput.value === homeAirport && toInput.readOnly === false)) {
     fromInput.value = '';
     fromInput.readOnly = false;
-  }
-  else if(toInput.value !== homeAirport) {
+    fromInput.style.backgroundColor = 'var(--input-field-color)';
+  } else if(toInput.value !== homeAirport) {
     fromInput.value = homeAirport;
     fromInput.readOnly = true;
+    fromInput.style.backgroundColor = 'var(--input-readonly-color)';
+  }
+  if(!/^[a-zA-Z]{3}\s[А-Я]{1}[а-яА-Я]{1,}/.test(toInput.value)) {
+    toMessage.classList.add('active');
+    toInput.classList.add('wrong');
+  } else {
+    toMessage.classList.remove('active');
+    toInput.classList.remove('wrong');
   }
 });
 
@@ -127,3 +147,50 @@ function connectAirportAPI(input, arr) {
     });
   }
 }
+
+//IATA code validation
+const iataInput = inputContainer.querySelector('#airline-input');
+const iataMessage = inputContainer.querySelector('.airline-input-wrapper .warning-message');
+
+iataInput.addEventListener('focusout', () => {
+  if(iataInput.value !== '') {
+    iataInput.value = iataInput.value.toUpperCase();
+    fetch(`https://iata-and-icao-codes.p.rapidapi.com/airline?iata_code=${iataInput.value}`, {
+      "method": "GET",
+      "headers": {
+        "accept": "application/json",
+        "x-rapidapi-key": "084c5a5523msh7586622455669c0p11cc96jsn7750a16fff50",
+        "x-rapidapi-host": "iata-and-icao-codes.p.rapidapi.com"
+      }
+    })
+    .then(response => {
+      response.text().then(function(text) {
+        const result = text ? JSON.parse(text) : {};
+        if(_.isEmpty(result)) {
+          iataMessage.classList.add('active');
+          iataInput.classList.add('wrong');
+        } else {
+          iataMessage.classList.remove('active');
+          iataInput.classList.remove('wrong');
+        }
+      });
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  }
+});
+
+//Flight number
+const flightNumberInput = inputContainer.querySelector('#flight-number-input');
+const flightNumberMessage = inputContainer.querySelector('.flight-number-input-wrapper .warning-message');
+
+flightNumberInput.addEventListener('focusout', () => {
+  if(!/^\d{4}$/.test(flightNumberInput.value)) {
+    flightNumberMessage.classList.add('active');
+    flightNumberInput.classList.add('wrong');
+  } else {
+    flightNumberMessage.classList.remove('active');
+    flightNumberInput.classList.remove('wrong');
+  }
+});

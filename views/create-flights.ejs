@@ -1,5 +1,6 @@
 <%- include('./common/head.ejs') %>
-<link rel="stylesheet" href="/css/create-flights/style.css">
+  <link rel="stylesheet" href="/css/create-flights/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous"></script>
 </head>
 <body>
   <header>
@@ -30,17 +31,21 @@
         </div>
         <div class="add-flight">
           <div class="input-fields">
-            <div class="input-wrapper">
+            <div class="input-wrapper from-input-wrapper">
               <input type="text" id="from-input" class="from-input" placeholder="Откуда">
+              <div class="warning-message">Неверное название аэропорта</div>
             </div>
-            <div class="input-wrapper">  
+            <div class="input-wrapper to-input-wrapper">  
               <input type="text" id="to-input" class="to-input" placeholder="Куда">
+              <div class="warning-message">Неверное название аэропорта</div>
             </div>
-            <div class="input-wrapper">
-              <input type="text" id="airline-input" class="airline-input" placeholder="Код IATA">
+            <div class="input-wrapper airline-input-wrapper">
+              <input type="text" id="airline-input" class="airline-input" placeholder="IATA авиакомпании">
+              <div class="warning-message">Несуществующая авиакомпания</div>
             </div>
-            <div class="input-wrapper">
+            <div class="input-wrapper flight-number-input-wrapper">
               <input type="text" id="flight-number-input" class="flight-number-input" placeholder="Номер рейса">
+              <div class="warning-message">Номер должен состоять из 4 цифр</div>
             </div>
           </div>
           <button class="add-button">
@@ -52,7 +57,7 @@
             <tr>
               <th>Откуда</th>
               <th>Куда</th>
-              <th>Код IATA</th>
+              <th>IATA авиакомпании</th>
               <th>Номер рейса</th>
               <th>Удалить</th>
             </tr>

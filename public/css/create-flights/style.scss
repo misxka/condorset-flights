@@ -71,6 +71,20 @@ main {
 
         & .input-wrapper {
           position: relative;
+
+          & .warning-message {
+            position: absolute;
+            padding-top: 3px;
+            display: none;
+            font-size: 1.1rem;
+            color: var(--light-color-text);
+            text-align: center;
+            width: max-content;
+
+            &.active {
+              display: block;
+            }
+          }
         }
 
         & input {
@@ -85,6 +99,10 @@ main {
           font-size: 1.6rem;
           font-family: 'Roboto', sans-serif;
           color: var(--dark-color-text);
+
+          &.wrong {
+            border: 1px solid red;
+          }
         }
 
         & .autocomplete {
