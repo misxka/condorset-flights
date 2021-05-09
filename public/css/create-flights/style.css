@@ -27,12 +27,19 @@ main h2 {
 }
 
 main .choose-date {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+main .choose-date .warning-message {
+  color: red;
+  top: 100%;
+  left: 14%;
 }
 
 main .choose-date label {
@@ -58,6 +65,10 @@ main .choose-date .date-input::-webkit-calendar-picker-indicator {
   cursor: pointer;
   -webkit-filter: invert(0.35);
           filter: invert(0.35);
+}
+
+main .choose-date .date-input.wrong {
+  border: 1px solid red;
 }
 
 main .add-schedule .choose-date {
@@ -95,22 +106,6 @@ main .add-schedule .add-flight .input-fields {
 
 main .add-schedule .add-flight .input-fields .input-wrapper {
   position: relative;
-}
-
-main .add-schedule .add-flight .input-fields .input-wrapper .warning-message {
-  position: absolute;
-  padding-top: 3px;
-  display: none;
-  font-size: 1.1rem;
-  color: var(--light-color-text);
-  text-align: center;
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-}
-
-main .add-schedule .add-flight .input-fields .input-wrapper .warning-message.active {
-  display: block;
 }
 
 main .add-schedule .add-flight .input-fields input {
@@ -289,5 +284,21 @@ main .close-voting .inner-wrapper {
 
 main .close-voting .inner-wrapper .stop-voting-button {
   width: 271px;
+}
+
+main .warning-message {
+  position: absolute;
+  padding-top: 3px;
+  display: none;
+  font-size: 1.1rem;
+  color: var(--light-color-text);
+  text-align: center;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+main .warning-message.active {
+  display: block;
 }
 /*# sourceMappingURL=style.css.map */

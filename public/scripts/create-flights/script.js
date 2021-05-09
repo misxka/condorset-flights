@@ -82,22 +82,7 @@ fromInput.addEventListener('input', () => {
 });
 
 fromInput.addEventListener('focusout', () => {
-  if(fromInput.value === '' || (fromInput.value === homeAirport && fromInput.readOnly === false)) {
-    toInput.value = '';
-    toInput.readOnly = false;
-    toInput.style.backgroundColor = 'var(--input-field-color)';
-  } else if(fromInput.value !== homeAirport) {
-    toInput.value = homeAirport;
-    toInput.readOnly = true;
-    toInput.style.backgroundColor = 'var(--input-readonly-color)';
-  }
-  if(!/^[a-zA-Z]{3}\s[А-Я]{1}[а-яА-Я]{1,}/.test(fromInput.value)) {
-    fromMessage.classList.add('active');
-    fromInput.classList.add('wrong');
-  } else {
-    fromMessage.classList.remove('active');
-    fromInput.classList.remove('wrong');
-  }
+  airportInputValidator(fromInput, toInput, fromMessage);
 });
 
 toInput.addEventListener('input', () => {
@@ -106,23 +91,27 @@ toInput.addEventListener('input', () => {
 });
 
 toInput.addEventListener('focusout', () => {
-  if(toInput.value === '' || (toInput.value === homeAirport && toInput.readOnly === false)) {
-    fromInput.value = '';
-    fromInput.readOnly = false;
-    fromInput.style.backgroundColor = 'var(--input-field-color)';
-  } else if(toInput.value !== homeAirport) {
-    fromInput.value = homeAirport;
-    fromInput.readOnly = true;
-    fromInput.style.backgroundColor = 'var(--input-readonly-color)';
-  }
-  if(!/^[a-zA-Z]{3}\s[А-Я]{1}[а-яА-Я]{1,}/.test(toInput.value)) {
-    toMessage.classList.add('active');
-    toInput.classList.add('wrong');
-  } else {
-    toMessage.classList.remove('active');
-    toInput.classList.remove('wrong');
-  }
+  airportInputValidator(toInput, fromInput, toMessage);
 });
+
+function airportInputValidator(firstInput, secondInput, message) {
+  if(firstInput.value === '' || (firstInput.value === homeAirport && firstInput.readOnly === false)) {
+    secondInput.value = '';
+    secondInput.readOnly = false;
+    secondInput.style.backgroundColor = 'var(--input-field-color)';
+  } else if(firstInput.value !== homeAirport) {
+    secondInput.value = homeAirport;
+    secondInput.readOnly = true;
+    secondInput.style.backgroundColor = 'var(--input-readonly-color)';
+  }
+  if(!/^[a-zA-Z]{3}\s[А-Я]{1}[а-яА-Я]{1,}/.test(firstInput.value)) {
+    message.classList.add('active');
+    firstInput.classList.add('wrong');
+  } else {
+    message.classList.remove('active');
+    firstInput.classList.remove('wrong');
+  }
+}
 
 function connectAirportAPI(input, arr) {
   if(input.value !== '') {
@@ -192,5 +181,21 @@ flightNumberInput.addEventListener('focusout', () => {
   } else {
     flightNumberMessage.classList.remove('active');
     flightNumberInput.classList.remove('wrong');
+  }
+});
+
+//Checking date input
+const dateInput = document.querySelector('#date-1');
+const dateMessage = document.querySelector('.date-warning');
+
+dateInput.addEventListener('change', () => {
+  const currentDate = new Date().setHours(0, 0, 0, 0);
+  const enteredDate = new Date(dateInput.value).setHours(0, 0, 0, 0);
+  if(enteredDate < currentDate) {
+    dateMessage.classList.add('active');
+    dateInput.classList.add('wrong');
+  } else {
+    dateMessage.classList.remove('active');
+    dateInput.classList.remove('wrong');
   }
 });

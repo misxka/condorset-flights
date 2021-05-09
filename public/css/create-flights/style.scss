@@ -22,8 +22,15 @@ main {
   }
 
   & .choose-date {
+    position: relative;
     display: flex;
     align-items: center;
+
+    & .warning-message {
+      color: red;
+      top: 100%;
+      left: 14%;
+    }
 
     & label {
       font-family: 'Roboto', sans-serif;
@@ -46,6 +53,10 @@ main {
       &::-webkit-calendar-picker-indicator {
         cursor: pointer;
         filter: invert(0.35);
+      }
+
+      &.wrong {
+        border: 1px solid red;
       }
     }
   }
@@ -71,20 +82,6 @@ main {
 
         & .input-wrapper {
           position: relative;
-
-          & .warning-message {
-            position: absolute;
-            padding-top: 3px;
-            display: none;
-            font-size: 1.1rem;
-            color: var(--light-color-text);
-            text-align: center;
-            width: max-content;
-
-            &.active {
-              display: block;
-            }
-          }
         }
 
         & input {
@@ -258,6 +255,20 @@ main {
       & .stop-voting-button {
         width: 271px;
       }
+    }
+  }
+
+  & .warning-message {
+    position: absolute;
+    padding-top: 3px;
+    display: none;
+    font-size: 1.1rem;
+    color: var(--light-color-text);
+    text-align: center;
+    width: max-content;
+
+    &.active {
+      display: block;
     }
   }
 }
