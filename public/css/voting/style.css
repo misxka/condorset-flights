@@ -97,6 +97,11 @@ main .add-schedule .table-wrapper table tr td {
   text-align: center;
 }
 
+main .add-schedule .table-wrapper table tr td:last-child {
+  vertical-align: top;
+  position: relative;
+}
+
 main .add-schedule .table-wrapper table tr td input {
   display: block;
   margin: auto;
@@ -109,10 +114,11 @@ main .add-schedule .table-wrapper table tr td input {
   border: none;
   border-radius: 7px;
   background: var(--input-field-color);
-  padding: 11px 16px;
+  padding: 6px 16px;
   font-size: 1.6rem;
   font-family: 'Roboto', sans-serif;
   color: var(--input-text-color);
+  margin-top: 3px;
 }
 
 main .add-schedule .table-wrapper table tr th {
@@ -159,5 +165,22 @@ main .add-schedule .send-rates-button {
   width: 238px;
   -ms-flex-item-align: end;
       align-self: flex-end;
+}
+
+.warning-message {
+  position: absolute;
+  display: none;
+  font-size: 1.1rem;
+  color: red;
+  text-align: center;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  top: 72%;
+  left: 5%;
+}
+
+.warning-message.active {
+  display: block;
 }
 /*# sourceMappingURL=style.css.map */

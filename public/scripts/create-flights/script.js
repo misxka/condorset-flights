@@ -189,7 +189,9 @@ const dateInput = document.querySelector('#date-1');
 const dateMessage = document.querySelector('.date-warning');
 
 const table = document.querySelector('.table-wrapper table');
-let deleteRowButtons = table.querySelectorAll('.delete-row');
+const deleteRowButtons = table.querySelectorAll('.delete-row');
+
+let enteredRows = 1;
 
 dateInput.addEventListener('change', () => {
   const currentDate = new Date().setHours(0, 0, 0, 0);
@@ -213,22 +215,16 @@ dateInput.addEventListener('change', () => {
     }
   }
 
-  deleteRowButtons = table.querySelectorAll('.delete-row');
+  enteredRows = 1;
 });
 
 //Delete row button
-for(let i = 0; i < deleteRowButtons.length; i++) {
-  deleteRowButtons[i].addEventListener('click', () => {
-    if(table.rows.length > 5) {
-      table.deleteRow(i + 1);
-    } else {
-      for(let j = 0; j < 4; j++) {
-        table.rows[i + 1].cells[j].innerHTML = '';
-      }
-    }
-    deleteRowButtons = table.querySelectorAll('.delete-row');
-  });
-}
+document.addEventListener('click', (e) => {
+  if(e.target && e.target.className === 'delete-row') {
+    table.deleteRow(e.target.closest('tr').rowIndex);
+    enteredRows--;
+  }
+});
 
 //Add row button
 const addRowButton = document.querySelector('.add-button');
@@ -261,16 +257,30 @@ addRowButton.addEventListener('click', () => {
     }
   }
 
-  if(table.rows.length < 6) {
+  if(enteredRows < 5) {
     let i = 0;
     while(table.rows[i].cells[0].innerHTML !== '') i++;
     for(let j = 0; j < 4; j++) {
       table.rows[i].cells[j].innerHTML = inputs[j].value;
     }
+    enteredRows++;
+  } else {
+    const row = table.insertRow();
+    for(let i = 0; i < 5; i++) {
+      const cell = row.insertCell(i);
+      if(i === 4) {
+        cell.innerHTML = '<button class="delete-row"></button>';
+      }
+    }
+    for(let i = 0; i < 4; i++) {
+      table.rows[table.rows.length - 1].cells[i].innerHTML = inputs[i].value;
+    }
+    enteredRows++;
   }
 
   for(let i = 0; i < 4; i++) {
     inputs[i].value = '';
+    inputs[i].readOnly = false;
     inputs[i].style.backgroundColor = 'var(--input-field-color)';
   }
 });

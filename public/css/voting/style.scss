@@ -84,6 +84,11 @@ main {
             border-spacing: 0;
             text-align: center;
 
+            &:last-child {
+              vertical-align: top;
+              position: relative;
+            }
+
             & input {
               display: block;
               margin: auto;
@@ -93,10 +98,11 @@ main {
               border: none;
               border-radius: 7px;
               background: var(--input-field-color);
-              padding: 11px 16px;
+              padding: 6px 16px;
               font-size: 1.6rem;
               font-family: 'Roboto', sans-serif;
               color: var(--input-text-color);
+              margin-top: 3px;
             }
           }
 
@@ -146,5 +152,20 @@ main {
       width: 238px;
       align-self: flex-end;
     }
+  }
+}
+
+.warning-message {
+  position: absolute;
+  display: none;
+  font-size: 1.1rem;
+  color: red;
+  text-align: center;
+  width: max-content;
+  top: 72%;
+  left: 5%;
+
+  &.active {
+    display: block;
   }
 }
