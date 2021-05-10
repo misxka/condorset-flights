@@ -34,7 +34,6 @@ main label {
   color: var(--dark-color-text);
 }
 
-main .date-input,
 main select {
   border-radius: 7px;
   border: 1px solid var(--input-field-color);
@@ -42,12 +41,12 @@ main select {
   padding: 8px 16px;
   font-size: 1.6rem;
   font-family: 'Roboto', sans-serif;
-  color: var(--input-text-color);
+  color: var(--dark-color-text);
   cursor: pointer;
   outline: none;
+  min-width: 135px;
 }
 
-main .date-input::-webkit-calendar-picker-indicator,
 main select::-webkit-calendar-picker-indicator {
   cursor: pointer;
   -webkit-filter: invert(0.35);
