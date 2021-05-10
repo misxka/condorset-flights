@@ -219,7 +219,7 @@ dateInput.addEventListener('change', () => {
 });
 
 //Delete row button
-document.addEventListener('click', (e) => {
+table.addEventListener('click', (e) => {
   if(e.target && e.target.className === 'delete-row') {
     table.deleteRow(e.target.closest('tr').rowIndex);
     enteredRows--;

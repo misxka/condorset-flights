@@ -61,6 +61,20 @@ app.get('/pages/reports', (req, res, next) => {
   });
 });
 
+app.get('/pages/admin-voting', (req, res, next) => {
+  res.render('admin-voting', {
+    pageTitle: 'Голосование',
+    path: 'voting' 
+  });
+});
+
+app.get('/pages/admin-reports', (req, res, next) => {
+  res.render('admin-reports', {
+    pageTitle: 'Отчёты',
+    path: 'reports' 
+  });
+});
+
 app.use('/404/', express.static(path.join(__dirname, '/public')));
 
 app.use('/', (req, res, next) => {
