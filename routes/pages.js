@@ -1,5 +1,5 @@
 const authJwt = require("../util/jwt-auth");
-const authorizationController = require('../controllers/authorization');
+// const authorizationController = require('../controllers/authorization');
 const express = require('express');
 
 const router = express.Router();
@@ -13,14 +13,18 @@ router.use((req, res, next) => {
 });
 
 router.get(
-  "/user",
+  "/voting",
   [authJwt.verifyToken]
 );
 
 router.get(
-  "/admin",
-  [authJwt.verifyToken, authJwt.isAdmin],
-  authorizationController.adminBoard
+  "/reports",
+  [authJwt.verifyToken]
+)
+
+router.get(
+  "/create-flights",
+  [authJwt.verifyToken, authJwt.isAdmin]
 );
 
 module.exports = router;

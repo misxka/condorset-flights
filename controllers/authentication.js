@@ -46,13 +46,7 @@ exports.signIn = (req, res) => {
         authorities.push(roles[i].rolename);
       }
       res.cookie('token', token, {httpOnly: true});
-      res.status(200).send({
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        roles: authorities,
-        accessToken: token
-      });
+      res.redirect('/pages/reports');
     });
   })
   .catch(err => {
