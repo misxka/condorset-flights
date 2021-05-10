@@ -18,7 +18,7 @@ verifyToken = (req, res, next) => {
   jwt.verify(token, accessTokenSecret, (err, decoded) => {
     if (err) {
       return res.status(401).send({
-        message: "Unauthorized!"
+        message: "Авторизуйтесь в системе!"
       });
     }
     req.userId = decoded.id;
@@ -37,7 +37,7 @@ isAdmin = (req, res, next) => {
       }
 
       res.status(403).send({
-        message: "Require Admin Role!"
+        message: "Вам необходимы права администратора!"
       });
       return;
     });

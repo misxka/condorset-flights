@@ -1,5 +1,4 @@
 const authJwt = require("../util/jwt-auth");
-// const authorizationController = require('../controllers/authorization');
 const express = require('express');
 
 const router = express.Router();
@@ -24,6 +23,16 @@ router.get(
 
 router.get(
   "/create-flights",
+  [authJwt.verifyToken, authJwt.isAdmin]
+);
+
+router.get(
+  "/admin-voting",
+  [authJwt.verifyToken, authJwt.isAdmin]
+);
+
+router.get(
+  "/admin-reports",
   [authJwt.verifyToken, authJwt.isAdmin]
 );
 
