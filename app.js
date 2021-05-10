@@ -4,6 +4,8 @@ const express = require('express');
 
 const cookieParser = require('cookie-parser');
 
+const cors = require("cors");
+
 const db = require('./util/database');
 
 const pool = require(path.join(__dirname, 'util', 'database'));
@@ -11,6 +13,7 @@ const pool = require(path.join(__dirname, 'util', 'database'));
 const app = express();
 
 app.use(cookieParser());
+app.use(cors());
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -21,14 +24,14 @@ app.set('views', 'views');
 const authenticationRoutes = require('./routes/authentication');
 const authorizationRoutes = require('./routes/authorization');
 const pagesRoutes = require('./routes/pages');
+const fetchHandlersRoutes = require('./routes/fetch-handlers');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/authenticate', authenticationRoutes);
-
 app.use('/authorize', authorizationRoutes);
-
 app.use('/pages', pagesRoutes);
+app.use('/fetch-handlers', fetchHandlersRoutes);
 
 app.get('/', (req, res, next) => {
   res.render('index', {

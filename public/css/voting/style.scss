@@ -147,10 +147,19 @@ main {
       }
     }
 
-    & .send-rates-button {
-      margin-bottom: 50px;
-      width: 238px;
-      align-self: flex-end;
+    & .button-wrapper {
+      position: relative;
+
+      & .send-rates-button {
+        margin-bottom: 50px;
+        width: 238px;
+        align-self: flex-end;
+      }
+
+      & .warning-message {
+        top: 65%;
+        left: 0;
+      }
     }
   }
 }

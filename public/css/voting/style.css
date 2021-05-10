@@ -160,11 +160,20 @@ main .add-schedule .table-wrapper::-webkit-scrollbar-thumb:hover {
   background: var(--color-2);
 }
 
-main .add-schedule .send-rates-button {
+main .add-schedule .button-wrapper {
+  position: relative;
+}
+
+main .add-schedule .button-wrapper .send-rates-button {
   margin-bottom: 50px;
   width: 238px;
   -ms-flex-item-align: end;
       align-self: flex-end;
+}
+
+main .add-schedule .button-wrapper .warning-message {
+  top: 65%;
+  left: 0;
 }
 
 .warning-message {
