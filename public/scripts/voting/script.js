@@ -49,6 +49,16 @@ document.addEventListener('focusout', (e) => {
   }
 });
 
+document.addEventListener('keydown', (e) => {
+  if(e.target && e.target.className === 'vote-input') {
+    if(!((e.keyCode > 95 && e.keyCode < 106)
+      || (e.keyCode > 47 && e.keyCode < 58) 
+      || e.keyCode == 8)) {
+        e.preventDefault();
+    }
+  }
+});
+
 const table = document.querySelector('table');
 
 table.addEventListener('mousedown', (e) => {
@@ -83,19 +93,19 @@ sendButton.addEventListener('click', () => {
 });
 
 function fillTable(data) {
+  let lastRow = 0;
   for(let i = 0; i < data.length; i++) {
     const values = Object.values(data[i]);
-    if(i > 3) {
-      const row = table.insertRow(i + 1);
-      for(let i = 0; i < 5; i++) {
-        const cell = row.insertCell(i);
-        if(i === 4) {
-          cell.innerHTML = '<input class="vote-input" type="number" min="1" max="1000"><div class="warning-message">Оценки должны быть различными</div>';
-        }
+    const row = table.insertRow(i + 1);
+    for(let i = 0; i < 5; i++) {
+      const cell = row.insertCell(i);
+      if(i === 4) {
+        cell.innerHTML = '<input class="vote-input" type="number" min="1" max="1000"><div class="warning-message">Оценки должны быть различными</div>';
       }
     }
+    voteInputs = document.querySelectorAll('.vote-input');
     for(let j = 0; j < 4; j++) {
-      table.rows[i + 1].cells[j].innerHTML = values[i];
+      table.rows[i + 1].cells[j].innerHTML = values[j];
     }
     enteredRows++;
   }
@@ -111,7 +121,7 @@ datesSelect.addEventListener('change', () => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(dateInput.value),
+    body: JSON.stringify({date: datesSelect.value}),
   })
   .then(response => response.json())
   .then(data => {
@@ -123,13 +133,10 @@ datesSelect.addEventListener('change', () => {
 });
 
 function clearTable() {
-  while(table.rows.length > 5) {
+  while(table.rows.length > 1) {
     table.deleteRow(table.rows.length - 1);
   }
 
-  for(let i = 1; i < 5; i++) {
-    for(let j = 0; j < 4; j++) {
-      table.rows[i].cells[j].innerHTML = '';
-    }
-  }
+  voteInputs = document.querySelectorAll('.vote-input');
+  enteredVotes.clear();
 }

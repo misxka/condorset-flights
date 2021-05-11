@@ -61,7 +61,7 @@ main .add-schedule .choose-date {
 }
 
 main .add-schedule .table-wrapper {
-  height: 252px;
+  height: 452px;
   overflow: auto;
   margin-bottom: 38px;
 }
@@ -91,10 +91,10 @@ main .add-schedule .table-wrapper table tr td {
   border-top: 1px solid var(--dark-color-text);
   border-spacing: 0;
   text-align: center;
+  padding: 0 3px;
 }
 
 main .add-schedule .table-wrapper table tr td:last-child {
-  vertical-align: top;
   position: relative;
 }
 

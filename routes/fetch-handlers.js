@@ -69,6 +69,9 @@ router.post(
   fetchHandlersController.addTempFlights
 )
 
-
+router.post(
+  '/get-temp-flights',
+  fetchHandlersController.getTempFlights
+)
 
 module.exports = router;

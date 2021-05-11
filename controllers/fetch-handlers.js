@@ -61,12 +61,26 @@ exports.getEnteredDates = (req, res, next) => {
     }
   })
   .then(dates => {
-    console.log(dates);
     dates = dates.map(elem => elem.dataValues.date);
     res.json(dates);
   })
 }
 
 exports.getTempFlights = (req, res, next) => {
-  
+  TempSchedule.findAll({
+    where: {
+      date: req.body.date
+    }
+  })
+  .then(flights => {
+    flights = flights.map(elem => elem.dataValues);
+    flights = flights.map(elem => {
+      delete elem.id;
+      delete elem.date;
+      delete elem.createdAt;
+      delete elem.updatedAt;
+      return elem;
+    });
+    res.json(flights);
+  })
 }
