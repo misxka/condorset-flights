@@ -44,12 +44,14 @@ isAdmin = (req, res, next) => {
   });
 };
 
-isSimpleUser = (req, res) => {
+isSimpleUser = (req, res, next) => {
   User.findByPk(req.userId).then(user => {
     user.getRoles().then(roles => {
       for (let i = 0; i < roles.length; i++) {
         if (roles[i].rolename === "admin") {
           res.redirect(`/pages/admin-${req.url.substring(1)}`);
+        } else {
+          next();
         }
       }
       return;
