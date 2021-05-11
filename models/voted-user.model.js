@@ -5,6 +5,10 @@ module.exports = (sequelize, Sequelize) => {
       primaryKey: true,
       autoIncrement: true
     },
+    date: {
+      type: Sequelize.DATEONLY,
+      allowNull: false
+    },
     userId: {
       type: Sequelize.INTEGER,
       allowNull: false

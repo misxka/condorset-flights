@@ -11,6 +11,17 @@ router.get(
   fetchHandlersController.getEnteredDates
 );
 
+router.post(
+  '/add-votes',
+  fetchHandlersController.addVotes
+)
+
+router.post(
+  '/voted-users',
+  authJwt.verifyToken,
+  fetchHandlersController.checkVotedUsers
+)
+
 //TODO
 router.post(
   "/votes-stats",

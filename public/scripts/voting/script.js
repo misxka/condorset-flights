@@ -85,12 +85,43 @@ sendButton.addEventListener('click', () => {
         votes.push(voteInputs[i - 1].value);
       }
     }
+    sendVotes();
   } else {
     sendButton.closest('.button-wrapper').querySelector('.warning-message').innerHTML = 'Таблица пустая';
     sendButton.closest('.button-wrapper').querySelector('.warning-message').classList.add('active');
     return;
   }
 });
+
+function sendVotes() {
+  fetch('http://localhost:3000/fetch-handlers/voted-users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({date: datesSelect.value}),
+  })
+  .then(response => response.json())
+  .then(result => {
+    console.log(result);
+    return fetch('http://localhost:3000/fetch-handlers/add-votes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({date: datesSelect.value}),
+    })
+  })
+  .then(response => response.json())
+  .then(result => {
+    
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}
 
 function fillTable(data) {
   let lastRow = 0;
@@ -120,6 +151,7 @@ datesSelect.addEventListener('change', () => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Accept': 'application/json'
     },
     body: JSON.stringify({date: datesSelect.value}),
   })

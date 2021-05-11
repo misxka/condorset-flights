@@ -1,3 +1,5 @@
+const {Op} = require('sequelize');
+
 const db = require('../util/database');
 
 const DateInfo = db.dateInfo;
@@ -83,4 +85,38 @@ exports.getTempFlights = (req, res, next) => {
     });
     res.json(flights);
   })
+}
+
+exports.addVotes = (req, res, next) => {
+
+}
+
+exports.checkVotedUsers = (req, res, next) => {
+  
+  VotedUser.findOrCreate({
+    where: {
+      [Op.and]: [
+        {userId: req.userId},
+        {date: req.body.date}
+      ]
+    },
+    defaults: {
+      userId: req.userId,
+      date: req.body.date
+    }
+  })
+  .then(results => {
+    if(results[1]) {
+      res.json({
+        hasVoted: false
+      });
+    } else {
+      res.json({
+        hasVoted: true
+      });
+    }
+  })
+  .catch(err => {
+    console.error('Error:', err);
+  });
 }
