@@ -6,18 +6,12 @@ const router = express.Router();
 
 const fetchHandlersController = require('../controllers/fetch-handlers');
 
-router.post(
-  "/votes",
-  function(req, res) {
-    res.json({condition: "Успешно"});
-  }
-);
-
 router.get(
   "/available-dates",
   fetchHandlersController.getEnteredDates
 );
 
+//TODO
 router.post(
   "/votes-stats",
   function(req, res) {

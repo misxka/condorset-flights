@@ -176,7 +176,8 @@ function drawBarChart(data) {
           beginAtZero: true,
           ticks: {
             precision: 0
-          }
+          },
+          max: Math.ceil(Math.max(...votesNumber) * 1.1)
         }
       },
       responsive: true,
