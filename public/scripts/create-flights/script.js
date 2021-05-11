@@ -55,10 +55,10 @@ function autocomplete(input, arr) {
       x[i].classList.remove("autocomplete-active");
     }
   }
-  function closeAllLists(elmnt) {
-    var x = document.getElementsByClassName("autocomplete-items");
-    for (var i = 0; i < x.length; i++) {
-      if (elmnt != x[i] && elmnt != input) {
+  function closeAllLists(element) {
+    let x = document.getElementsByClassName("autocomplete-items");
+    for (let i = 0; i < x.length; i++) {
+      if (element != x[i] && element != input) {
         x[i].parentNode.removeChild(x[i]);
       }
     }
@@ -211,6 +211,12 @@ dateInput.addEventListener('change', () => {
     submitButton.disabled = false; 
   }
 
+  clearTable();
+
+  enteredRows = 1;
+});
+
+function clearTable() {
   while(table.rows.length > 5) {
     table.deleteRow(table.rows.length - 1);
   }
@@ -220,9 +226,7 @@ dateInput.addEventListener('change', () => {
       table.rows[i].cells[j].innerHTML = '';
     }
   }
-
-  enteredRows = 1;
-});
+}
 
 //Delete row button
 table.addEventListener('click', (e) => {
@@ -342,4 +346,16 @@ submitButton.addEventListener('click', () => {
     },
     body: JSON.stringify(flights)
   })
+  .then(response => response.json())
+  .then(data => {
+    if(data.existed) {
+      submitButton.closest('.button-wrapper').querySelector('.warning-message').innerHTML = data.message;
+      submitButton.closest('.button-wrapper').querySelector('.warning-message').classList.add('active');
+    } else {
+      clearTable();
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 });

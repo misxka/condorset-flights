@@ -4,6 +4,8 @@ const express = require('express');
 
 const router = express.Router();
 
+const fetchHandlersController = require('../controllers/fetch-handlers');
+
 router.post(
   "/votes",
   function(req, res) {
@@ -65,9 +67,8 @@ router.post(
 
 router.post(
   '/temp-tables',
-  function(req, res) {
-    console.log(req.body);
-  }
+  fetchHandlersController.findDateInfo,
+  fetchHandlersController.addTempFlights
 )
 
 module.exports = router;

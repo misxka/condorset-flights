@@ -299,6 +299,7 @@ main .add-schedule .button-wrapper .warning-message {
   top: 60%;
   left: -5%;
   color: red;
+  min-width: 272px;
 }
 
 main .close-voting {

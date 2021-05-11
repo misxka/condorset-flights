@@ -14,11 +14,15 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false
     },
     airlineId: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       allowNull: false
     },
     flightNumber: {
       type: Sequelize.INTEGER,
+      allowNull: false
+    },
+    date: {
+      type: Sequelize.DATEONLY,
       allowNull: false
     }
   });

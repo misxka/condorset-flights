@@ -32,11 +32,13 @@ db.user.belongsToMany(db.role, {
 });
 db.dateInfo.hasMany(db.votedUser, {
   foreignKey: "date",
-  onDelete: "CASCADE"
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE"
 });
 db.dateInfo.hasMany(db.tempSchedule, {
   foreignKey: "date",
-  onDelete: "CASCADE"
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE"
 });
 
 db.ROLES = ["user", "admin"];
