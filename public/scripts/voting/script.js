@@ -1,3 +1,5 @@
+'use strict'
+
 let voteInputs = document.querySelectorAll('.vote-input');
 
 const enteredVotes = new Set();
@@ -71,6 +73,8 @@ const sendButton = document.querySelector('.send-rates-button');
 
 const votes = [];
 
+let flightsInfo;
+
 sendButton.addEventListener('click', () => {
   votes.length = 0;
   voteInputs = document.querySelectorAll('.vote-input');
@@ -82,7 +86,11 @@ sendButton.addEventListener('click', () => {
         return;
       } else {
         sendButton.closest('.button-wrapper').querySelector('.warning-message').classList.remove('active');
-        votes.push(voteInputs[i - 1].value);
+        votes.push({
+          id: flightsInfo[i - 1].id,
+          date: datesSelect.value,
+          rate: voteInputs[i - 1].value
+        });
       }
     }
     sendVotes();
@@ -104,14 +112,18 @@ function sendVotes() {
   })
   .then(response => response.json())
   .then(result => {
-    console.log(result);
+    if(result.hasVoted) {
+      sendButton.closest('.button-wrapper').querySelector('.warning-message').innerHTML = 'Вы уже голосовали! Повторное голосование невозможно.';
+      sendButton.closest('.button-wrapper').querySelector('.warning-message').classList.add('active');
+      return;
+    }
     return fetch('http://localhost:3000/fetch-handlers/add-votes', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify({date: datesSelect.value}),
+      body: JSON.stringify(votes),
     })
   })
   .then(response => response.json())
@@ -123,7 +135,9 @@ function sendVotes() {
   });
 }
 
+
 function fillTable(data) {
+  flightsInfo = data;
   let lastRow = 0;
   for(let i = 0; i < data.length; i++) {
     const values = Object.values(data[i]);
@@ -136,7 +150,7 @@ function fillTable(data) {
     }
     voteInputs = document.querySelectorAll('.vote-input');
     for(let j = 0; j < 4; j++) {
-      table.rows[i + 1].cells[j].innerHTML = values[j];
+      table.rows[i + 1].cells[j].innerHTML = values[j + 1];
     }
     enteredRows++;
   }

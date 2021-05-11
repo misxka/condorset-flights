@@ -122,8 +122,8 @@ const colorRangeInfo = {
 function drawDoughnutChart(data) {
   chart?.destroy();
   
-  const customLabels = data.map(elem => elem.label);
-  const votesNumber = data.map(elem => elem.numberOfVotes);
+  const customLabels = data.map(elem => `Порядок приоритета: ${elem.order}`);
+  const votesNumber = data.map(elem => elem.amount);
 
   const colors = interpolateColors(data.length, d3.interpolateInferno, colorRangeInfo);
   
@@ -153,8 +153,8 @@ function drawDoughnutChart(data) {
 function drawBarChart(data) {
   chart?.destroy();
 
-  const customLabels = data.map(elem => elem.label);
-  const votesNumber = data.map(elem => elem.numberOfVotes);
+  const customLabels = data.map(elem => `Порядок приоритета: ${elem.order}`);
+  const votesNumber = data.map(elem => elem.amount);
 
   const colors = interpolateColors(data.length, d3.interpolateInferno, colorRangeInfo);
 

@@ -8,8 +8,6 @@ const cors = require("cors");
 
 const db = require('./util/database');
 
-const pool = require(path.join(__dirname, 'util', 'database'));
-
 const app = express();
 
 app.use(cookieParser());

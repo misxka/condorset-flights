@@ -77,7 +77,6 @@ exports.getTempFlights = (req, res, next) => {
   .then(flights => {
     flights = flights.map(elem => elem.dataValues);
     flights = flights.map(elem => {
-      delete elem.id;
       delete elem.date;
       delete elem.createdAt;
       delete elem.updatedAt;
@@ -88,11 +87,36 @@ exports.getTempFlights = (req, res, next) => {
 }
 
 exports.addVotes = (req, res, next) => {
+  let order = '';
+  req.body.sort((a, b) => a.rate - b.rate);
 
+  for(let i = 0; i < req.body.length; i++) {
+    if(i !== 0) order += ', ';
+    order += req.body[i].id;
+  }
+
+  VoteOrder.findOrCreate({
+    where: {
+      order: order
+    },
+    defaults: {
+      date: req.body[0].date,
+      order: order,
+      amount: 1
+    }
+  })
+  .then(results => {
+    if(!results[1]) {
+      results[0].increment('amount');
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+    res.status(500).send(error.message);
+  });
 }
 
 exports.checkVotedUsers = (req, res, next) => {
-  
   VotedUser.findOrCreate({
     where: {
       [Op.and]: [
@@ -118,5 +142,24 @@ exports.checkVotedUsers = (req, res, next) => {
   })
   .catch(err => {
     console.error('Error:', err);
+  });
+}
+
+exports.getVotesStats = (req, res, next) => {
+  VoteOrder.findAll({
+    where: {
+      date: req.body.date
+    }
+  })
+  .then(results => {
+    results = results.map(elem => elem.dataValues);
+    results = results.map(elem => {
+      delete elem.id;
+      delete elem.date;
+      delete elem.createdAt;
+      delete elem.updatedAt;
+      return elem;
+    });
+    res.json(results);
   });
 }
