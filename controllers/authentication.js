@@ -46,8 +46,16 @@ exports.signIn = (req, res) => {
         authorities.push(roles[i].rolename);
       }
       res.cookie('token', token, {httpOnly: true});
-      res.redirect('/pages/reports');
-    });
+      user.getRoles().then(roles => {
+        for (let i = 0; i < roles.length; i++) {
+          if (roles[i].rolename === "admin") {
+            res.redirect('/pages/admin-reports');
+          } else {
+            res.redirect('/pages/reports');
+          }
+        }
+      });
+    })
   })
   .catch(err => {
     res.status(500).send({ message: err.message });

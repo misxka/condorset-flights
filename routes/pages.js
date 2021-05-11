@@ -13,12 +13,12 @@ router.use((req, res, next) => {
 
 router.get(
   "/voting",
-  [authJwt.verifyToken]
+  [authJwt.verifyToken, authJwt.isSimpleUser]
 );
 
 router.get(
   "/reports",
-  [authJwt.verifyToken]
+  [authJwt.verifyToken, authJwt.isSimpleUser]
 )
 
 router.get(

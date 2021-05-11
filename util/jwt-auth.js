@@ -44,7 +44,21 @@ isAdmin = (req, res, next) => {
   });
 };
 
+isSimpleUser = (req, res) => {
+  User.findByPk(req.userId).then(user => {
+    user.getRoles().then(roles => {
+      for (let i = 0; i < roles.length; i++) {
+        if (roles[i].rolename === "admin") {
+          res.redirect(`/pages/admin-${req.url.substring(1)}`);
+        }
+      }
+      return;
+    });
+  });
+};
+
 module.exports = {
   verifyToken: verifyToken,
-  isAdmin: isAdmin
+  isAdmin: isAdmin,
+  isSimpleUser: isSimpleUser
 };
