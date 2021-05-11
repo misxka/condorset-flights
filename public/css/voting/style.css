@@ -43,21 +43,17 @@ main .choose-date label {
   color: var(--dark-color-text);
 }
 
-main .choose-date .date-input {
+main .choose-date select {
   border-radius: 7px;
   border: 1px solid var(--input-field-color);
   background: var(--input-field-color);
   padding: 8px 16px;
   font-size: 1.6rem;
   font-family: 'Roboto', sans-serif;
-  color: var(--input-text-color);
+  color: var(--dark-color-text);
   cursor: pointer;
-}
-
-main .choose-date .date-input::-webkit-calendar-picker-indicator {
-  cursor: pointer;
-  -webkit-filter: invert(0.35);
-          filter: invert(0.35);
+  outline: none;
+  min-width: 135px;
 }
 
 main .add-schedule .choose-date {

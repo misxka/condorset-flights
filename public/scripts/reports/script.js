@@ -9,7 +9,6 @@ const availableDates = [];
 const votesStats = [];
 
 //Get available dates from server
-
 fetch('http://localhost:3000/fetch-handlers/available-dates', {
     method: 'GET',
     headers: {

@@ -53,3 +53,7 @@ exports.addTempFlights = (req, res, next) => {
     message: "Данные успешно добавлены"
   });
 }
+
+exports.getTempFlights = (req, res, next) => {
+  
+}

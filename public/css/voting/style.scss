@@ -33,20 +33,17 @@ main {
       color: var(--dark-color-text);
     }
 
-    & .date-input {
+    & select {
       border-radius: 7px;
       border: 1px solid var(--input-field-color);
       background: var(--input-field-color);
       padding: 8px 16px;
       font-size: 1.6rem;
       font-family: 'Roboto', sans-serif;
-      color: var(--input-text-color);
+      color: var(--dark-color-text);
       cursor: pointer;
-
-      &::-webkit-calendar-picker-indicator {
-        cursor: pointer;
-        filter: invert(0.35);
-      }
+      outline: none;
+      min-width: 135px;
     }
   }
 

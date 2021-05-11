@@ -40,11 +40,6 @@ main {
     cursor: pointer;
     outline: none;
     min-width: 135px;
-
-    &::-webkit-calendar-picker-indicator {
-      cursor: pointer;
-      filter: invert(0.35);
-    }
   }
 
   & .choose-date,

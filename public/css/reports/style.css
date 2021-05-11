@@ -47,12 +47,6 @@ main select {
   min-width: 135px;
 }
 
-main select::-webkit-calendar-picker-indicator {
-  cursor: pointer;
-  -webkit-filter: invert(0.35);
-          filter: invert(0.35);
-}
-
 main .choose-date,
 main .choose-report {
   display: -webkit-box;
