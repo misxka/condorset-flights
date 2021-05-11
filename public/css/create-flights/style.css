@@ -280,11 +280,25 @@ main .add-schedule .table-wrapper::-webkit-scrollbar-thumb:hover {
   background: var(--color-2);
 }
 
-main .add-schedule .submit-schedule-button {
-  margin-bottom: 50px;
-  width: 238px;
+main .add-schedule .button-wrapper {
+  position: relative;
   -ms-flex-item-align: end;
       align-self: flex-end;
+}
+
+main .add-schedule .button-wrapper .submit-schedule-button {
+  margin-bottom: 50px;
+  width: 238px;
+}
+
+main .add-schedule .button-wrapper .submit-schedule-button:disabled {
+  cursor: not-allowed;
+}
+
+main .add-schedule .button-wrapper .warning-message {
+  top: 60%;
+  left: -5%;
+  color: red;
 }
 
 main .close-voting {

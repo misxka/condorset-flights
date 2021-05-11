@@ -254,10 +254,24 @@ main {
       }
     }
 
-    & .submit-schedule-button {
-      margin-bottom: 50px;
-      width: 238px;
+    & .button-wrapper {
+      position: relative;
       align-self: flex-end;
+
+      & .submit-schedule-button {
+        margin-bottom: 50px;
+        width: 238px;
+
+        &:disabled {
+          cursor: not-allowed;
+        }
+      }
+
+      & .warning-message {
+        top: 60%;
+        left: -5%;
+        color: red;
+      }
     }
   }
 

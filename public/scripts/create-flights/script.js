@@ -103,6 +103,8 @@ function airportInputValidator(firstInput, secondInput, message) {
     secondInput.value = homeAirport;
     secondInput.readOnly = true;
     secondInput.style.backgroundColor = 'var(--input-readonly-color)';
+    secondInput.closest('div').querySelector('.warning-message').classList.remove('active');
+    secondInput.classList.remove('wrong');
   }
   if(!/^[a-zA-Z]{3}\s[А-Я]{1}[а-яА-Я]{1,}/.test(firstInput.value)) {
     message.classList.add('active');
@@ -191,6 +193,8 @@ const dateMessage = document.querySelector('.date-warning');
 const table = document.querySelector('.table-wrapper table');
 const deleteRowButtons = table.querySelectorAll('.delete-row');
 
+const submitButton = document.querySelector('.submit-schedule-button');
+
 let enteredRows = 1;
 
 dateInput.addEventListener('change', () => {
@@ -199,10 +203,12 @@ dateInput.addEventListener('change', () => {
   if(enteredDate < currentDate) {
     dateMessage.classList.add('active');
     dateInput.classList.add('wrong');
+    submitButton.disabled = true;
     return;
   } else {
     dateMessage.classList.remove('active');
     dateInput.classList.remove('wrong');
+    submitButton.disabled = false; 
   }
 
   while(table.rows.length > 5) {
@@ -283,4 +289,57 @@ addRowButton.addEventListener('click', () => {
     inputs[i].readOnly = false;
     inputs[i].style.backgroundColor = 'var(--input-field-color)';
   }
+});
+
+
+//Send data to server
+class FlightTemplate {
+  #date;
+  #from;
+  #to;
+  #iataCode;
+  #flightNumber;
+
+  constructor(date, from, to, iataCode, flightNumber) {
+    this.#date = date;
+    this.#from = from;
+    this.#to = to;
+    this.#iataCode = iataCode;
+    this.#flightNumber = flightNumber;
+  }
+
+  toJSON() {
+    return {
+      date: this.#date,
+      from: this.#from,
+      to: this.#to,
+      iataCode: this.#iataCode,
+      flightNumber: this.#flightNumber
+    }
+  }
+}
+
+submitButton.addEventListener('click', () => {
+  if(dateInput.value === '' || enteredRows < 4) {
+    submitButton.closest('.button-wrapper').querySelector('.warning-message').classList.add('active');
+    return;
+  } else {
+    submitButton.closest('.button-wrapper').querySelector('.warning-message').classList.remove('active');
+  }
+  const flights = [];
+  for(let i = 1; i < enteredRows; i++) {
+    const row = [];
+    for(let j = 0; j < 4; j++) {
+      row.push(table.rows[i].cells[j].innerHTML);
+    }
+    flights.push(new FlightTemplate(dateInput.value, row[0], row[1], row[2], row[3]));
+  }
+  fetch('http://localhost:3000/fetch-handlers/temp-tables', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify(flights)
+  })
 });

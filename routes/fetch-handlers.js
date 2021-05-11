@@ -63,4 +63,11 @@ router.post(
   }
 );
 
+router.post(
+  '/temp-tables',
+  function(req, res) {
+    console.log(req.body);
+  }
+)
+
 module.exports = router;

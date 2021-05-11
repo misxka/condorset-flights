@@ -149,11 +149,11 @@ main {
 
     & .button-wrapper {
       position: relative;
+      align-self: flex-end;
 
       & .send-rates-button {
         margin-bottom: 50px;
         width: 238px;
-        align-self: flex-end;
       }
 
       & .warning-message {

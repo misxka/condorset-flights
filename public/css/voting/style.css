@@ -162,13 +162,13 @@ main .add-schedule .table-wrapper::-webkit-scrollbar-thumb:hover {
 
 main .add-schedule .button-wrapper {
   position: relative;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
 }
 
 main .add-schedule .button-wrapper .send-rates-button {
   margin-bottom: 50px;
   width: 238px;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
 }
 
 main .add-schedule .button-wrapper .warning-message {
