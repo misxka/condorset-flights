@@ -15,9 +15,7 @@ router.post(
 
 router.get(
   "/available-dates",
-  function(req, res) {
-    res.json(['12.05.2021', '09.05.2021']);
-  }
+  fetchHandlersController.getEnteredDates
 );
 
 router.post(
@@ -70,5 +68,7 @@ router.post(
   fetchHandlersController.findDateInfo,
   fetchHandlersController.addTempFlights
 )
+
+
 
 module.exports = router;

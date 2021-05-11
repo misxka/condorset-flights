@@ -54,6 +54,19 @@ exports.addTempFlights = (req, res, next) => {
   });
 }
 
+exports.getEnteredDates = (req, res, next) => {
+  DateInfo.findAll({
+    where: {
+      isAvailable: true
+    }
+  })
+  .then(dates => {
+    console.log(dates);
+    dates = dates.map(elem => elem.dataValues.date);
+    res.json(dates);
+  })
+}
+
 exports.getTempFlights = (req, res, next) => {
   
 }
