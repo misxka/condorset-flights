@@ -20,7 +20,10 @@ exports.signIn = (req, res) => {
   })
   .then(user => {
     if (!user) {
-      return res.status(404).send({ message: "Пользователь не найден." });
+      return res.status(401).json({ 
+        exists: false,
+        correctPassword: undefined
+      });
     }
 
     const passwordIsValid = bcrypt.compareSync(
@@ -29,9 +32,9 @@ exports.signIn = (req, res) => {
     );
 
     if (!passwordIsValid) {
-      return res.status(401).send({
-        accessToken: null,
-        message: "Неверный пароль!"
+      return res.status(401).json({
+        exists: true,
+        correctPassword: false
       });
     }
 
@@ -46,14 +49,9 @@ exports.signIn = (req, res) => {
         authorities.push(roles[i].rolename);
       }
       res.cookie('token', token, {httpOnly: true});
-      user.getRoles().then(roles => {
-        for (let i = 0; i < roles.length; i++) {
-          if (roles[i].rolename === "admin") {
-            res.redirect('/pages/admin-reports');
-          } else {
-            res.redirect('/pages/reports');
-          }
-        }
+      res.json({
+        exists: true,
+        correctPassword: true
       });
     })
   })

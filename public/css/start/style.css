@@ -42,6 +42,7 @@
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
+  margin-top: 20px;
 }
 
 .form-wrapper button:hover, .form-wrapper button:active, .form-wrapper button:focus {
@@ -71,6 +72,10 @@
   border-bottom: 1px solid var(--color-1);
 }
 
+.form-wrapper form {
+  position: relative;
+}
+
 .form-wrapper form.active-form {
   visibility: visible;
   height: -webkit-max-content;
@@ -85,6 +90,20 @@
   visibility: hidden;
   height: 0;
   opacity: 0.2;
+}
+
+.form-wrapper form .warning-message {
+  position: absolute;
+  top: 48%;
+  left: 0;
+  display: none;
+  color: red;
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+.form-wrapper form .warning-message.active {
+  display: block;
 }
 
 .container {
