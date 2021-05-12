@@ -1,5 +1,5 @@
 .login-page {
-  width: 360px;
+  width: 460px;
   padding: 8% 0 0;
   margin: auto;
 }
@@ -8,7 +8,7 @@
   position: relative;
   z-index: 1;
   background: #ffffff;
-  max-width: 360px;
+  max-width: 460px;
   margin: 0 auto 100px;
   padding: 45px 45px 30px;
   text-align: center;
@@ -48,6 +48,14 @@
     }
   }
 
+  & .input-wrapper {
+    position: relative;
+
+    & .warning-message {
+      top: 80%;
+    }
+  }
+
   & .change-wrapper {
     font-size: 1.4rem;
     margin: 15px 0 0;
@@ -73,12 +81,22 @@
 
   & form {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     &.active-form {
       visibility: visible;
-      height: max-content;
       opacity: 1;
-      transition: all 1s ease;
+      transition: all 0.8s ease;
+    }
+
+    &.register-form {
+      height: 400px;
+    }
+
+    &.login-form {
+      height: 320px;
     }
 
     &:not(.active-form) {
@@ -89,8 +107,6 @@
 
     & .warning-message {
       position: absolute;
-      top: 48%;
-      left: 0;
       display: none;
       color: red;
       width: 100%;
@@ -142,4 +158,14 @@
       }
     }
   }
+}
+
+.register-form > .warning-message {
+  top: 55%;
+  left: 0;
+}
+
+.login-form > .warning-message {
+  top: 48%;
+  left: 0;
 }

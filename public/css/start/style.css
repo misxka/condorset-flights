@@ -1,5 +1,5 @@
 .login-page {
-  width: 360px;
+  width: 460px;
   padding: 8% 0 0;
   margin: auto;
 }
@@ -8,7 +8,7 @@
   position: relative;
   z-index: 1;
   background: #ffffff;
-  max-width: 360px;
+  max-width: 460px;
   margin: 0 auto 100px;
   padding: 45px 45px 30px;
   text-align: center;
@@ -49,6 +49,14 @@
   background: var(--color-1);
 }
 
+.form-wrapper .input-wrapper {
+  position: relative;
+}
+
+.form-wrapper .input-wrapper .warning-message {
+  top: 80%;
+}
+
 .form-wrapper .change-wrapper {
   font-size: 1.4rem;
   margin: 15px 0 0;
@@ -74,16 +82,31 @@
 
 .form-wrapper form {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .form-wrapper form.active-form {
   visibility: visible;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
   opacity: 1;
-  -webkit-transition: all 1s ease;
-  transition: all 1s ease;
+  -webkit-transition: all 0.8s ease;
+  transition: all 0.8s ease;
+}
+
+.form-wrapper form.register-form {
+  height: 400px;
+}
+
+.form-wrapper form.login-form {
+  height: 320px;
 }
 
 .form-wrapper form:not(.active-form) {
@@ -94,8 +117,6 @@
 
 .form-wrapper form .warning-message {
   position: absolute;
-  top: 48%;
-  left: 0;
   display: none;
   color: red;
   width: 100%;
@@ -144,5 +165,15 @@
 
 .container .info span .fa {
   color: #ef3b3a;
+}
+
+.register-form > .warning-message {
+  top: 55%;
+  left: 0;
+}
+
+.login-form > .warning-message {
+  top: 48%;
+  left: 0;
 }
 /*# sourceMappingURL=style.css.map */
