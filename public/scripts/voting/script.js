@@ -2,7 +2,7 @@
 
 let voteInputs = document.querySelectorAll('.vote-input');
 
-const enteredVotes = new Set();
+const enteredVotes = [];
 
 let enteredRows = 1;
 
@@ -39,14 +39,19 @@ fetch('http://localhost:3000/fetch-handlers/available-dates', {
     console.error('Error:', error);
 });
 
+const table = document.querySelector('table');
 
-document.addEventListener('focusout', (e) => {
+table.addEventListener('focusout', (e) => {
   if(e.target && e.target.className === 'vote-input') {
-    if(enteredVotes.has(e.target.value)) {
-      e.target.closest('td').querySelector('.warning-message').classList.add('active');
-    } else {
-      e.target.closest('td').querySelector('.warning-message').classList.remove('active');
-      enteredVotes.add(e.target.value);
+      enteredVotes.push(e.target.value);
+  }
+});
+
+table.addEventListener('focusin', (e) => {
+  if(e.target && e.target.className === 'vote-input') {
+    const index = enteredVotes.indexOf(e.target.value);
+    if(index !== -1) {
+      enteredVotes.splice(index, 1);
     }
   }
 });
@@ -61,11 +66,13 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-const table = document.querySelector('table');
-
-table.addEventListener('mousedown', (e) => {
+table.addEventListener('input', (e) => {
   if(e.target && e.target.className === 'vote-input') {
-    enteredVotes.delete(e.target.value);
+    if(enteredVotes.includes(e.target.value)) {
+      e.target.closest('td').querySelector('.warning-message').classList.add('active');
+    } else {
+      e.target.closest('td').querySelector('.warning-message').classList.remove('active');
+    }
   }
 });
 
@@ -78,27 +85,25 @@ let flightsInfo;
 sendButton.addEventListener('click', () => {
   votes.length = 0;
   voteInputs = document.querySelectorAll('.vote-input');
-  if(voteInputs[0].closest('tr').querySelector('td:first-child').innerHTML !== '') {
-    for(let i = 1; i <= voteInputs.length; i++) {
-      if(voteInputs[i - 1].value === '') {
-        sendButton.closest('.button-wrapper').querySelector('.warning-message').innerHTML = 'Оценки должны быть проставлены в каждом ряду';
-        sendButton.closest('.button-wrapper').querySelector('.warning-message').classList.add('active');
-        return;
-      } else {
-        sendButton.closest('.button-wrapper').querySelector('.warning-message').classList.remove('active');
-        votes.push({
-          id: flightsInfo[i - 1].id,
-          date: datesSelect.value,
-          rate: voteInputs[i - 1].value
-        });
-      }
+  for(let i = 1; i <= voteInputs.length; i++) {
+    if(voteInputs[i - 1].value === '') {
+      sendButton.closest('.button-wrapper').querySelector('.warning-message').innerHTML = 'Оценки должны быть проставлены в каждом ряду';
+      sendButton.closest('.button-wrapper').querySelector('.warning-message').classList.add('active');
+      return;
+    } else {
+      sendButton.closest('.button-wrapper').querySelector('.warning-message').classList.remove('active');
+      votes.push({
+        id: flightsInfo[i - 1].id,
+        date: datesSelect.value,
+        rate: voteInputs[i - 1].value
+      });
     }
-    sendVotes();
-  } else {
-    sendButton.closest('.button-wrapper').querySelector('.warning-message').innerHTML = 'Таблица пустая';
-    sendButton.closest('.button-wrapper').querySelector('.warning-message').classList.add('active');
-    return;
   }
+  sendVotes();
+  voteInputs.forEach(elem => {
+    elem.value = '';
+  });
+  enteredVotes.length = 0;
 });
 
 function sendVotes() {
@@ -125,10 +130,6 @@ function sendVotes() {
       },
       body: JSON.stringify(votes),
     })
-  })
-  .then(response => response.json())
-  .then(result => {
-    
   })
   .catch((error) => {
     console.error('Error:', error);
@@ -184,5 +185,5 @@ function clearTable() {
   }
 
   voteInputs = document.querySelectorAll('.vote-input');
-  enteredVotes.clear();
+  enteredVotes.length = 0;
 }
