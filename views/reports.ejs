@@ -33,13 +33,14 @@
           <label for="reports">Выберите вид отчёта:</label>
           <select name="reports" id="reports">
             <option value="pie-chart">Круговая диаграмма</option>
-            <option value="graph">График</option>
+            <option value="graph">Столбчатая диаграмма</option>
             <option value="table">Таблица</option>
           </select>
         </div>
         <div class="report-wrapper">
           <canvas id="chart" height="450" width="992">
           </canvas>
+          <div class="no-info-message">Данные отсутствуют. Ещё никто не проголосовал.</div>
         </div>
       </div>
     </section>

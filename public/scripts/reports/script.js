@@ -79,8 +79,6 @@ reportsSelect.addEventListener('change', () => {
   }
 });
 
-//Generating random color
-
 function changeDate(data) {
   const selectedDate = datesSelect.value;
   if(reportsSelect.value === 'pie-chart' && chart?.type !== 'doughnut') {
@@ -119,8 +117,20 @@ const colorRangeInfo = {
   useEndAsStart: false,
 }
 
+
+const noInfoMessage = document.querySelector('.no-info-message');
+
 function drawDoughnutChart(data) {
   chart?.destroy();
+
+  if(data.length === 0) {
+    noInfoMessage.classList.add('active');
+    chartCanvas.classList.add('hidden');
+    return;
+  }
+
+  chartCanvas.classList.remove('hidden');
+  noInfoMessage.classList.remove('active');
   
   const customLabels = data.map(elem => `Порядок приоритета: ${elem.order}`);
   const votesNumber = data.map(elem => elem.amount);
@@ -153,6 +163,15 @@ function drawDoughnutChart(data) {
 function drawBarChart(data) {
   chart?.destroy();
 
+  if(data.length === 0) {
+    noInfoMessage.classList.add('active');
+    chartCanvas.classList.add('hidden');
+    return;
+  }
+
+  chartCanvas.classList.remove('hidden');
+  noInfoMessage.classList.remove('active');
+  
   const customLabels = data.map(elem => `Порядок приоритета: ${elem.order}`);
   const votesNumber = data.map(elem => elem.amount);
 

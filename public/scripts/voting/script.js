@@ -94,6 +94,7 @@ sendButton.addEventListener('click', () => {
       sendButton.closest('.button-wrapper').querySelector('.warning-message').classList.remove('active');
       votes.push({
         id: flightsInfo[i - 1].id,
+        flightName: flightsInfo[i - 1].airlineId + flightsInfo[i - 1].flightNumber,
         date: datesSelect.value,
         rate: voteInputs[i - 1].value
       });

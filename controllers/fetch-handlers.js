@@ -92,7 +92,7 @@ exports.addVotes = (req, res, next) => {
 
   for(let i = 0; i < req.body.length; i++) {
     if(i !== 0) order += ', ';
-    order += req.body[i].id;
+    order += req.body[i].flightName;
   }
 
   VoteOrder.findOrCreate({
