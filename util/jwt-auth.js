@@ -10,16 +10,12 @@ verifyToken = (req, res, next) => {
   let token = req.cookies.token;
 
   if (!token) {
-    return res.status(403).send({
-      message: "No token provided!"
-    });
+    return res.status(403).redirect('/');
   }
 
   jwt.verify(token, accessTokenSecret, (err, decoded) => {
     if (err) {
-      return res.status(401).send({
-        message: "Авторизуйтесь в системе!"
-      });
+      return res.status(401).redirect('/');
     }
     req.userId = decoded.id;
     next();
