@@ -69,7 +69,14 @@ app.get('/pages/admin-voting', (req, res, next) => {
 app.get('/pages/admin-reports', (req, res, next) => {
   res.render('admin-reports', {
     pageTitle: 'Отчёты',
-    path: 'reports' 
+    path: 'reports'
+  });
+});
+
+app.get('/pages/users', (req, res, next) => {
+  res.render('users', {
+    pageTitle: 'Пользователи',
+    path: 'users' 
   });
 });
 

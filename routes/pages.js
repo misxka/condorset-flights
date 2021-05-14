@@ -36,4 +36,9 @@ router.get(
   [authJwt.verifyToken, authJwt.isAdmin]
 );
 
+router.get(
+  "/users",
+  [authJwt.verifyToken, authJwt.isAdmin]
+)
+
 module.exports = router;
