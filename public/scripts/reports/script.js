@@ -271,7 +271,7 @@ function fillTable(data) {
     }
 
     $(document).ready( function() {
-      $('#table-1').dataTable({
+      $('#table').dataTable({
         paging: false,
         info: false,
         destroy: true,

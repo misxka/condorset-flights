@@ -1,4 +1,5 @@
 const inputContainer = document.querySelector('.add-flight .input-fields');
+const main = document.querySelector('main');
 
 //Airports input
 function autocomplete(input, arr) {
@@ -63,7 +64,7 @@ function autocomplete(input, arr) {
       }
     }
   }
-  document.addEventListener("click", function (e) {
+  main.addEventListener("click", function (e) {
       closeAllLists(e.target);
   });
 }
@@ -81,7 +82,7 @@ fromInput.addEventListener('input', () => {
   connectAirportAPI(fromInput, airports);
 });
 
-fromInput.addEventListener('focusout', () => {
+fromInput.addEventListener('change', () => {
   airportInputValidator(fromInput, toInput, fromMessage);
 });
 
@@ -90,7 +91,7 @@ toInput.addEventListener('input', () => {
   connectAirportAPI(toInput, airports);
 });
 
-toInput.addEventListener('focusout', () => {
+toInput.addEventListener('change', () => {
   airportInputValidator(toInput, fromInput, toMessage);
 });
 
@@ -109,9 +110,11 @@ function airportInputValidator(firstInput, secondInput, message) {
   if(!/^[a-zA-Z]{3}\s[А-Я]{1}[а-яА-Я]{1,}/.test(firstInput.value)) {
     message.classList.add('active');
     firstInput.classList.add('wrong');
+    return false;
   } else {
     message.classList.remove('active');
     firstInput.classList.remove('wrong');
+    return true;
   }
 }
 
@@ -143,10 +146,15 @@ function connectAirportAPI(input, arr) {
 const iataInput = inputContainer.querySelector('#airline-input');
 const iataMessage = inputContainer.querySelector('.airline-input-wrapper .warning-message');
 
-iataInput.addEventListener('focusout', () => {
-  if(iataInput.value !== '') {
-    iataInput.value = iataInput.value.toUpperCase();
-    fetch(`https://iata-and-icao-codes.p.rapidapi.com/airline?iata_code=${iataInput.value}`, {
+iataInput.addEventListener('change', () => {
+  checkIataAPI(iataInput, iataMessage);
+});
+
+function checkIataAPI(input, message) {
+  if(input.value !== '') {
+    let isTrue;
+    input.value = input.value.toUpperCase();
+    fetch(`https://iata-and-icao-codes.p.rapidapi.com/airline?iata_code=${input.value}`, {
       "method": "GET",
       "headers": {
         "accept": "application/json",
@@ -158,11 +166,11 @@ iataInput.addEventListener('focusout', () => {
       response.text().then(function(text) {
         const result = text ? JSON.parse(text) : {};
         if(_.isEmpty(result)) {
-          iataMessage.classList.add('active');
-          iataInput.classList.add('wrong');
+          message.classList.add('active');
+          input.classList.add('wrong');
         } else {
-          iataMessage.classList.remove('active');
-          iataInput.classList.remove('wrong');
+          message.classList.remove('active');
+          input.classList.remove('wrong');
         }
       });
     })
@@ -170,23 +178,41 @@ iataInput.addEventListener('focusout', () => {
       console.error(err);
     });
   }
-});
+}
+
+function checkIata(input, message) {
+  if(!/^[a-zA-Z]{1}[a-zA-Z0-9]{1}$/m.test(input.value)) {
+    message.classList.add('active');
+    input.classList.add('wrong');
+    return false;
+  } else {
+    message.classList.remove('active');
+    input.classList.remove('wrong');
+    return true;
+  }
+}
 
 //Flight number
 const flightNumberInput = inputContainer.querySelector('#flight-number-input');
 const flightNumberMessage = inputContainer.querySelector('.flight-number-input-wrapper .warning-message');
 
-flightNumberInput.addEventListener('focusout', () => {
-  if(!/^\d{4}$/.test(flightNumberInput.value)) {
-    flightNumberMessage.classList.add('active');
-    flightNumberInput.classList.add('wrong');
-  } else {
-    flightNumberMessage.classList.remove('active');
-    flightNumberInput.classList.remove('wrong');
-  }
+flightNumberInput.addEventListener('change', () => {
+  checkFlightNumber(flightNumberInput, flightNumberMessage);
 });
 
-//Checking date input and
+function checkFlightNumber(input, message) {
+  if(!/^\d{4}$/.test(input.value)) {
+    message.classList.add('active');
+    input.classList.add('wrong');
+    return false;
+  } else {
+    message.classList.remove('active');
+    input.classList.remove('wrong');
+    return true;
+  }
+}
+
+//Checking date input
 const dateInput = document.querySelector('#date-1');
 const dateMessage = document.querySelector('.date-warning');
 
@@ -228,13 +254,73 @@ function clearTable() {
   }
 }
 
-//Delete row button
+
+//Delete row button and edit cells
+const cover = document.querySelector('.cover');
+const popup = document.querySelector('.popup');
+const saveButton = popup.querySelector('button');
+const editInput = popup.querySelector('input');
+const popUpMessage = popup.querySelector('.warning-message');
+
+let currentCell;
+
 table.addEventListener('click', (e) => {
   if(e.target && e.target.className === 'delete-row') {
     table.deleteRow(e.target.closest('tr').rowIndex);
     enteredRows--;
+  } else if(e.target && e.target.classList.contains('filled')) {
+    currentCell = e.target;
+    editInput.value = currentCell.innerHTML;
+    popup.classList.remove('hidden');
+    cover.classList.remove('hidden');
+    document.documentElement.classList.add('notScrollable');
   }
 });
+
+cover.addEventListener('click', ()=> {
+  closeModal();
+  editInput.value = '';
+});
+
+saveButton.addEventListener('click', ()=> {
+  if(currentCell.classList.contains('from')) {
+    popUpMessage.innerHTML = fromMessage.innerHTML;
+    if(!airportEditValidator(editInput, currentCell.closest('tr').querySelector('.to'), popUpMessage)) return;
+  } else if(currentCell.classList.contains('to')) {
+    popUpMessage.innerHTML = toMessage.innerHTML;
+    if(!airportEditValidator(editInput, currentCell.closest('tr').querySelector('.from'), popUpMessage)) return;
+  } else if(currentCell.classList.contains('iata-code')) {
+    popUpMessage.innerHTML = iataMessage.innerHTML;
+    if(!checkIata(editInput, popUpMessage)) return;
+  } else if(currentCell.classList.contains('flight-number')) {
+    popUpMessage.innerHTML = flightNumberMessage.innerHTML;
+    if(!checkFlightNumber(editInput, popUpMessage)) return;
+  }
+  closeModal();
+  currentCell.innerHTML = editInput.value.toUpperCase();
+  editInput.value = '';
+});
+
+function airportEditValidator(first, second, message) {
+  if(first.value === homeAirport) {
+    second.innerHTML = '';
+  } else {
+    second.innerHTML = homeAirport;
+  }
+  if(!/^[a-zA-Z]{3}\s[А-Я]{1}[а-яА-Я]{1,}/.test(first.value)) {
+    message.classList.add('active');
+    return false;
+  } else {
+    message.classList.remove('active');
+    return true;
+  }
+}
+
+function closeModal() {
+  popup.classList.add('hidden');
+  cover.classList.add('hidden');
+  document.documentElement.classList.remove('notScrollable');
+}
 
 //Add row button
 const addRowButton = document.querySelector('.add-button');
@@ -272,6 +358,7 @@ addRowButton.addEventListener('click', () => {
     while(table.rows[i].cells[0].innerHTML !== '') i++;
     for(let j = 0; j < 4; j++) {
       table.rows[i].cells[j].innerHTML = inputs[j].value;
+      table.rows[i].cells[j].classList.add('filled');
     }
     enteredRows++;
   } else {

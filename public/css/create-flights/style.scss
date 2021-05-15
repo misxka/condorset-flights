@@ -4,6 +4,24 @@ body {
   background: #fff;
 }
 
+input {
+  display: block;
+  box-sizing: border-box;
+  width: 165px;
+  height: max-content;
+  border: none;
+  border-radius: 7px;
+  background: var(--input-field-color);
+  padding: 11px 16px;
+  font-size: 1.6rem;
+  font-family: 'Roboto', sans-serif;
+  color: var(--dark-color-text);
+
+  &.wrong {
+    border: 1px solid red;
+  }
+}
+
 main {
   & .wrapper {
     padding: 0 104px;
@@ -96,24 +114,6 @@ main {
           position: relative;
         }
 
-        & input {
-          display: block;
-          box-sizing: border-box;
-          width: 165px;
-          height: max-content;
-          border: none;
-          border-radius: 7px;
-          background: var(--input-field-color);
-          padding: 11px 16px;
-          font-size: 1.6rem;
-          font-family: 'Roboto', sans-serif;
-          color: var(--dark-color-text);
-
-          &.wrong {
-            border: 1px solid red;
-          }
-        }
-
         & .autocomplete {
           position: absolute;
           display: inline-block;
@@ -200,6 +200,10 @@ main {
             border-top: 1px solid var(--dark-color-text);
             border-spacing: 0;
             text-align: center;
+
+            &.filled:hover {
+              cursor: pointer;
+            }
 
             & .delete-row {
               background: url(../../assets/icons/delete.svg) no-repeat;
@@ -289,18 +293,69 @@ main {
       }
     }
   }
+}
 
-  & .warning-message {
-    position: absolute;
-    padding-top: 3px;
-    display: none;
-    font-size: 1.1rem;
-    color: var(--light-color-text);
-    text-align: center;
-    width: max-content;
+.warning-message {
+  position: absolute;
+  padding-top: 3px;
+  display: none;
+  font-size: 1.1rem;
+  color: var(--light-color-text);
+  text-align: center;
+  width: max-content;
 
-    &.active {
-      display: block;
+  &.active {
+    display: block;
+  }
+}
+
+.cover.hidden,
+.popup.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0s;
+}
+
+.cover {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 150;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.popup {
+  border: 2px solid var(--color-1);
+  background-color: var(--light-color);
+  border-radius: 7px;
+  padding: 30px;
+  width: 460px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 200;
+  position: fixed;
+  top: calc(50vh - 60px);
+  left: calc(50vw - 230px);
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.4s ease-in-out;
+
+  & .input-wrapper {
+    position: relative;
+
+    & input {
+      display: inline-block;
+    }
+
+    & .warning-message {
+      color: red;
     }
   }
+}
+
+html.notScrollable {
+  overflow: hidden;
 }

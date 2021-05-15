@@ -200,3 +200,42 @@ exports.getFinalSchedule = (req, res, next) => {
     res.json(results);
   });
 }
+
+
+
+
+
+// res.json([
+//   {
+//     from: "SVO Moscow",
+//     to: "MSQ Minsk",
+//     iataCode: "SU",
+//     flightNumber: "1222",
+//     time1: "12:23",
+//     time2: "14:16"
+//   },
+//   {
+//     from: "TXL Tegel",
+//     to: "MSQ Minsk",
+//     iataCode: "SU",
+//     flightNumber: "1222",
+//     time1: "12:23",
+//     time2: "14:16"
+//   },
+//   {
+//     from: "DME Moscow",
+//     to: "MSQ Minsk",
+//     iataCode: "SU",
+//     flightNumber: "1222",
+//     time1: "12:23",
+//     time2: "14:16"
+//   },
+//   {
+//     from: "VKO Moscow",
+//     to: "MSQ Minsk",
+//     iataCode: "SU",
+//     flightNumber: "1222",
+//     time1: "12:23",
+//     time2: "14:16"
+//   }
+// ])

@@ -227,4 +227,22 @@ footer .wrapper ul li a {
   text-decoration: none;
   color: var(--dark-color-text);
 }
+
+@-webkit-keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 /*# sourceMappingURL=style.css.map */

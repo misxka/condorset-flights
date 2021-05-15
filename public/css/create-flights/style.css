@@ -5,6 +5,27 @@ body {
   background: #fff;
 }
 
+input {
+  display: block;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 165px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  border: none;
+  border-radius: 7px;
+  background: var(--input-field-color);
+  padding: 11px 16px;
+  font-size: 1.6rem;
+  font-family: 'Roboto', sans-serif;
+  color: var(--dark-color-text);
+}
+
+input.wrong {
+  border: 1px solid red;
+}
+
 main .wrapper {
   padding: 0 104px;
   display: -webkit-box;
@@ -120,27 +141,6 @@ main .add-schedule .add-flight .input-fields .input-wrapper {
   position: relative;
 }
 
-main .add-schedule .add-flight .input-fields input {
-  display: block;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  width: 165px;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  border: none;
-  border-radius: 7px;
-  background: var(--input-field-color);
-  padding: 11px 16px;
-  font-size: 1.6rem;
-  font-family: 'Roboto', sans-serif;
-  color: var(--dark-color-text);
-}
-
-main .add-schedule .add-flight .input-fields input.wrong {
-  border: 1px solid red;
-}
-
 main .add-schedule .add-flight .input-fields .autocomplete {
   position: absolute;
   display: inline-block;
@@ -226,6 +226,10 @@ main .add-schedule .table-wrapper table tr td {
   border-top: 1px solid var(--dark-color-text);
   border-spacing: 0;
   text-align: center;
+}
+
+main .add-schedule .table-wrapper table tr td.filled:hover {
+  cursor: pointer;
 }
 
 main .add-schedule .table-wrapper table tr td .delete-row {
@@ -320,7 +324,7 @@ main .close-voting .inner-wrapper .stop-voting-button {
   width: 271px;
 }
 
-main .warning-message {
+.warning-message {
   position: absolute;
   padding-top: 3px;
   display: none;
@@ -332,7 +336,66 @@ main .warning-message {
   width: max-content;
 }
 
-main .warning-message.active {
+.warning-message.active {
   display: block;
+}
+
+.cover.hidden,
+.popup.hidden {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: all 0s;
+  transition: all 0s;
+}
+
+.cover {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 150;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.popup {
+  border: 2px solid var(--color-1);
+  background-color: var(--light-color);
+  border-radius: 7px;
+  padding: 30px;
+  width: 460px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 200;
+  position: fixed;
+  top: calc(50vh - 60px);
+  left: calc(50vw - 230px);
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.popup .input-wrapper {
+  position: relative;
+}
+
+.popup .input-wrapper input {
+  display: inline-block;
+}
+
+.popup .input-wrapper .warning-message {
+  color: red;
+}
+
+html.notScrollable {
+  overflow: hidden;
 }
 /*# sourceMappingURL=style.css.map */
