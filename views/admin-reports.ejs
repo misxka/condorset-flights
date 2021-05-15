@@ -1,5 +1,11 @@
 <%- include('./common/head.ejs') %>
   <link rel="stylesheet" href="/css/reports/style.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+  <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://d3js.org/d3-color.v1.min.js"></script>
   <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
@@ -45,15 +51,18 @@
             </canvas>
           </div>
           <div class="table-wrapper hidden">
-            <table>
-              <tr>
-                <th>Откуда</th>
-                <th>Куда</th>
-                <th>Код IATA</th>
-                <th>Номер рейса</th>
-                <th>Время вылета</th>
-                <th>Время прилёта</th>
-              </tr>
+            <table id="table">
+              <thead>
+                <tr>
+                  <th>Откуда</th>
+                  <th>Куда</th>
+                  <th>Код IATA</th>
+                  <th>Номер рейса</th>
+                  <th>Время вылета</th>
+                  <th>Время прилёта</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
             </table>
           </div>
           <div class="no-info-message">Данные отсутствуют. Ещё никто не проголосовал.</div>

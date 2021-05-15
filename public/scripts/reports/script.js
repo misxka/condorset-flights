@@ -2,7 +2,6 @@ const reportsSelect = document.getElementById('reports');
 const chartCanvas = document.getElementById('chart');
 const chartWrapper = document.querySelector('.chart-wrapper');
 const tableWrapper = document.querySelector('.table-wrapper');
-const table = tableWrapper.querySelector('table');
 
 const ctx = chartCanvas.getContext('2d');
 
@@ -70,6 +69,7 @@ datesSelect.addEventListener('change', () => {
   .catch((error) => {
     console.error('Error:', error);
   });
+  reportsSelect.value = 'pie-chart';
 });
 
 let chart;
@@ -85,8 +85,8 @@ async function reportsSelectHandler() {
     chartWrapper.classList.add('hidden');
     if(await checkStatus()) {
       noInfoMessage.classList.remove('active');
-      fillTable(await getSchedule());
       tableWrapper.classList.remove('hidden');
+      fillTable(await getSchedule());
     } else {
       noInfoMessage.innerHTML = 'Данные отсутствуют. Голосование ещё не завершено.';
       noInfoMessage.classList.add('active');
@@ -264,21 +264,28 @@ async function getSchedule() {
 }
 
 function fillTable(data) {
-  clearTable();
-  for(let i = 0; i < data.length; i++) {
-    const values = Object.values(data[i]);
-    const row = table.insertRow(i + 1);
-    for(let j = 0; j < 6; j++) {
-      row.insertCell(j);
+  if(data.length > 0) {
+    const array = [];
+    for(let i = 0; i < data.length; i++) {
+      array[i] = Object.values(data[i]);
     }
-    for(let j = 0; j < 6; j++) {
-      table.rows[i + 1].cells[j].innerHTML = values[j];
-    }
-  }
-}
 
-function clearTable() {
-  while(table.rows.length > 1) {
-    table.deleteRow(table.rows.length - 1);
+    $(document).ready( function() {
+      $('#table-1').dataTable({
+        paging: false,
+        info: false,
+        destroy: true,
+        data: array,
+        order: [[ 4, "asc" ]],
+        language: {
+          zeroRecords: "Совпадений не найдено",
+          search: "Поиск:"
+        }
+      });
+    });
+  } else {
+    tableWrapper.classList.add('hidden');
+    noInfoMessage.innerHTML = 'Данные отсутствуют. Голосование ещё не завершено.';
+    noInfoMessage.classList.add('active');
   }
 }

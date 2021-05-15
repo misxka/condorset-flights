@@ -98,13 +98,16 @@ main .add-schedule .report-wrapper .no-info-message.active {
 main .add-schedule .report-wrapper .table-wrapper {
   position: absolute;
   top: 50px;
-  height: 252px;
+  height: 450px;
   overflow: auto;
   display: block;
   -webkit-animation-duration: 1.5s;
           animation-duration: 1.5s;
   -webkit-animation-name: appear;
           animation-name: appear;
+  padding: 15px;
+  border: 2px solid var(--color-1);
+  border-radius: 10px;
 }
 
 main .add-schedule .report-wrapper .table-wrapper.hidden {
@@ -116,6 +119,7 @@ main .add-schedule .report-wrapper .table-wrapper table {
   border-spacing: 0;
   border: 1px solid var(--dark-color-text);
   border-radius: 7px;
+  margin-top: 10px;
 }
 
 main .add-schedule .report-wrapper .table-wrapper table tr {
@@ -193,6 +197,26 @@ main .add-schedule .report-wrapper .table-wrapper::-webkit-scrollbar-thumb {
 
 main .add-schedule .report-wrapper .table-wrapper::-webkit-scrollbar-thumb:hover {
   background: var(--color-2);
+}
+
+main .add-schedule .report-wrapper .table-wrapper .dataTables_wrapper .dataTables_filter {
+  margin: 10px 0 20px;
+}
+
+main .add-schedule .report-wrapper .table-wrapper .dataTables_wrapper .dataTables_filter input {
+  margin-left: 10px;
+  display: inline-block;
+  width: 150px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  border: none;
+  border-radius: 7px;
+  background: var(--input-field-color);
+  padding: 11px 16px;
+  font-size: 1.6rem;
+  font-family: 'Roboto', sans-serif;
+  color: var(--dark-color-text);
 }
 
 main .add-schedule .send-rates-button {
