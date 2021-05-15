@@ -1,5 +1,7 @@
 const reportsSelect = document.getElementById('reports');
 const chartCanvas = document.getElementById('chart');
+const tableWrapper = document.querySelector('.table-wrapper');
+const table = tableWrapper.querySelector('table');
 
 const ctx = chartCanvas.getContext('2d');
 
@@ -7,6 +9,8 @@ const datesSelect = document.querySelector('#dates');
 const availableDates = [];
 
 const votesStats = [];
+
+const flights = [];
 
 //Get available dates from server
 fetch('http://localhost:3000/fetch-handlers/available-dates', {
@@ -70,12 +74,22 @@ datesSelect.addEventListener('change', () => {
 let chart;
 
 reportsSelect.addEventListener('change', () => {
-  ctx.clearRect(0, 0, chartCanvas.width, chartCanvas.height);
-  if(reportsSelect.value === 'pie-chart' && chart?.type !== 'doughnut') {
-    drawDoughnutChart(votesStats);
-  }
-  else if(reportsSelect.value === 'graph' && chart?.type !== 'bar') {
-    drawBarChart(votesStats);
+  if(reportsSelect.value === 'table') {
+    chartCanvas.classList.add('hidden');
+    if(checkStatus()) {
+      noInfoMessage.classList.remove('active');
+      fillTable(getSchedule());  
+    } else {
+      noInfoMessage.classList.add('active');
+    }
+  } else {
+    ctx.clearRect(0, 0, chartCanvas.width, chartCanvas.height);
+    if(reportsSelect.value === 'pie-chart' && chart?.type !== 'doughnut') {
+      drawDoughnutChart(votesStats);
+    }
+    else if(reportsSelect.value === 'graph' && chart?.type !== 'bar') {
+      drawBarChart(votesStats);
+    }
   }
 });
 
@@ -123,6 +137,8 @@ const noInfoMessage = document.querySelector('.no-info-message');
 function drawDoughnutChart(data) {
   chart?.destroy();
 
+  tableWrapper.classList.add('hidden');
+
   if(data.length === 0) {
     noInfoMessage.classList.add('active');
     chartCanvas.classList.add('hidden');
@@ -162,6 +178,8 @@ function drawDoughnutChart(data) {
 
 function drawBarChart(data) {
   chart?.destroy();
+
+  tableWrapper.classList.add('hidden');
 
   if(data.length === 0) {
     noInfoMessage.classList.add('active');
@@ -208,4 +226,50 @@ function drawBarChart(data) {
       }
     }
   });
+}
+
+async function checkStatus() {
+  const response = await fetch('http://localhost:3000/fetch-handlers/check-status', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({"date": datesSelect.value})
+  });
+  const status = await response.json();
+  return status;
+}
+
+async function getSchedule() {
+  const response = await fetch('http://localhost:3000/fetch-handlers/get-final-schedule', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({"date": datesSelect.value})
+  });
+  const schedule = await response.json();
+  return schedule;
+}
+
+function fillTable(data) {
+  clearTable();
+  for(let i = 0; i < data.length; i++) {
+    const values = Object.values(data[i]);
+    const row = table.insertRow(i + 1);
+    for(let j = 0; j < 6; j++) {
+      row.insertCell(j);
+    }
+    for(let j = 0; j < 6; j++) {
+      table.rows[i + 1].cells[j].innerHTML = values[j + 1];
+    }
+  }
+}
+
+function clearTable() {
+  while(table.rows.length > 1) {
+    table.deleteRow(table.rows.length - 1);
+  }
 }

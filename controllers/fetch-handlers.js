@@ -163,3 +163,35 @@ exports.getVotesStats = (req, res, next) => {
     res.json(results);
   });
 }
+
+exports.checkStatus = async (req, res, next) => {
+  const date = req.body[0].date;
+  const result = await DateInfo.findByPk(date);
+  if(result === null) {
+    console.log("Ничего не найдено!");
+  } else {
+    if(!result.dataValues.isAvailable)
+    res.json({
+      status: true
+    });
+  }
+}
+
+exports.getFinalSchedule = (req, res, next) => {
+  FlightsSchedule.findAll({
+    where: {
+      date: req.body.date
+    }
+  })
+  .then(results => {
+    results = results.map(elem => elem.dataValues);
+    results = results.map(elem => {
+      delete elem.id;
+      delete elem.date;
+      delete elem.createdAt;
+      delete elem.updatedAt;
+      return elem;
+    });
+    res.json(results);
+  });
+}

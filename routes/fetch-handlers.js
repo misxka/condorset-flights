@@ -38,4 +38,14 @@ router.post(
   fetchHandlersController.getTempFlights
 )
 
+router.post(
+  '/check-status',
+  fetchHandlersController.checkStatus
+)
+
+router.post(
+  '/get-final-schedule',
+  fetchHandlersController.getFinalSchedule
+)
+
 module.exports = router;

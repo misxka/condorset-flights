@@ -144,9 +144,9 @@ function fillTable(data) {
   for(let i = 0; i < data.length; i++) {
     const values = Object.values(data[i]);
     const row = table.insertRow(i + 1);
-    for(let i = 0; i < 5; i++) {
-      const cell = row.insertCell(i);
-      if(i === 4) {
+    for(let j = 0; j < 5; j++) {
+      const cell = row.insertCell(j);
+      if(j === 4) {
         cell.innerHTML = '<input class="vote-input" type="number" min="1" max="1000"><div class="warning-message">Оценки должны быть различными</div>';
       }
     }
