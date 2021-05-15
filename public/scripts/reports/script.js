@@ -1,5 +1,6 @@
 const reportsSelect = document.getElementById('reports');
 const chartCanvas = document.getElementById('chart');
+const chartWrapper = document.querySelector('.chart-wrapper');
 const tableWrapper = document.querySelector('.table-wrapper');
 const table = tableWrapper.querySelector('table');
 
@@ -72,14 +73,21 @@ datesSelect.addEventListener('change', () => {
 });
 
 let chart;
+const noInfoMessage = document.querySelector('.no-info-message');
 
 reportsSelect.addEventListener('change', () => {
+  reportsSelectHandler();
+});
+
+async function reportsSelectHandler() {
   if(reportsSelect.value === 'table') {
-    chartCanvas.classList.add('hidden');
-    if(checkStatus()) {
+    chart?.destroy();
+    chartWrapper.classList.add('hidden');
+    if(await checkStatus()) {
       noInfoMessage.classList.remove('active');
       fillTable(getSchedule());  
     } else {
+      noInfoMessage.innerHTML = 'Данные отсутствуют. Голосование ещё не завершено.';
       noInfoMessage.classList.add('active');
     }
   } else {
@@ -91,10 +99,10 @@ reportsSelect.addEventListener('change', () => {
       drawBarChart(votesStats);
     }
   }
-});
+}
 
 function changeDate(data) {
-  const selectedDate = datesSelect.value;
+  // const selectedDate = datesSelect.value;
   if(reportsSelect.value === 'pie-chart' && chart?.type !== 'doughnut') {
     drawDoughnutChart(data);
   }
@@ -132,20 +140,19 @@ const colorRangeInfo = {
 }
 
 
-const noInfoMessage = document.querySelector('.no-info-message');
-
 function drawDoughnutChart(data) {
   chart?.destroy();
 
   tableWrapper.classList.add('hidden');
 
   if(data.length === 0) {
+    noInfoMessage.innerHTML = 'Данные отсутствуют. Ещё никто не проголосовал.';
     noInfoMessage.classList.add('active');
-    chartCanvas.classList.add('hidden');
+    chartWrapper.classList.add('hidden');
     return;
   }
 
-  chartCanvas.classList.remove('hidden');
+  chartWrapper.classList.remove('hidden');
   noInfoMessage.classList.remove('active');
   
   const customLabels = data.map(elem => `Порядок приоритета: ${elem.order}`);
@@ -182,12 +189,13 @@ function drawBarChart(data) {
   tableWrapper.classList.add('hidden');
 
   if(data.length === 0) {
+    noInfoMessage.innerHTML = 'Данные отсутствуют. Ещё никто не проголосовал.';
     noInfoMessage.classList.add('active');
-    chartCanvas.classList.add('hidden');
+    chartWrapper.classList.add('hidden');
     return;
   }
 
-  chartCanvas.classList.remove('hidden');
+  chartWrapper.classList.remove('hidden');
   noInfoMessage.classList.remove('active');
   
   const customLabels = data.map(elem => `Порядок приоритета: ${elem.order}`);
@@ -237,8 +245,8 @@ async function checkStatus() {
     },
     body: JSON.stringify({"date": datesSelect.value})
   });
-  const status = await response.json();
-  return status;
+  const result = await response.json();
+  return result.status;
 }
 
 async function getSchedule() {

@@ -165,15 +165,20 @@ exports.getVotesStats = (req, res, next) => {
 }
 
 exports.checkStatus = async (req, res, next) => {
-  const date = req.body[0].date;
+  const date = req.body.date;
   const result = await DateInfo.findByPk(date);
   if(result === null) {
     console.log("Ничего не найдено!");
   } else {
-    if(!result.dataValues.isAvailable)
-    res.json({
-      status: true
-    });
+    if(!result.dataValues.isAvailable) {
+      res.json({
+        status: true
+      });
+    } else {
+      res.json({
+        status: false
+      });
+    }
   }
 }
 

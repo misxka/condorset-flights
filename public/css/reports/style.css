@@ -68,8 +68,12 @@ main .add-schedule .report-wrapper {
   position: relative;
 }
 
-main .add-schedule .report-wrapper.chart-wrapper #chart.hidden {
-  visibility: hidden;
+main .add-schedule .report-wrapper.chart-wrapper {
+  display: block;
+}
+
+main .add-schedule .report-wrapper.chart-wrapper.hidden {
+  display: none;
 }
 
 main .add-schedule .report-wrapper .no-info-message {

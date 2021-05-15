@@ -60,8 +60,10 @@ main {
       position: relative;
 
       &.chart-wrapper {
-        & #chart.hidden {
-          visibility: hidden;
+        display: block;
+
+        &.hidden {
+          display: none;
         }
       }
 
