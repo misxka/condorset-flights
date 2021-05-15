@@ -85,7 +85,8 @@ async function reportsSelectHandler() {
     chartWrapper.classList.add('hidden');
     if(await checkStatus()) {
       noInfoMessage.classList.remove('active');
-      fillTable(getSchedule());  
+      fillTable(await getSchedule());
+      tableWrapper.classList.remove('hidden');
     } else {
       noInfoMessage.innerHTML = 'Данные отсутствуют. Голосование ещё не завершено.';
       noInfoMessage.classList.add('active');
@@ -271,7 +272,7 @@ function fillTable(data) {
       row.insertCell(j);
     }
     for(let j = 0; j < 6; j++) {
-      table.rows[i + 1].cells[j].innerHTML = values[j + 1];
+      table.rows[i + 1].cells[j].innerHTML = values[j];
     }
   }
 }

@@ -68,12 +68,13 @@ main .add-schedule .report-wrapper {
   position: relative;
 }
 
-main .add-schedule .report-wrapper.chart-wrapper {
-  display: block;
+main .add-schedule .report-wrapper .chart-wrapper {
+  height: 450px;
+  visibility: visible;
 }
 
-main .add-schedule .report-wrapper.chart-wrapper.hidden {
-  display: none;
+main .add-schedule .report-wrapper .chart-wrapper.hidden {
+  visibility: hidden;
 }
 
 main .add-schedule .report-wrapper .no-info-message {
@@ -86,26 +87,8 @@ main .add-schedule .report-wrapper .no-info-message {
   display: none;
   -webkit-animation-duration: 1.5s;
           animation-duration: 1.5s;
-  -webkit-animation-name: appearFromLeft;
-          animation-name: appearFromLeft;
-}
-
-@-webkit-keyframes appearFromLeft {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes appearFromLeft {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  -webkit-animation-name: appear;
+          animation-name: appear;
 }
 
 main .add-schedule .report-wrapper .no-info-message.active {
@@ -113,10 +96,15 @@ main .add-schedule .report-wrapper .no-info-message.active {
 }
 
 main .add-schedule .report-wrapper .table-wrapper {
+  position: absolute;
+  top: 50px;
   height: 252px;
   overflow: auto;
-  margin-bottom: 38px;
   display: block;
+  -webkit-animation-duration: 1.5s;
+          animation-duration: 1.5s;
+  -webkit-animation-name: appear;
+          animation-name: appear;
 }
 
 main .add-schedule .report-wrapper .table-wrapper.hidden {
@@ -212,5 +200,23 @@ main .add-schedule .send-rates-button {
   width: 238px;
   -ms-flex-item-align: end;
       align-self: flex-end;
+}
+
+@-webkit-keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 /*# sourceMappingURL=style.css.map */
