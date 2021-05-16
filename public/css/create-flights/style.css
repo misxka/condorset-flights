@@ -324,6 +324,36 @@ main .close-voting .inner-wrapper .stop-voting-button {
   width: 271px;
 }
 
+main .close-voting .inner-wrapper .choose-date {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+main .close-voting .inner-wrapper .choose-date label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  display: block;
+  margin-right: 10px;
+  color: var(--dark-color-text);
+}
+
+main .close-voting .inner-wrapper .choose-date select {
+  border-radius: 7px;
+  border: 1px solid var(--input-field-color);
+  background: var(--input-field-color);
+  padding: 8px 16px;
+  font-size: 1.6rem;
+  font-family: 'Roboto', sans-serif;
+  color: var(--dark-color-text);
+  cursor: pointer;
+  outline: none;
+  min-width: 135px;
+}
+
 .warning-message {
   position: absolute;
   padding-top: 3px;

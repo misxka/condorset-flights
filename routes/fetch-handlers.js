@@ -48,4 +48,9 @@ router.post(
   fetchHandlersController.getFinalSchedule
 )
 
+router.post(
+  '/stop-voting',
+  fetchHandlersController.stopVoting
+)
+
 module.exports = router;

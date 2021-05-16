@@ -384,31 +384,7 @@ addRowButton.addEventListener('click', () => {
 
 
 //Send data to server
-class FlightTemplate {
-  #date;
-  #from;
-  #to;
-  #iataCode;
-  #flightNumber;
-
-  constructor(date, from, to, iataCode, flightNumber) {
-    this.#date = date;
-    this.#from = from;
-    this.#to = to;
-    this.#iataCode = iataCode;
-    this.#flightNumber = flightNumber;
-  }
-
-  toJSON() {
-    return {
-      date: this.#date,
-      from: this.#from,
-      to: this.#to,
-      iataCode: this.#iataCode,
-      flightNumber: this.#flightNumber
-    }
-  }
-}
+import FlightTemplate from './flight-template.js';
 
 submitButton.addEventListener('click', () => {
   if(dateInput.value === '' || enteredRows < 4) {
@@ -446,3 +422,57 @@ submitButton.addEventListener('click', () => {
     console.error('Error:', error);
   });
 });
+
+
+//Stop voting
+const stopVotingButton = document.querySelector('.stop-voting-button');
+const datesSelect = document.querySelector('#dates');
+const availableDates = [];
+
+const getAvailableDates = function() {
+  datesSelect.innerHTML = null;
+  availableDates.length = 0;
+  fetch('http://localhost:3000/fetch-handlers/available-dates', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    availableDates.push(...data);
+    for(const date of availableDates) {
+      const newOption = new Option(date, date);
+      datesSelect.append(newOption);
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+};
+
+getAvailableDates();
+
+stopVotingButton.addEventListener('click', () => {
+  stopVoting();
+});
+
+function stopVoting() {
+  fetch('http://localhost:3000/fetch-handlers/stop-voting', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({"date": datesSelect.value})
+  })
+  .then(response => response.json())
+  .then(data => {
+    if(data.status === true) {
+      getAvailableDates();
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}

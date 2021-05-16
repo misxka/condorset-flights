@@ -201,7 +201,19 @@ exports.getFinalSchedule = (req, res, next) => {
   });
 }
 
-
+exports.stopVoting = async (req, res, next) => {
+  const date = req.body.date;
+  const result = await DateInfo.findByPk(date);
+  if(result === null) {
+    console.log("Ничего не найдено!");
+  } else {
+    result.isAvailable = 0;
+    result.save();
+    res.json({
+      status: true
+    });
+  }
+}
 
 
 

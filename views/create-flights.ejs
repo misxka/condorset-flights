@@ -102,8 +102,9 @@
         <h2>Завершение голосования</h2>
         <div class="inner-wrapper">
           <div class="choose-date">
-            <label for="date-2">Выберите дату:</label>
-            <input type="date" id="date-2" class="date-input">
+            <label for="dates">Выберите дату:</label>
+            <select name="dates" id="dates">
+            </select>
           </div>
           <button class="stop-voting-button blue-button">Завершить голосование</button>
         </div>
@@ -132,5 +133,5 @@
     </div>
     <button class="blue-button">Сохранить</button>
   </div> 
-  <script src="/scripts/create-flights/script.js"></script>
+  <script src="/scripts/create-flights/script.js" type="module"></script>
 </body>
