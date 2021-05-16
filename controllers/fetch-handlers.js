@@ -228,47 +228,21 @@ exports.getClosedDates = (req, res, next) => {
 }
 
 exports.getPreFinalSchedule = (req, res, next) => {
-  // TempSchedule.findAll({
-  //   where: {
-  //     date: req.body.date
-  //   }
-  // })
-  // .then(flights => {
-  //   flights = flights.map(elem => elem.dataValues);
-  //   flights = flights.map(elem => {
-  //     delete elem.date;
-  //     delete elem.createdAt;
-  //     delete elem.updatedAt;
-  //     return elem;
-  //   });
-  //   res.json(flights);
-  // })
-  res.json([
-      {
-        from: "SVO Moscow",
-        to: "MSQ Национальный Аэропорт Минск",
-        iataCode: "SU",
-        flightNumber: "1222"
-      },
-      {
-        from: "TXL Tegel",
-        to: "MSQ Национальный Аэропорт Минск",
-        iataCode: "SU",
-        flightNumber: "1222"
-      },
-      {
-        from: "DME Moscow",
-        to: "MSQ Национальный Аэропорт Минск",
-        iataCode: "SU",
-        flightNumber: "1222"
-      },
-      {
-        from: "VKO Moscow",
-        to: "MSQ Национальный Аэропорт Минск",
-        iataCode: "SU",
-        flightNumber: "1222"
-      }
-    ])
+  TempSchedule.findAll({
+    where: {
+      date: req.body.date
+    }
+  })
+  .then(flights => {
+    flights = flights.map(elem => elem.dataValues);
+    flights = flights.map(elem => {
+      delete elem.date;
+      delete elem.createdAt;
+      delete elem.updatedAt;
+      return elem;
+    });
+    res.json(flights);
+  })
 }
 
 // res.json([
