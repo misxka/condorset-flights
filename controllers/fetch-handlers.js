@@ -8,6 +8,8 @@ const TempSchedule = db.tempSchedule;
 const VoteOrder = db.voteOrder;
 const VotedUser = db.votedUser;
 
+const {Graph, CondorcetMethod} = require('../util/condorcet-method');
+
 exports.findDateInfo = async (req, res, next) => {
   const date = req.body[0].date;
   const result = await DateInfo.findByPk(date);
@@ -209,10 +211,103 @@ exports.stopVoting = async (req, res, next) => {
   } else {
     result.isAvailable = 0;
     result.save();
-    res.json({
-      status: true
+    next();
+  }
+}
+
+exports.applyMethod = (req, res, next) => {
+  const date = req.body.date;
+  VoteOrder.findAll({
+    where: {
+      date: date
+    }
+  })
+  .then(async results => {
+    results = results.map(elem => elem.dataValues);
+    results = results.map(elem => {
+      delete elem.id;
+      delete elem.date;
+      delete elem.createdAt;
+      delete elem.updatedAt;
+      return elem;
+    });
+    req.body.orders = results;
+    const method = new CondorcetMethod();
+    const result = await method.createMatrix(req.body.orders, date);
+    
+    req.body.orders = method.getComputedOrder();
+    next();
+  });
+}
+
+exports.changeRecordsInDB = async (req, res, next) => {
+  let flights = await TempSchedule.findAll({
+    where: {
+      [Op.and]: [
+        {
+          airlineId: {
+            [Op.in]: req.body.orders.map(elem => elem.slice(0, 2))
+          }
+        },
+        {
+          flightNumber: {
+            [Op.in]: req.body.orders.map(elem => elem.slice(2))
+          }
+        },
+        {
+          date: req.body.date
+        }
+      ]
+    }
+  });
+
+  flights = flights.map(elem => elem.dataValues);
+  flights = flights.map(elem => {
+    delete elem.id;
+    delete elem.date;
+    delete elem.createdAt;
+    delete elem.updatedAt;
+    return elem;
+  });
+
+  const result = [];
+  const length = req.body.orders.length;
+  for(let i = 0; i < length; i++) {
+    for(let j = 0; j < length; j++) {
+      const flight = flights[j];
+      if(req.body.orders[i] === `${flight.airlineId}${flight.flightNumber}`) result.push(flight);
+    }
+  }
+
+  TempSchedule.destroy({
+    where: {
+      date: req.body.date
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+    res.status(500).send(error.message);
+  });
+
+  for(let i = 0; i < length; i++) {
+    const flight = result[i];
+    TempSchedule.create({
+      from: flight.from,
+      to: flight.to,
+      airlineId: flight.airlineId,
+      flightNumber: flight.flightNumber,
+      date: req.body.date
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      res.status(500).send(error.message);
     });
   }
+
+  req.body.schedule = result;
+  res.json({
+    status: true
+  });
 }
 
 exports.getClosedDates = (req, res, next) => {
@@ -236,6 +331,7 @@ exports.getPreFinalSchedule = (req, res, next) => {
   .then(flights => {
     flights = flights.map(elem => elem.dataValues);
     flights = flights.map(elem => {
+      delete elem.id;
       delete elem.date;
       delete elem.createdAt;
       delete elem.updatedAt;
@@ -244,38 +340,3 @@ exports.getPreFinalSchedule = (req, res, next) => {
     res.json(flights);
   })
 }
-
-// res.json([
-//   {
-//     from: "SVO Moscow",
-//     to: "MSQ Minsk",
-//     iataCode: "SU",
-//     flightNumber: "1222",
-//     time1: "12:23",
-//     time2: "14:16"
-//   },
-//   {
-//     from: "TXL Tegel",
-//     to: "MSQ Minsk",
-//     iataCode: "SU",
-//     flightNumber: "1222",
-//     time1: "12:23",
-//     time2: "14:16"
-//   },
-//   {
-//     from: "DME Moscow",
-//     to: "MSQ Minsk",
-//     iataCode: "SU",
-//     flightNumber: "1222",
-//     time1: "12:23",
-//     time2: "14:16"
-//   },
-//   {
-//     from: "VKO Moscow",
-//     to: "MSQ Minsk",
-//     iataCode: "SU",
-//     flightNumber: "1222",
-//     time1: "12:23",
-//     time2: "14:16"
-//   }
-// ])

@@ -50,7 +50,9 @@ router.post(
 
 router.post(
   '/stop-voting',
-  fetchHandlersController.stopVoting
+  fetchHandlersController.stopVoting,
+  fetchHandlersController.applyMethod,
+  fetchHandlersController.changeRecordsInDB
 )
 
 router.get(

@@ -583,3 +583,11 @@ finalDatesSelect.addEventListener('change', () => {
     console.error('Error:', error);
   });
 });
+
+
+//Apply flights
+const applyFlightsButton = document.querySelector('.apply-flights-button');
+
+applyFlightsButton.addEventListener('click', () => {
+
+});

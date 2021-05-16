@@ -22,39 +22,37 @@ class CondorcetMethod {
     this.#strengths = [];
   }
 
-  createMatrix(flights, date) {
-    const length = flights.length;
+  async createMatrix(orders, date) {
+    const length = orders[0].order.split(', ').length;
     for(let i = 0; i < length; i++) {
       this.#preferenceMatrix[i] = [];
     }
-    this.getVoteOrders(date);
+    const result = await this.getVoteOrders(date);
+
     this.compareVotes();
     const graph = new Graph(this.#preferenceMatrix);
     this.#strengths.push(...graph.floydWarshall());
   }
 
-  getVoteOrders(date) {
+  async getVoteOrders(date) {
     const reference = this;
-    VoteOrder.findAll({
+    let voteOrders = await VoteOrder.findAll({
       where: {
         date: date
       }
-    })
-    .then(function(results) {
-      results = results.map(elem => elem.dataValues);
-      results = results.map(elem => {
-        delete elem.id;
-        delete elem.date;
-        delete elem.createdAt;
-        delete elem.updatedAt;
-        return elem;
-      });
-      return results;
-    })
-    .then(function(results) {
-      reference.#names = results[0].order.split(', ');
-      reference.#voteOrders = results;
     });
+    
+    voteOrders = voteOrders.map(elem => elem.dataValues);
+    voteOrders = voteOrders.map(elem => {
+      delete elem.id;
+      delete elem.date;
+      delete elem.createdAt;
+      delete elem.updatedAt;
+      return elem;
+    });
+
+    reference.#names = voteOrders[0].order.split(', ');
+    reference.#voteOrders = voteOrders;
   }
 
   compareVotes() {
@@ -63,7 +61,7 @@ class CondorcetMethod {
       for(let j = 0; j < length; j++) {
         if(i !== j) {
           let sum = 0;
-          for(let k = 0; k < length; k++) {
+          for(let k = 0; k < this.#voteOrders.length; k++) {
             const voteOrder = this.#voteOrders[k];
             const posI = voteOrder.order.indexOf(this.#names[i]);
             const posJ = voteOrder.order.indexOf(this.#names[j]);
@@ -95,12 +93,12 @@ class CondorcetMethod {
         if(this.#strengths[i][j] > 0) sum++;
       }
       positionsOrder.push({
-        name: this.#strengths[i],
+        name: i,
         value: sum
       });
     }
 
-    positionsOrder.sort(a, b => b.value - a.value);
+    positionsOrder.sort((a, b) => b.value - a.value);
     return positionsOrder.map(elem => elem.name);
   }
 
@@ -108,8 +106,13 @@ class CondorcetMethod {
     const indexOrder = this.findBetterCandidate();
     const result = [];
     for(let i = 0; i < indexOrder.length; i++) {
-      result.push(names[indexOrder[i]]);
+      result.push(this.#names[indexOrder[i]]);
     }
     return result;
   }
+}
+
+module.exports = {
+  'CondorcetMethod': CondorcetMethod,
+  'Graph': Graph
 }
