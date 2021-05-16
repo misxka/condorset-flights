@@ -215,7 +215,61 @@ exports.stopVoting = async (req, res, next) => {
   }
 }
 
+exports.getClosedDates = (req, res, next) => {
+  DateInfo.findAll({
+    where: {
+      isAvailable: false
+    }
+  })
+  .then(dates => {
+    dates = dates.map(elem => elem.dataValues.date);
+    res.json(dates);
+  })
+}
 
+exports.getPreFinalSchedule = (req, res, next) => {
+  // TempSchedule.findAll({
+  //   where: {
+  //     date: req.body.date
+  //   }
+  // })
+  // .then(flights => {
+  //   flights = flights.map(elem => elem.dataValues);
+  //   flights = flights.map(elem => {
+  //     delete elem.date;
+  //     delete elem.createdAt;
+  //     delete elem.updatedAt;
+  //     return elem;
+  //   });
+  //   res.json(flights);
+  // })
+  res.json([
+      {
+        from: "SVO Moscow",
+        to: "MSQ Национальный Аэропорт Минск",
+        iataCode: "SU",
+        flightNumber: "1222"
+      },
+      {
+        from: "TXL Tegel",
+        to: "MSQ Национальный Аэропорт Минск",
+        iataCode: "SU",
+        flightNumber: "1222"
+      },
+      {
+        from: "DME Moscow",
+        to: "MSQ Национальный Аэропорт Минск",
+        iataCode: "SU",
+        flightNumber: "1222"
+      },
+      {
+        from: "VKO Moscow",
+        to: "MSQ Национальный Аэропорт Минск",
+        iataCode: "SU",
+        flightNumber: "1222"
+      }
+    ])
+}
 
 // res.json([
 //   {

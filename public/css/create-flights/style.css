@@ -37,6 +37,95 @@ main .wrapper {
           flex-direction: column;
 }
 
+main .table-wrapper {
+  height: 350px;
+  overflow: auto;
+  margin-bottom: 38px;
+}
+
+main .table-wrapper table {
+  width: 100%;
+  border-spacing: 0;
+  border: 1px solid var(--dark-color-text);
+  border-radius: 7px;
+}
+
+main .table-wrapper table tr {
+  height: 50px;
+  font-size: 2.2rem;
+}
+
+main .table-wrapper table tr:last-child td:first-of-type {
+  border-bottom-left-radius: 7px;
+}
+
+main .table-wrapper table tr:last-child td:last-of-type {
+  border-bottom-right-radius: 7px;
+}
+
+main .table-wrapper table tr td {
+  border-left: 1px solid var(--dark-color-text);
+  border-top: 1px solid var(--dark-color-text);
+  border-spacing: 0;
+  text-align: center;
+}
+
+main .table-wrapper table tr td.filled:hover {
+  cursor: pointer;
+}
+
+main .table-wrapper table tr td .delete-row {
+  background: url(../../assets/icons/delete.svg) no-repeat;
+  width: 32px;
+  height: 32px;
+}
+
+main .table-wrapper table tr td .delete-row:hover {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
+}
+
+main .table-wrapper table tr th {
+  border-left: 1px solid var(--dark-color-text);
+  border-spacing: 0;
+  font-weight: 500;
+  width: 240px;
+}
+
+main .table-wrapper table tr th:first-of-type {
+  border-top-left-radius: 7px;
+}
+
+main .table-wrapper table tr th:last-of-type {
+  border-top-right-radius: 7px;
+}
+
+main .table-wrapper table tr td:first-child,
+main .table-wrapper table tr th:first-child {
+  border-left-width: 0;
+}
+
+main .table-wrapper::-webkit-scrollbar {
+  width: 16px;
+}
+
+main .table-wrapper::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px gray;
+          box-shadow: inset 0 0 5px gray;
+  border-radius: 7px;
+}
+
+main .table-wrapper::-webkit-scrollbar-thumb {
+  background: var(--color-1);
+  border-radius: 7px;
+}
+
+main .table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--color-2);
+}
+
 main h2 {
   margin-top: 50px;
   margin-bottom: 30px;
@@ -195,95 +284,6 @@ main .add-schedule .add-flight .add-button {
   font-size: 2rem;
 }
 
-main .add-schedule .table-wrapper {
-  height: 252px;
-  overflow: auto;
-  margin-bottom: 38px;
-}
-
-main .add-schedule .table-wrapper table {
-  width: 100%;
-  border-spacing: 0;
-  border: 1px solid var(--dark-color-text);
-  border-radius: 7px;
-}
-
-main .add-schedule .table-wrapper table tr {
-  height: 50px;
-  font-size: 2.2rem;
-}
-
-main .add-schedule .table-wrapper table tr:last-child td:first-of-type {
-  border-bottom-left-radius: 7px;
-}
-
-main .add-schedule .table-wrapper table tr:last-child td:last-of-type {
-  border-bottom-right-radius: 7px;
-}
-
-main .add-schedule .table-wrapper table tr td {
-  border-left: 1px solid var(--dark-color-text);
-  border-top: 1px solid var(--dark-color-text);
-  border-spacing: 0;
-  text-align: center;
-}
-
-main .add-schedule .table-wrapper table tr td.filled:hover {
-  cursor: pointer;
-}
-
-main .add-schedule .table-wrapper table tr td .delete-row {
-  background: url(../../assets/icons/delete.svg) no-repeat;
-  width: 32px;
-  height: 32px;
-}
-
-main .add-schedule .table-wrapper table tr td .delete-row:hover {
-  -webkit-transform: rotate(90deg);
-          transform: rotate(90deg);
-  -webkit-transition: 0.6s;
-  transition: 0.6s;
-}
-
-main .add-schedule .table-wrapper table tr th {
-  border-left: 1px solid var(--dark-color-text);
-  border-spacing: 0;
-  font-weight: 500;
-  width: 240px;
-}
-
-main .add-schedule .table-wrapper table tr th:first-of-type {
-  border-top-left-radius: 7px;
-}
-
-main .add-schedule .table-wrapper table tr th:last-of-type {
-  border-top-right-radius: 7px;
-}
-
-main .add-schedule .table-wrapper table tr td:first-child,
-main .add-schedule .table-wrapper table tr th:first-child {
-  border-left-width: 0;
-}
-
-main .add-schedule .table-wrapper::-webkit-scrollbar {
-  width: 16px;
-}
-
-main .add-schedule .table-wrapper::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 5px gray;
-          box-shadow: inset 0 0 5px gray;
-  border-radius: 7px;
-}
-
-main .add-schedule .table-wrapper::-webkit-scrollbar-thumb {
-  background: var(--color-1);
-  border-radius: 7px;
-}
-
-main .add-schedule .table-wrapper::-webkit-scrollbar-thumb:hover {
-  background: var(--color-2);
-}
-
 main .add-schedule .button-wrapper {
   position: relative;
   -ms-flex-item-align: end;
@@ -324,7 +324,43 @@ main .close-voting .inner-wrapper .stop-voting-button {
   width: 271px;
 }
 
-main .close-voting .inner-wrapper .choose-date {
+main .set-time-section.active {
+  display: block;
+}
+
+main .set-time-section .wrapper {
+  padding-bottom: 50px;
+}
+
+main .set-time-section .wrapper .info-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+main .set-time-section .wrapper .apply-method-button {
+  width: 200px;
+  margin-left: auto;
+}
+
+main .set-time-section .wrapper input {
+  width: 160px;
+  margin: 0 auto;
+}
+
+main .set-time-section .wrapper .warning-message {
+  color: red;
+  font-size: 1.6rem;
+}
+
+main .set-time-section .table-wrapper {
+  margin-top: 40px;
+}
+
+main .choose-date {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -333,7 +369,7 @@ main .close-voting .inner-wrapper .choose-date {
           align-items: center;
 }
 
-main .close-voting .inner-wrapper .choose-date label {
+main .choose-date label {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   display: block;
@@ -341,7 +377,7 @@ main .close-voting .inner-wrapper .choose-date label {
   color: var(--dark-color-text);
 }
 
-main .close-voting .inner-wrapper .choose-date select {
+main .choose-date select {
   border-radius: 7px;
   border: 1px solid var(--input-field-color);
   background: var(--input-field-color);

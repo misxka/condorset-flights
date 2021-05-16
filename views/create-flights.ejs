@@ -53,7 +53,7 @@
           </button>
         </div>
         <div class="table-wrapper">
-          <table>
+          <table id="table-1">
             <tr>
               <th>Откуда</th>
               <th>Куда</th>
@@ -102,15 +102,40 @@
         <h2>Завершение голосования</h2>
         <div class="inner-wrapper">
           <div class="choose-date">
-            <label for="dates">Выберите дату:</label>
-            <select name="dates" id="dates">
+            <label for="dates-1">Выберите дату:</label>
+            <select name="dates-1" id="dates-1">
             </select>
           </div>
           <button class="stop-voting-button blue-button">Завершить голосование</button>
         </div>
       </div>
     </section>
-    
+    <section class="set-time-section">
+      <div class="wrapper">
+        <h2>Установка времени вылета и прилёта</h2>
+        <div class="choose-date">
+          <label for="dates-2">Выберите дату:</label>
+          <select name="dates-2" id="dates-2">
+          </select>
+        </div>
+        <div class="table-wrapper">
+          <table id="table-2">
+            <tr>
+              <th>Откуда</th>
+              <th>Куда</th>
+              <th>Код IATA</th>
+              <th>Номер рейса</th>
+              <th>Время вылета</th>
+              <th>Время прилёта</th>
+            </tr>
+          </table>
+        </div>
+        <div class="info-wrapper">
+          <div class="warning-message">Время должно быть больше значений, введённых в предыдущих строках (прилёт/вылет из Минска)</div>
+          <button class="apply-method-button blue-button">Применить метод</button>
+        </div>
+      </div>
+    </section>
   </main>
   <footer>
     <div class="wrapper">

@@ -216,7 +216,7 @@ function checkFlightNumber(input, message) {
 const dateInput = document.querySelector('#date-1');
 const dateMessage = document.querySelector('.date-warning');
 
-const table = document.querySelector('.table-wrapper table');
+const table = document.querySelector('.table-wrapper #table-1');
 const deleteRowButtons = table.querySelectorAll('.delete-row');
 
 const submitButton = document.querySelector('.submit-schedule-button');
@@ -426,7 +426,7 @@ submitButton.addEventListener('click', () => {
 
 //Stop voting
 const stopVotingButton = document.querySelector('.stop-voting-button');
-const datesSelect = document.querySelector('#dates');
+const datesSelect = document.querySelector('#dates-1');
 const availableDates = [];
 
 const getAvailableDates = function() {
@@ -476,3 +476,110 @@ function stopVoting() {
     console.error('Error:', error);
   });
 }
+
+//Set departure and arrival time
+const finalTable = document.querySelector('#table-2');
+const finalDatesSelect = document.querySelector('#dates-2');
+const closedDates = [];
+
+const setTimeWarning = document.querySelector('.set-time-section .warning-message');
+
+function fillTable(data) {
+  for(let i = 0; i < data.length; i++) {
+    const values = Object.values(data[i]);
+    const row = finalTable.insertRow(i + 1);
+    row.id = `row-${i + 1}`;
+    for(let j = 0; j < 6; j++) {
+      const cell = row.insertCell(j);
+      if(j === 4) {
+        cell.innerHTML = '<input class="time-input departure-time" type="time">';
+      } else if(j === 5) {
+        cell.innerHTML = '<input class="time-input arrival-time" type="time">';
+      }
+    }
+    for(let j = 0; j < 4; j++) {
+      finalTable.rows[i + 1].cells[j].innerHTML = values[j];
+    }
+  }
+}
+
+const times = new Map();
+
+function checkMap(map, inputValue, index) {
+  for(let i = index - 1; i >= 0; i--) {
+    const value = map.get(i);
+    if(value !== undefined) {
+      if(new Date(`01/01/1970 ${inputValue}`) < new Date(`01/01/1970 ${value}`)) return false;
+      else {
+        map.set(index, inputValue);
+        return true;
+      }
+    } else if(i === 0) {
+      map.set(index, inputValue);
+      return true;
+    }
+  }
+}
+
+finalTable.addEventListener('focusout', (e) => {
+  if(e.target && e.target.classList.contains('time-input')) {
+    const fromCell = e.target.closest('tr').querySelector('td:first-child');
+    const toCell = e.target.closest('tr').querySelector('td:nth-child(2)');
+    if(e.target.classList.contains('departure-time') && fromCell.innerHTML === homeAirport || e.target.classList.contains('arrival-time') && toCell.innerHTML === homeAirport) {
+      if(!checkMap(times, e.target.value, Number(e.target.closest('tr').id.slice(4)))) {
+        e.target.value = '';
+        setTimeWarning.classList.add('active');
+      } else {
+        setTimeWarning.classList.remove('active');
+      }
+    }
+  }
+});
+
+fetch('http://localhost:3000/fetch-handlers/closed-dates', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    closedDates.push(...data);
+    for(const date of closedDates) {
+      const newOption = new Option(date, date);
+      finalDatesSelect.append(newOption);
+    }
+    return fetch('http://localhost:3000/fetch-handlers/get-pre-final-schedule', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({"date": finalDatesSelect.value})
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    fillTable(data);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+});
+
+
+finalDatesSelect.addEventListener('change', () => {
+  fetch('http://localhost:3000/fetch-handlers/get-pre-final-schedule', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({date: finalDatesSelect.value}),
+  })
+  .then(response => response.json())
+  .then(data => {
+    fillTable(data);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+});

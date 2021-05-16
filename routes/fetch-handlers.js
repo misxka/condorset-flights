@@ -53,4 +53,14 @@ router.post(
   fetchHandlersController.stopVoting
 )
 
+router.get(
+  "/closed-dates",
+  fetchHandlersController.getClosedDates
+);
+
+router.post(
+  '/get-pre-final-schedule',
+  fetchHandlersController.getPreFinalSchedule
+)
+
 module.exports = router;
