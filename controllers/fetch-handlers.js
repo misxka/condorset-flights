@@ -28,7 +28,8 @@ exports.addTempFlights = (req, res, next) => {
   DateInfo.create({
     date: req.body[0].date,
     isEntered: true,
-    isAvailable: true
+    isAvailable: true,
+    isAdminEditable: true
   })
   .catch((error) => {
     console.error('Error:', error);
@@ -58,10 +59,34 @@ exports.addTempFlights = (req, res, next) => {
   });
 }
 
-exports.getEnteredDates = (req, res, next) => {
+exports.getAvailableDates = (req, res, next) => {
   DateInfo.findAll({
     where: {
       isAvailable: true
+    }
+  })
+  .then(dates => {
+    dates = dates.map(elem => elem.dataValues.date);
+    res.json(dates);
+  })
+}
+
+exports.getEnteredDates = (req, res, next) => {
+  DateInfo.findAll({
+    where: {
+      isEntered: true
+    }
+  })
+  .then(dates => {
+    dates = dates.map(elem => elem.dataValues.date);
+    res.json(dates);
+  })
+}
+
+exports.getEditableDates = (req, res, next) => {
+  DateInfo.findAll({
+    where: {
+      isAdminEditable: true
     }
   })
   .then(dates => {
@@ -338,5 +363,44 @@ exports.getPreFinalSchedule = (req, res, next) => {
       return elem;
     });
     res.json(flights);
+  })
+  .catch(error => {
+    res.status(500).json([]);
+  })
+}
+
+exports.addFinalSchedule = async (req, res, next) => {
+  for(let i = 0; i < req.body.length; i++) {
+    const date = req.body[i].date;
+    const from = req.body[i].from;
+    const to = req.body[i].to;
+    const iataCode = req.body[i].iataCode;
+    const flightNumber = req.body[i].flightNumber;
+    const departureTime = `${date} ${req.body[i].departureTime}:00`;
+    const arrivalTime = `${date} ${req.body[i].arrivalTime}:00`;
+    const result = await FlightsSchedule.create({
+      from: from,
+      to: to,
+      airlineId: iataCode,
+      flightNumber: flightNumber,
+      departureTime: departureTime,
+      arrivalTime: arrivalTime,
+      date: date
+    });
+    console.log(result);
+  }
+
+  TempSchedule.destroy({
+    where: {
+      date: req.body[0].date
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+    res.status(500).send(error.message);
+  });
+
+  res.json({
+    completed: true
   })
 }

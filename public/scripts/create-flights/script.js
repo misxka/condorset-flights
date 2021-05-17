@@ -11,7 +11,7 @@ function autocomplete(input, arr) {
   if (!val) { return false;}
   currentFocus = -1;
   a = document.createElement("DIV");
-  a.setAttribute("id", this.id + "__autocomplete-list");
+  a.setAttribute("id", "autocomplete-list");
   a.setAttribute("class", "autocomplete-items");
 
   input.parentNode.appendChild(a);
@@ -29,7 +29,7 @@ function autocomplete(input, arr) {
   }
 
   input.addEventListener("keydown", function(e) {
-      var x = document.getElementById(this.id + "autocomplete-list");
+      var x = document.getElementById("autocomplete-list");
       if (x) x = x.getElementsByTagName("div");
       if (e.keyCode == 40) {
         currentFocus++;
@@ -470,6 +470,7 @@ function stopVoting() {
   .then(data => {
     if(data.status === true) {
       getAvailableDates();
+      getEditableDates();
     }
   })
   .catch((error) => {
@@ -480,7 +481,7 @@ function stopVoting() {
 //Set departure and arrival time
 const finalTable = document.querySelector('#table-2');
 const finalDatesSelect = document.querySelector('#dates-2');
-const closedDates = [];
+const editableDates = [];
 
 const setTimeWarning = document.querySelector('.set-time-section .warning-message');
 
@@ -528,6 +529,7 @@ finalTable.addEventListener('focusout', (e) => {
     if(e.target.classList.contains('departure-time') && fromCell.innerHTML === homeAirport || e.target.classList.contains('arrival-time') && toCell.innerHTML === homeAirport) {
       if(!checkMap(times, e.target.value, Number(e.target.closest('tr').id.slice(4)))) {
         e.target.value = '';
+        setTimeWarning.innerHTML = 'Время должно быть больше значений, введённых в предыдущих строках (прилёт/вылет из Минска)';
         setTimeWarning.classList.add('active');
       } else {
         setTimeWarning.classList.remove('active');
@@ -536,35 +538,41 @@ finalTable.addEventListener('focusout', (e) => {
   }
 });
 
-fetch('http://localhost:3000/fetch-handlers/closed-dates', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  })
-  .then(response => response.json())
-  .then(data => {
-    closedDates.push(...data);
-    for(const date of closedDates) {
-      const newOption = new Option(date, date);
-      finalDatesSelect.append(newOption);
-    }
-    return fetch('http://localhost:3000/fetch-handlers/get-pre-final-schedule', {
-      method: 'POST',
+const getEditableDates = function() {
+  finalDatesSelect.innerHTML = null;
+  editableDates.length = 0;
+  fetch('http://localhost:3000/fetch-handlers/editable-dates', {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({"date": finalDatesSelect.value})
+      }
     })
-  })
-  .then(response => response.json())
-  .then(data => {
-    fillTable(data);
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-});
+    .then(response => response.json())
+    .then(data => {
+      editableDates.push(...data);
+      for(const date of editableDates) {
+        const newOption = new Option(date, date);
+        finalDatesSelect.append(newOption);
+      }
+      return fetch('http://localhost:3000/fetch-handlers/get-pre-final-schedule', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({"date": finalDatesSelect.value})
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if(data.length > 0)
+        fillTable(data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+  });
+}
 
+getEditableDates();
 
 finalDatesSelect.addEventListener('change', () => {
   fetch('http://localhost:3000/fetch-handlers/get-pre-final-schedule', {
@@ -588,6 +596,42 @@ finalDatesSelect.addEventListener('change', () => {
 //Apply flights
 const applyFlightsButton = document.querySelector('.apply-flights-button');
 
-applyFlightsButton.addEventListener('click', () => {
+import Flight from './flight.js';
 
+applyFlightsButton.addEventListener('click', () => {
+  const finalTableInputs = finalTable.querySelectorAll('input[type="time"]');
+  for(let i = 0; i < finalTableInputs.length; i++) {
+    if(finalTableInputs[i].value === '') {
+      setTimeWarning.innerHTML = 'Должны быть заполнены все ячейки с временем';
+      setTimeWarning.classList.add('active');
+      return;
+    } else setTimeWarning.classList.remove('active');
+  }
+
+  const flights = [];
+  for(let i = 1; i < finalTable.rows.length; i++) {
+    const row = [];
+    for(let j = 0; j < 6; j++) {
+      if(j > 3) {
+        row.push(finalTable.rows[i].cells[j].querySelector('INPUT').value);
+      } else row.push(finalTable.rows[i].cells[j].innerHTML);
+    }
+    flights.push(new Flight(finalDatesSelect.value, row[0], row[1], row[2], row[3], row[4], row[5]));
+  }
+  fetch('http://localhost:3000/fetch-handlers/add-final-schedule', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify(flights)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if(data.completed) console.log("Добавление записей в основное расписание успешно завершено!");
+    getEditableDates();
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 });

@@ -31,6 +31,13 @@ app.use('/authorize', authorizationRoutes);
 app.use('/pages', pagesRoutes);
 app.use('/fetch-handlers', fetchHandlersRoutes);
 
+db.sequelize.sync().then(result => {
+  db.initialize();
+  console.log('Table created...');
+}).catch(err => {
+  console.log(err);
+})
+
 app.get('/', (req, res, next) => {
   res.render('index', {
     pageTitle: 'Расписание Кондорсе',
@@ -89,11 +96,5 @@ app.use('/', (req, res, next) => {
   });
 });
 
-db.sequelize.sync().then(result => {
-  db.initialize();
-	console.log('Table created...');
-}).catch(err => {
-	console.log(err);
-})
 
 app.listen(3000);

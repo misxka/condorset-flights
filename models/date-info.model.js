@@ -12,6 +12,10 @@ module.exports = (sequelize, Sequelize) => {
     isAvailable: {
       type: Sequelize.BOOLEAN,
       allowNull: false
+    },
+    isAdminEditable: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false
     }
   });
 

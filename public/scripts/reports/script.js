@@ -13,7 +13,7 @@ const votesStats = [];
 const flights = [];
 
 //Get available dates from server
-fetch('http://localhost:3000/fetch-handlers/available-dates', {
+fetch('http://localhost:3000/fetch-handlers/entered-dates', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

@@ -8,8 +8,18 @@ const fetchHandlersController = require('../controllers/fetch-handlers');
 
 router.get(
   "/available-dates",
-  fetchHandlersController.getEnteredDates
+  fetchHandlersController.getAvailableDates
 );
+
+router.get(
+  '/entered-dates',
+  fetchHandlersController.getEnteredDates
+)
+
+router.get(
+  '/editable-dates',
+  fetchHandlersController.getEditableDates
+)
 
 router.post(
   '/add-votes',
@@ -63,6 +73,11 @@ router.get(
 router.post(
   '/get-pre-final-schedule',
   fetchHandlersController.getPreFinalSchedule
+)
+
+router.post(
+  '/add-final-schedule',
+  fetchHandlersController.addFinalSchedule
 )
 
 module.exports = router;

@@ -3,7 +3,10 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize(
   'airport-schedule',
   'root', '11111111', 
-  {dialect: 'mysql'}
+  {
+    dialect: 'mysql',
+    timezone: '+03:00'
+  }
 );
 
 const db = {};
