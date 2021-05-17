@@ -86,7 +86,10 @@ exports.getEnteredDates = (req, res, next) => {
 exports.getEditableDates = (req, res, next) => {
   DateInfo.findAll({
     where: {
-      isAdminEditable: true
+      [Op.and]: [
+        {isAvailable: false},
+        {isAdminEditable: true}
+      ]
     }
   })
   .then(dates => {
@@ -399,6 +402,15 @@ exports.addFinalSchedule = async (req, res, next) => {
     console.error('Error:', error);
     res.status(500).send(error.message);
   });
+
+  const record = await DateInfo.findByPk(date);
+  if(record === null) {
+    console.log("Ничего не найдено!");
+  } else {
+    record.isAdminEditable = 0;
+    record.save();
+    next();
+  }
 
   res.json({
     completed: true

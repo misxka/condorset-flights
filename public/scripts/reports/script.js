@@ -97,7 +97,7 @@ async function reportsSelectHandler() {
       drawDoughnutChart(votesStats);
     }
     else if(reportsSelect.value === 'graph' && chart?.type !== 'bar') {
-      drawBarChart(votesStats);
+      drawLineChart(votesStats);
     }
   }
 }
@@ -108,7 +108,7 @@ function changeDate(data) {
     drawDoughnutChart(data);
   }
   else if(reportsSelect.value === 'graph' && chart?.type !== 'bar') {
-    drawBarChart(data);
+    drawLineChart(data);
   }
 }
 
@@ -184,7 +184,7 @@ function drawDoughnutChart(data) {
   });
 }
 
-function drawBarChart(data) {
+function drawLineChart(data) {
   chart?.destroy();
 
   tableWrapper.classList.add('hidden');
@@ -205,7 +205,7 @@ function drawBarChart(data) {
   const colors = interpolateColors(data.length, d3.interpolateInferno, colorRangeInfo);
 
   chart = new Chart(ctx, {
-    type: 'bar',
+    type: 'line',
     data: {
       labels: customLabels,
       datasets: [{
@@ -268,7 +268,13 @@ function fillTable(data) {
     const array = [];
     for(let i = 0; i < data.length; i++) {
       array[i] = Object.values(data[i]);
+      let date = new Date(array[i][4]);
+      array[i][4] = `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}`;
+      date = new Date(array[i][5]);
+      array[i][5] = `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}`;
     }
+
+
 
     $(document).ready( function() {
       $('#table').dataTable({
@@ -287,5 +293,44 @@ function fillTable(data) {
     tableWrapper.classList.add('hidden');
     noInfoMessage.innerHTML = 'Данные отсутствуют. Голосование ещё не завершено.';
     noInfoMessage.classList.add('active');
+  }
+}
+
+
+//Export to Word and Excel
+const exportWordButton = document.querySelector('.export-word');
+const exportExcelButton = document.querySelector('.export-excel');
+const table = document.querySelector('#table');
+
+exportWordButton.addEventListener('click', () => {
+  exportTable('table', `${datesSelect.value}`, 'doc');
+});
+
+exportExcelButton.addEventListener('click', () => {
+  exportTable('table', `${datesSelect.value}`, 'xls');
+});
+
+function exportTable(tableID, filename = '', doctype){
+  let downloadLink;
+  let dataType;
+  if(doctype === 'doc') dataType = 'application/msword';
+  else dataType = 'application/vnd.ms-excel';
+  const tableSelect = document.getElementById(tableID);
+  const tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+  
+  filename = filename ? (filename + `.${doctype}`) : `document.${doctype}`;
+  
+  downloadLink = document.createElement("a");
+  document.body.appendChild(downloadLink);
+  
+  if(navigator.msSaveOrOpenBlob){
+    const blob = new Blob(['\ufeff', tableHTML], {
+      type: dataType
+    });
+    navigator.msSaveOrOpenBlob( blob, filename);
+  } else {
+    downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    downloadLink.download = filename;
+    downloadLink.click();
   }
 }
