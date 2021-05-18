@@ -1,4 +1,4 @@
-const authJwt = require("../util/jwtAuth");
+const authJwt = require("../util/jwt-auth");
 const authorizationController = require('../controllers/authorization');
 const express = require('express');
 
@@ -14,8 +14,7 @@ router.use((req, res, next) => {
 
 router.get(
   "/user",
-  [authJwt.verifyToken],
-  authorizationController.userBoard
+  [authJwt.verifyToken]
 );
 
 router.get(

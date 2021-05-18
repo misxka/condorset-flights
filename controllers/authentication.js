@@ -7,7 +7,8 @@ const db = require('../util/database');
 const User = db.user;
 const Role = db.role;
 
-const accessTokenSecret = 'schedulebasedoncondorcetmethod';
+const accessTokenSecret = '466beebafb8365c8bf3e151f49b1d0e946103f14e7d06fcf6e99106c273ad726ea73bf0d2586159e4047c1ada3a6b863f5cf3358fd95c5618c2a5fe3977668e6';
+// const refreshTokenSecret = 'b034760e00f08563f4172727798ef7fddfb70bc4fa8baec5ce6a65d8ab8c0463526a93bccdccbbf5f0497b4037bcc5187fc91400051a2b1e90fea1f993713049';
 
 exports.signIn = (req, res) => {
   const username = req.body.username;
@@ -19,38 +20,40 @@ exports.signIn = (req, res) => {
   })
   .then(user => {
     if (!user) {
-      return res.status(404).send({ message: "User Not found." });
+      return res.status(401).json({ 
+        exists: false,
+        correctPassword: undefined
+      });
     }
 
-    var passwordIsValid = bcrypt.compareSync(
+    const passwordIsValid = bcrypt.compareSync(
       password,
       user.password
     );
 
     if (!passwordIsValid) {
-      return res.status(401).send({
-        accessToken: null,
-        message: "Invalid Password!"
+      return res.status(401).json({
+        exists: true,
+        correctPassword: false
       });
     }
 
-    var token = jwt.sign({ id: user.id }, accessTokenSecret, {
-      expiresIn: 86400
+    const token = jwt.sign({ id: user.id }, accessTokenSecret, {
+      algorithm: "HS256",
+      expiresIn: 1800
     });
 
-    var authorities = [];
+    const authorities = [];
     user.getRoles().then(roles => {
       for (let i = 0; i < roles.length; i++) {
-        authorities.push("ROLE_" + roles[i].name.toUpperCase());
+        authorities.push(roles[i].rolename);
       }
-      res.status(200).send({
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        roles: authorities,
-        accessToken: token
+      res.cookie('token', token, {httpOnly: true});
+      res.json({
+        exists: true,
+        correctPassword: true
       });
-    });
+    })
   })
   .catch(err => {
     res.status(500).send({ message: err.message });
@@ -78,10 +81,15 @@ exports.signUp = async (req, res) => {
     .then(results => {
       if(results[1]) {
         results[0].setRoles([1]).then(() => {
-          res.send({ message: "Вы успешно зарегистрированы!" });
+          res.json({
+            successful: true
+          });
         });
-        console.log("Создан новый пользователь...");
-      } else console.log("Такой пользователь уже существует...");
+      } else {
+        res.json({
+          successful: false
+        });
+      };
     }); 
   } catch (err) {
     console.log(`ERROR! => ${err.name}: ${err.message}`);

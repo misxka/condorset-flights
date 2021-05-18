@@ -1,0 +1,60 @@
+<%- include('./common/head.ejs') %>
+<link rel="stylesheet" href="/css/voting/style.css">
+</head>
+<body>
+  <header>
+    <h1>Голосование</h1>
+    <div class="wrapper">
+      <div class="logo">
+        <img src="/assets/icons/plane-64x64.png" alt="Condorcet flights">
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/pages/create-flights">Создание расписания</a></li>
+          <li class="current">Голосование</li>
+          <li><a href="/pages/admin-reports">Отчёты</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="add-schedule">
+      <div class="wrapper">
+        <h2>Голосование</h2>
+        <div class="choose-date">
+          <label for="dates">Выберите дату:</label>
+          <select name="dates" id="dates">
+          </select>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <tr>
+              <th>Откуда</th>
+              <th>Куда</th>
+              <th>Код IATA</th>
+              <th>Номер рейса</th>
+              <th>Оценка</th>
+            </tr>
+          </table>
+        </div>
+        <div class="button-wrapper">
+          <button class="send-rates-button blue-button">Отправить оценки</button>
+          <div class="warning-message">Оценки должны быть проставлены в каждом ряду</div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="wrapper">
+      <div class="app-name">
+        Condorcet Flights
+      </div>
+      <ul>
+        <li><a href="/pages/create-flights">Создание расписания</a></li>
+        <li class="current">Голосование</li>
+        <li><a href="/pages/admin-reports">Отчёты</a></li>
+      </ul>
+    </div>
+  </footer>
+  <script src="/scripts/voting/script.js"></script>
+</body>

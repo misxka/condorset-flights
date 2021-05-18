@@ -1,0 +1,191 @@
+body {
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: #fff;
+}
+
+main .wrapper {
+  padding: 0 104px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+main h2 {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  line-height: 42px;
+  font-size: 3.6rem;
+  text-align: center;
+  font-weight: 500;
+  color: var(--dark-color-text);
+}
+
+main .choose-date {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+main .choose-date label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  display: block;
+  margin-right: 10px;
+  color: var(--dark-color-text);
+}
+
+main .choose-date select {
+  border-radius: 7px;
+  border: 1px solid var(--input-field-color);
+  background: var(--input-field-color);
+  padding: 8px 16px;
+  font-size: 1.6rem;
+  font-family: 'Roboto', sans-serif;
+  color: var(--dark-color-text);
+  cursor: pointer;
+  outline: none;
+  min-width: 135px;
+}
+
+main .add-schedule .choose-date {
+  margin-bottom: 40px;
+}
+
+main .add-schedule .table-wrapper {
+  height: 452px;
+  overflow: auto;
+  margin-bottom: 38px;
+}
+
+main .add-schedule .table-wrapper table {
+  width: 100%;
+  border-spacing: 0;
+  border: 1px solid var(--dark-color-text);
+  border-radius: 7px;
+}
+
+main .add-schedule .table-wrapper table tr {
+  height: 50px;
+  font-size: 2.2rem;
+}
+
+main .add-schedule .table-wrapper table tr:last-child td:first-of-type {
+  border-bottom-left-radius: 7px;
+}
+
+main .add-schedule .table-wrapper table tr:last-child td:last-of-type {
+  border-bottom-right-radius: 7px;
+}
+
+main .add-schedule .table-wrapper table tr td {
+  border-left: 1px solid var(--dark-color-text);
+  border-top: 1px solid var(--dark-color-text);
+  border-spacing: 0;
+  text-align: center;
+  padding: 0 3px;
+}
+
+main .add-schedule .table-wrapper table tr td:last-child {
+  position: relative;
+}
+
+main .add-schedule .table-wrapper table tr td input {
+  display: block;
+  margin: auto;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 117px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  border: none;
+  border-radius: 7px;
+  background: var(--input-field-color);
+  padding: 6px 16px;
+  font-size: 1.6rem;
+  font-family: 'Roboto', sans-serif;
+  color: var(--input-text-color);
+  margin-top: 3px;
+}
+
+main .add-schedule .table-wrapper table tr th {
+  border-left: 1px solid var(--dark-color-text);
+  border-spacing: 0;
+  font-weight: 500;
+  width: 240px;
+}
+
+main .add-schedule .table-wrapper table tr th:first-of-type {
+  border-top-left-radius: 7px;
+}
+
+main .add-schedule .table-wrapper table tr th:last-of-type {
+  border-top-right-radius: 7px;
+}
+
+main .add-schedule .table-wrapper table tr td:first-child,
+main .add-schedule .table-wrapper table tr th:first-child {
+  border-left-width: 0;
+}
+
+main .add-schedule .table-wrapper::-webkit-scrollbar {
+  width: 16px;
+}
+
+main .add-schedule .table-wrapper::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px gray;
+          box-shadow: inset 0 0 5px gray;
+  border-radius: 7px;
+}
+
+main .add-schedule .table-wrapper::-webkit-scrollbar-thumb {
+  background: var(--color-1);
+  border-radius: 7px;
+}
+
+main .add-schedule .table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--color-2);
+}
+
+main .add-schedule .button-wrapper {
+  position: relative;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+main .add-schedule .button-wrapper .send-rates-button {
+  margin-bottom: 50px;
+  width: 238px;
+}
+
+main .add-schedule .button-wrapper .warning-message {
+  top: 65%;
+  left: 0;
+}
+
+.warning-message {
+  position: absolute;
+  display: none;
+  font-size: 1.1rem;
+  color: red;
+  text-align: center;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  top: 72%;
+  left: 5%;
+}
+
+.warning-message.active {
+  display: block;
+}
+/*# sourceMappingURL=style.css.map */

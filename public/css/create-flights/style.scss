@@ -1,0 +1,423 @@
+body {
+  margin: 0;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+input {
+  display: block;
+  box-sizing: border-box;
+  width: 165px;
+  height: max-content;
+  border: none;
+  border-radius: 7px;
+  background: var(--input-field-color);
+  padding: 11px 16px;
+  font-size: 1.6rem;
+  font-family: 'Roboto', sans-serif;
+  color: var(--dark-color-text);
+
+  &.wrong {
+    border: 1px solid red;
+  }
+}
+
+main {
+  & .wrapper {
+    padding: 0 104px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  & .table-wrapper {
+    height: 350px;
+    overflow: auto;
+    margin-bottom: 38px;
+
+    & table {
+      width: 100%;
+      border-spacing: 0;
+      border: 1px solid var(--dark-color-text);
+      border-radius: 7px;
+
+      & tr {
+        height: 50px;
+        font-size: 2.2rem;
+
+        &:last-child td:first-of-type {
+          border-bottom-left-radius: 7px;
+        }
+
+        &:last-child td:last-of-type {
+          border-bottom-right-radius: 7px;
+        }
+
+        & td {
+          border-left: 1px solid var(--dark-color-text);
+          border-top: 1px solid var(--dark-color-text);
+          border-spacing: 0;
+          text-align: center;
+
+          &.filled:hover {
+            cursor: pointer;
+          }
+
+          & .delete-row {
+            background: url(../../assets/icons/delete.svg) no-repeat;
+            width: 32px;
+            height: 32px;
+
+            &:hover {
+              transform: rotate(90deg);
+              transition: 0.6s;
+            }
+          }
+        }
+
+        & th {
+          border-left: 1px solid var(--dark-color-text);
+          border-spacing: 0;
+          font-weight: 500;
+          width: 240px;
+
+          &:first-of-type {
+            border-top-left-radius: 7px;
+          }
+
+          &:last-of-type {
+            border-top-right-radius: 7px;
+          }
+        }
+
+        td:first-child,
+        th:first-child {
+          border-left-width: 0;
+        }
+      }
+    }
+
+    &::-webkit-scrollbar {
+      width: 16px;
+    }
+
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px gray;
+      border-radius: 7px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--color-1);
+      border-radius: 7px;
+
+      &:hover {
+        background: var(--color-2);
+      }
+    }
+  }
+
+  & h2 {
+    margin-top: 50px;
+    margin-bottom: 30px;
+    line-height: 42px;
+    font-size: 3.6rem;
+    text-align: center;
+    font-weight: 500;
+    color: var(--dark-color-text);
+  }
+
+  & .choose-date {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    & .warning-message {
+      color: red;
+      top: 100%;
+      left: 14%;
+    }
+
+    & label {
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+      display: block;
+      margin-right: 10px;
+      color: var(--dark-color-text);
+    }
+
+    & .date-input {
+      border-radius: 7px;
+      border: 1px solid var(--input-field-color);
+      background: var(--input-field-color);
+      padding: 8px 16px;
+      font-size: 1.6rem;
+      font-family: 'Roboto', sans-serif;
+      color: var(--input-text-color);
+      cursor: pointer;
+
+      &::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        filter: invert(0.35);
+      }
+
+      &.wrong {
+        border: 1px solid red;
+      }
+    }
+  }
+
+  & .add-schedule {
+    & .choose-date {
+      margin-bottom: 40px;
+    }
+
+    & .add-flight {
+      padding: 38px 30px 36px;
+      background: linear-gradient(to left, var(--color-1), var(--color-2));
+      border-radius: 7px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      border: 1px solid transparent;
+
+      &.wrong {
+        border: 1px solid red;
+      }
+
+      & .input-fields {
+        position: relative;
+        width: 720px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        & > .warning-message {
+          font-size: 1.6rem;
+          top: 115%;
+          left: 40%;
+        }
+
+        & .input-wrapper {
+          position: relative;
+        }
+
+        & .autocomplete {
+          position: absolute;
+          display: inline-block;
+        }
+
+        & .autocomplete-items {
+          position: absolute;
+          border: 1px solid #d4d4d4;
+          border-radius: 7px;
+          border-bottom: none;
+          border-top: none;
+          z-index: 99;
+          top: 100%;
+          left: 0;
+          right: 0;
+
+          & div {
+            font-size: 1.6rem;
+            font-family: 'Roboto', sans-serif;
+            color: var(--dark-color-text);
+            background: var(--input-field-color);
+
+            &:first-of-type {
+              border-top-left-radius: 7px;
+              border-top-right-radius: 7px;
+            }
+
+            &:last-of-type {
+              border-bottom-left-radius: 7px;
+              border-bottom-right-radius: 7px;
+            }
+          }
+        }
+
+        & .autocomplete-items div {
+          padding: 10px;
+          cursor: pointer;
+          background-color: #fff;
+          border-bottom: 1px solid #d4d4d4;
+        }
+
+        /*when hovering an item:*/
+        & .autocomplete-items div:hover {
+          background-color: #e9e9e9;
+        }
+
+        /*when navigating through the items using the arrow keys:*/
+        & .autocomplete-active {
+          background-color: DodgerBlue !important;
+          color: #ffffff;
+        }
+      }
+
+      & .add-button {
+        font-size: 2rem;
+      }
+    }
+
+    & .button-wrapper {
+      position: relative;
+      align-self: flex-end;
+
+      & .submit-schedule-button {
+        margin-bottom: 50px;
+        width: 238px;
+
+        &:disabled {
+          cursor: not-allowed;
+        }
+      }
+
+      & .warning-message {
+        top: 60%;
+        left: -5%;
+        color: red;
+        min-width: 272px;
+      }
+    }
+  }
+
+  & .close-voting {
+    padding-bottom: 50px;
+    background-color: var(--dark-white-background);
+
+    & .inner-wrapper {
+      display: flex;
+      justify-content: space-between;
+
+      & .stop-voting-button {
+        width: 271px;
+      }
+    }
+  }
+
+  & .set-time-section {
+    // display: none;
+
+    &.active {
+      display: block;
+    }
+
+    & .wrapper {
+      padding-bottom: 50px;
+
+      & .info-wrapper {
+        display: flex;
+        justify-content: flex-start;
+      }
+
+      & .apply-flights-button {
+        width: 200px;
+        margin-left: auto;
+      }
+
+      & input {
+        width: 160px;
+        margin: 0 auto;
+      }
+
+      & .warning-message {
+        color: red;
+        font-size: 1.6rem;
+      }
+    }
+
+    & .table-wrapper {
+      margin-top: 40px;
+    }
+  }
+
+  & .choose-date {
+    display: flex;
+    align-items: center;
+
+    & label {
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+      display: block;
+      margin-right: 10px;
+      color: var(--dark-color-text);
+    }
+
+    & select {
+      border-radius: 7px;
+      border: 1px solid var(--input-field-color);
+      background: var(--input-field-color);
+      padding: 8px 16px;
+      font-size: 1.6rem;
+      font-family: 'Roboto', sans-serif;
+      color: var(--dark-color-text);
+      cursor: pointer;
+      outline: none;
+      min-width: 135px;
+    }
+  }
+}
+
+.warning-message {
+  position: absolute;
+  padding-top: 3px;
+  display: none;
+  font-size: 1.1rem;
+  color: var(--light-color-text);
+  text-align: center;
+  width: max-content;
+
+  &.active {
+    display: block;
+  }
+}
+
+.cover.hidden,
+.popup.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0s;
+}
+
+.cover {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 150;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.popup {
+  border: 2px solid var(--color-1);
+  background-color: var(--light-color);
+  border-radius: 7px;
+  padding: 30px;
+  width: 460px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 200;
+  position: fixed;
+  top: calc(50vh - 60px);
+  left: calc(50vw - 230px);
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.4s ease-in-out;
+
+  & .input-wrapper {
+    position: relative;
+
+    & input {
+      display: inline-block;
+    }
+
+    & .warning-message {
+      color: red;
+    }
+  }
+}
+
+html.notScrollable {
+  overflow: hidden;
+}

@@ -1,0 +1,88 @@
+<%- include('./common/head.ejs') %>
+  <link rel="stylesheet" href="/css/reports/style.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+  <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/datatables.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://d3js.org/d3-color.v1.min.js"></script>
+  <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="wrapper">
+      <h1>Отчёты</h1>
+      <div class="logo">
+        <img src="/assets/icons/plane-64x64.png" alt="Condorcet flights">
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/pages/create-flights">Создание расписания</a></li>
+          <li><a href="/pages/admin-voting">Голосование</a></li>
+          <li class="current">Отчёты</li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="add-schedule">
+      <div class="wrapper">
+        <h2>Отчёты</h2>
+        <div class="choose-date">
+          <label for="dates">Выберите дату:</label>
+          <select name="dates" id="dates">
+          </select>
+        </div>
+        <div class="choose-report">
+          <label for="reports">Выберите вид отчёта:</label>
+          <select name="reports" id="reports">
+            <option value="pie-chart">Круговая диаграмма</option>
+            <option value="graph">График</option>
+            <option value="table">Таблица</option>
+          </select>
+        </div>
+        <div class="report-wrapper">
+          <div class="chart-wrapper">
+            <canvas id="chart" height="450" width="992">
+            </canvas>
+          </div>
+          <div class="table-wrapper hidden">
+            <table id="table">
+              <thead>
+                <tr>
+                  <th>Откуда</th>
+                  <th>Куда</th>
+                  <th>Код IATA</th>
+                  <th>Номер рейса</th>
+                  <th>Время вылета</th>
+                  <th>Время прилёта</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="no-info-message">Данные отсутствуют. Ещё никто не проголосовал.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="wrapper">
+      <div class="app-name">
+        Condorcet Flights
+      </div>
+      <ul>
+        <li><a href="/pages/create-flights">Создание расписания</a></li>
+        <li><a href="/pages/admin-voting">Голосование</a></li>
+        <li class="current">Отчёты</li>
+      </ul>
+    </div>
+  </footer>
+  <script src="/scripts/reports/script.js"></script>
+</body>
