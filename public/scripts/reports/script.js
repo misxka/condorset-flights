@@ -277,7 +277,7 @@ function fillTable(data) {
 
 
     $(document).ready( function() {
-      $('#table').dataTable({
+      $('#table').DataTable({
         paging: false,
         info: false,
         destroy: true,
@@ -286,7 +286,26 @@ function fillTable(data) {
         language: {
           zeroRecords: "Совпадений не найдено",
           search: "Поиск:"
-        }
+        },
+        dom: 'Bfrtip',
+        buttons: [
+          {
+            extend: 'pdfHtml5',
+            title: `Отчёт ${datesSelect.value.slice(-2)}.${datesSelect.value.slice(5, 7)}.${datesSelect.value.slice(0, 4)}`,
+            text: 'Отчёт в PDF',
+            message: `Расписание Национального Аэропорта Минск на ${datesSelect.value.slice(-2)}.${datesSelect.value.slice(5, 7)}.${datesSelect.value.slice(0, 4)}`,
+            customize: function(doc) {
+              doc.defaultStyle.fontSize = 14;
+              doc.defaultStyle.alignment = 'center'; 
+            }
+          }
+        ],
+        columnDefs: [
+          {
+            targets: '_all',
+            className: 'dt-body-center'
+          }
+        ]
       });
     });
   } else {

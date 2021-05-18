@@ -99,12 +99,29 @@ main {
         flex-direction: column;
         justify-content: space-between;
 
-        & .button-wrapper {
-          align-self: flex-end;
-          margin-top: 20px;
+        & .dt-buttons .buttons-html5 {
+          width: 160px;
+          background: linear-gradient(to left, var(--color-1), var(--color-2));
+          color: var(--light-color-text);
+          border: none;
+          outline: none;
+          height: 50px;
+          border-radius: 7px;
+          font-size: 2rem;
+          font-family: "Roboto", sans-serif;
+          font-weight: 500;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
-          & .export-word {
-            margin-right: 10px;
+          &:active {
+            transform: unset;
+            background: linear-gradient(
+              to left,
+              var(--color-1),
+              var(--color-2)
+            );
           }
         }
 
