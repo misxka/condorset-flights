@@ -64,6 +64,7 @@ exports.signUp = async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const email = req.body.email;
+
   try {
     await User.findOrCreate({
       where: {
@@ -81,6 +82,12 @@ exports.signUp = async (req, res) => {
     .then(results => {
       if(results[1]) {
         results[0].setRoles([1]).then(() => {
+          const token = jwt.sign({ id: results[0].dataValues.id }, accessTokenSecret, {
+            algorithm: "HS256",
+            expiresIn: 1800
+          });
+
+          res.cookie('token', token, {httpOnly: true});
           res.json({
             successful: true
           });

@@ -237,14 +237,20 @@ dateInput.addEventListener('change', () => {
     submitButton.disabled = false; 
   }
 
-  clearTable(table);
+  clearTable();
 
   enteredRows = 1;
 });
 
-function clearTable(table) {
-  while(table.rows.length > 1) {
+function clearTable() {
+  while(table.rows.length > 5) {
     table.deleteRow(table.rows.length - 1);
+  }
+
+  for(let i = 1; i < 5; i++) {
+    for(let j = 0; j < 4; j++) {
+      table.rows[i].cells[j].innerHTML = '';
+    }
   }
 }
 
@@ -409,7 +415,7 @@ submitButton.addEventListener('click', () => {
       submitButton.closest('.button-wrapper').querySelector('.warning-message').innerHTML = data.message;
       submitButton.closest('.button-wrapper').querySelector('.warning-message').classList.add('active');
     } else {
-      clearTable(table);
+      clearTable();
     }
   })
   .catch((error) => {
@@ -569,7 +575,6 @@ const getEditableDates = function() {
 getEditableDates();
 
 finalDatesSelect.addEventListener('change', () => {
-  clearTable(finalTable);
   fetch('http://localhost:3000/fetch-handlers/get-pre-final-schedule', {
     method: 'POST',
     headers: {

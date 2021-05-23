@@ -7,6 +7,8 @@ const FlightsSchedule = db.flightsSchedule;
 const TempSchedule = db.tempSchedule;
 const VoteOrder = db.voteOrder;
 const VotedUser = db.votedUser;
+const User = db.user;
+const Role = db.role;
 
 const {Graph, CondorcetMethod} = require('../util/condorcet-method');
 
@@ -415,4 +417,51 @@ exports.addFinalSchedule = async (req, res, next) => {
   res.json({
     completed: true
   })
+}
+
+exports.getUsers = (req, res, next) => {
+  User.findAll({
+    include: [
+      Role,
+    ]
+  })
+  .then(users => {
+    users = users.filter(elem => elem.roles[0].dataValues.rolename === 'user');
+    users = users.map(elem => elem.dataValues);
+    users = users.map(elem => {
+      delete elem.id;
+      delete elem.password;
+      delete elem.createdAt;
+      delete elem.updatedAt;
+      return elem;
+    });
+    res.json(users);
+  })
+  .catch(error => {
+    res.status(500).json([]);
+  })
+}
+
+exports.deleteUser = async (req, res, next) => {
+  const user = await User.findOne({
+    where: {
+      username: req.body.username
+    }
+  });
+
+  const userId = user.dataValues.id;
+
+  User.destroy({
+    where: {
+      id: userId
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+    res.status(500).send(error.message);
+  });
+
+  res.json({
+    result: "Успешно!"
+  });
 }

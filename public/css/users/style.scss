@@ -1,0 +1,127 @@
+body {
+  margin: 0;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+input {
+  display: block;
+  box-sizing: border-box;
+  width: 165px;
+  height: max-content;
+  border: none;
+  border-radius: 7px;
+  background: var(--input-field-color);
+  padding: 11px 16px;
+  font-size: 1.6rem;
+  font-family: 'Roboto', sans-serif;
+  color: var(--dark-color-text);
+
+  &.wrong {
+    border: 1px solid red;
+  }
+}
+
+main {
+  & .wrapper {
+    padding: 0 104px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  & .table-wrapper {
+    height: 350px;
+    overflow: auto;
+    margin-bottom: 38px;
+
+    & table {
+      width: 100%;
+      border-spacing: 0;
+      border: 1px solid var(--dark-color-text);
+      border-radius: 7px;
+
+      & tr {
+        height: 50px;
+        font-size: 2.2rem;
+
+        &:last-child td:first-of-type {
+          border-bottom-left-radius: 7px;
+        }
+
+        &:last-child td:last-of-type {
+          border-bottom-right-radius: 7px;
+        }
+
+        & td {
+          border-left: 1px solid var(--dark-color-text);
+          border-top: 1px solid var(--dark-color-text);
+          border-spacing: 0;
+          text-align: center;
+
+          &.filled:hover {
+            cursor: pointer;
+          }
+
+          & .delete-row {
+            background: url(../../assets/icons/delete.svg) no-repeat;
+            width: 32px;
+            height: 32px;
+
+            &:hover {
+              transform: rotate(90deg);
+              transition: 0.6s;
+            }
+          }
+        }
+
+        & th {
+          border-left: 1px solid var(--dark-color-text);
+          border-spacing: 0;
+          font-weight: 500;
+          width: 240px;
+
+          &:first-of-type {
+            border-top-left-radius: 7px;
+          }
+
+          &:last-of-type {
+            border-top-right-radius: 7px;
+          }
+        }
+
+        td:first-child,
+        th:first-child {
+          border-left-width: 0;
+        }
+      }
+    }
+
+    &::-webkit-scrollbar {
+      width: 16px;
+    }
+
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px gray;
+      border-radius: 7px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--color-1);
+      border-radius: 7px;
+
+      &:hover {
+        background: var(--color-2);
+      }
+    }
+  }
+
+  & h2 {
+    margin-top: 50px;
+    margin-bottom: 30px;
+    line-height: 42px;
+    font-size: 3.6rem;
+    text-align: center;
+    font-weight: 500;
+    color: var(--dark-color-text);
+  }
+}

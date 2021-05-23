@@ -24,19 +24,23 @@ verifyToken = (req, res, next) => {
 
 isAdmin = (req, res, next) => {
   User.findByPk(req.userId).then(user => {
-    user.getRoles().then(roles => {
-      for (let i = 0; i < roles.length; i++) {
-        if (roles[i].rolename === "admin") {
-          next();
-          return;
+    if(user !== null) {
+      user.getRoles().then(roles => {
+        for (let i = 0; i < roles.length; i++) {
+          if (roles[i].rolename === "admin") {
+            next();
+            return;
+          }
         }
-      }
 
-      res.status(403).send({
-        message: "Вам необходимы права администратора!"
+        res.status(403).send({
+          message: "Вам необходимы права администратора!"
+        });
+        return;
       });
-      return;
-    });
+    } else {
+      return res.status(403).redirect('/');
+    }
   });
 };
 

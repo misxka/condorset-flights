@@ -80,4 +80,14 @@ router.post(
   fetchHandlersController.addFinalSchedule
 )
 
+router.get(
+  '/get-users',
+  fetchHandlersController.getUsers
+)
+
+router.post(
+  '/delete-user',
+  fetchHandlersController.deleteUser
+)
+
 module.exports = router;

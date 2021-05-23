@@ -1,0 +1,54 @@
+<%- include('./common/head.ejs') %>
+  <link rel="stylesheet" href="/css/users/style.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+  <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+    <div class="wrapper">
+      <h1>Пользователи</h1>
+      <div class="logo">
+        <img src="/assets/icons/plane-64x64.png" alt="Condorcet flights">
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/pages/create-flights">Создание расписания</a></li>
+          <li><a href="/pages/admin-voting">Голосование</a></li>
+          <li><a href="/pages/admin-reports">Отчёты</a></li>
+          <li class="current">Пользователи</li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="wrapper">
+      <h2>Пользователи</h2>
+      <div class="table-wrapper">
+        <table id="table">
+          <tr>
+            <th>Имя пользователя</th>
+            <th>Email</th>
+            <th>Удалить</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="wrapper">
+      <div class="app-name">
+        Condorcet Flights
+      </div>
+      <ul>
+        <li><a href="/pages/create-flights">Создание расписания</a></li>
+        <li><a href="/pages/admin-voting">Голосование</a></li>
+        <li><a href="/pages/admin-reports">Отчёты</a></li>
+        <li class="current">Пользователи</li>
+      </ul>
+    </div>
+  </footer>
+  <script src="/scripts/users/script.js"></script>
+</body>
